@@ -1,0 +1,39 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+<div class="container">
+	<div class="card">
+		<div class="card-header">			
+			
+		<div class="card-body">
+			<div class="mt-5 mb-5">
+			{% block title %} <h2>Edit My Profile</h2>  {% endblock %} 			 
+				
+			<h3>{{request.user.username}}</h3>
+				<div class="row">
+					<div class="col-sm-6">
+						<form method="post" action="{% url 'account:register' %}"> 
+						{% csrf_token %} 
+							{{form.as_p}}
+							<br>
+							<input type="submit" value="Update" class="btn btn-success btn-outline"> 
+						</form>
+					</div>
+					<div class="col-sm-6">
+						<img src="/static/images/login.svg" class="w-75 h-75" alt="">
+						
+					</div>
+				</div>
+				
+				
+		
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

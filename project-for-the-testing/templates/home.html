@@ -1,0 +1,20 @@
+{% extends 'basic.html' %}
+{% load static%}
+
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3">
+			{% for news in news %}
+			<div class="pt-3 mb-3">
+				<h3>{{news.title}}</h3>
+				<p>{{news.body}}</p>
+				<i>Views  : {{news.views}}</i>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+{% endblock %}

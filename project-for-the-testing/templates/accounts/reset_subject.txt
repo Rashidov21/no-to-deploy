@@ -1,0 +1,8 @@
+{{ user.username }} : Nomi
+{% autoescape off %} 
+Hurmatli {{ user.username }}! 
+Tiklash uchun bosing :{{ protocol }}:// {{ domain }}{% url 'password_reset_confirm'  
+uidb64=uid token=token %} 
+До свидания ! 
+Tugadi "Myblog". 
+{% endautoescape %}
