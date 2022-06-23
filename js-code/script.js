@@ -1,10 +1,30 @@
-const canvas = document.querySelector("#canv");
-const context = canvas.getContext("2d")
+import EditorJS from '@editorjs/editorjs';
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
 
-context.fillStyle = 'orange';
-// context.fillRect(50, 50, 300, 300);
-context.arc(canvas.width / 2, canvas.height / 2, 100, 0, Math.PI);
-context.fillStyle()
+const editor = new EditorJS(
+    {
+        "time": 1550476186479,
+        "blocks": [
+            {
+                "type": "paragraph",
+                "data": {
+                    "text": "The example of text that was written in <b>one of popular</b> text editors."
+                }
+            },
+            {
+                "type": "header",
+                "data": {
+                    "text": "With the header of course",
+                    "level": 2
+                }
+            },
+            {
+                "type": "paragraph",
+                "data": {
+                    "text": "So what do we have?"
+                }
+            }
+        ],
+        "version": "2.8.1"
+    }
+);
