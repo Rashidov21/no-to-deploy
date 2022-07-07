@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block title %}
+<title>Cart page</title>
+{% endblock title %}
+<main>
+    <br>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+                    <div class="bd-example">
+                        <table class="table table-sm table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Count</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in cart.products.all %}
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>
+                                        <img src="" alt="">
+                                    </td>
+                                    <td>{{item.product.name}}</td>
+                                    <td>
+                                        <input class="product-count-input" type="number" value="1">
+                                    </td>
+                                    <td><strong>$ 12</strong></td>
+                                    <td>
+                                        <a href="#" class="">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="bd-example">
+                        <h3>Checkout</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <h4 class="fw-normal">Cart total : </h4>
+                            </li>
+                            <li class="list-group-item">
+                                <h4 class="fw-normal">Cart total price : </h4>
+                            </li>
+
+                        </ul>
+                        <br>
+                        <a href="#" class="btn form-control btn-success fw-bold">
+                            Checkout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

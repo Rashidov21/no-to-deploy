@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'store.context_pro.main_context'
             ],
         },
     },
@@ -102,6 +103,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# SESSIONS SETTINGS
+# SESSION_ENGINE = 
+# 'django.contrib.session.backends.db' eng tezi
+# 'django.contrib.session.backends.file'db dan sekin  lekin bazaga nagruzka kam
+# 'django.contrib.session.backends.cache' serverni ozida kesh qilib saqlash eng tezi
+# django-redis - Redis 
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/

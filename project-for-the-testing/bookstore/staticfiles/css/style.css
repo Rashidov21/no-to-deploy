@@ -1,0 +1,9 @@
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+.product-count-input {
+    width: 40px;
+    outline: none;
+    text-align: center;
+}
