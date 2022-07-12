@@ -41,7 +41,12 @@
               My Cart
             </a>
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fas fa-heart"></i>
+              Wish list
+            </a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown08" data-bs-toggle="dropdown"
               aria-expanded="false">Categories</a>
@@ -62,7 +67,31 @@
       <span class="text-muted">Place sticky footer content here.</span>
     </div>
   </footer>
+  <script>
+    function AddToWishList(product_id) {
+      let d = {
+        product_id: product_id,
+      }
+      let data = JSON.stringify(d)
+      if (window.XMLHttpRequest) {
+        var xhttp = new XMLHttpRequest();
+      } else {  // code for IE6, IE5
+        var xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      xhttp.onreadystatechange = function () {
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+          var data = JSON.parse(this.responseText);
+          console.log(data)
 
+        } else {
+          console.log("error")
+        }
+      }
+      var url = "/wishlist/"
+      xhttp.open("GET", url + `?data=${data}`, true);
+      xhttp.send();
+    }
+  </script>
 </body>
 
 </html>
