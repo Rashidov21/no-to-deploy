@@ -11,6 +11,18 @@ def home(request):
 
 
 def add_to_wishlist(request):
+    request.session.modified = True
     data = json.loads(request.GET.get("data"))
-    print(data)
-    return JsonResponse({"status": 200})
+    try:
+        wishlist = request.session["wishlist"]
+    except:
+        request.session["wishlist"] = []
+        wishlist = request.session["wishlist"]
+    else:
+
+        if data["product_id"] not in wishlist:
+            wishlist.append(data["product_id"])
+            return JsonResponse({"status": 200})
+        else:
+            return JsonResponse({"status": 400})
+    return JsonResponse({"status": 404})
