@@ -15,7 +15,7 @@ def main_context(request):
     # py manage.py clearsessions - hamma sessiyani ochirish
     # request.session.flush() - sesiyani butunlay tozalaydi
     # request.session.set_test_cookie() - client brauzeri cookie ni support qiladimi yomio aniqlash uchun
-    print(request.session["wishlist"])
+    # print(request.session["wishlist"])
     context = {
         'status': 200
     }

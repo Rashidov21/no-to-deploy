@@ -42,7 +42,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'store:wishlist' %}">
               <i class="fas fa-heart"></i>
               Wish list
             </a>
@@ -60,6 +60,7 @@
       </div>
     </div>
   </nav>
+
   {% block content %}
   {% endblock %}
   <footer class="footer mt-auto py-3 bg-light">
@@ -81,16 +82,25 @@
       xhttp.onreadystatechange = function () {
         if (xhttp.readyState === 4 && xhttp.status === 200) {
           var data = JSON.parse(this.responseText);
-          console.log(data)
 
-        } else {
-          console.log("error")
+          if (data["status"] == 200) {
+            alert("OK")
+          } else if (data["status"] == 400) {
+            alert("Product on wishlist")
+
+          } else {
+            alert("Nothing..")
+          }
+
         }
       }
-      var url = "/wishlist/"
+      var url = "/add_to_wishlist/"
       xhttp.open("GET", url + `?data=${data}`, true);
       xhttp.send();
     }
+
+
+
   </script>
 </body>
 

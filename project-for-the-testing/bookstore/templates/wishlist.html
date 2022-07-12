@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <section>
+        <center class="my-5">
+            <h3>My wishlist</h3>
+        </center>
+        <div class="container">
+            <div class="row mb-2">
+                {% for item in object_list %}
+                <div class="col-md-6">
+                    <div
+                        class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary">{{item.product.category}}</strong>
+                            <h3 class="mb-0">{{item.product.name}}</h3>
+                            <div class="mb-1 fw-bold fs-3 text-warning">$ {{item.product.price}}</div>
+                            <p class="card-text mb-auto">
+                                {{item.product.description|truncatewords:'15'}}
+                            </p>
+                            <p>
+                                <a href="{% url 'cart:add' item.product.id %}" class="btn btn-warning mt-1 px-5">
+                                    Buy
+                                </a>
+
+                                <a href="{% url 'store:deleteFromWishlist' item.product.id %}"
+                                    class="btn btn-warning mt-1 px-5">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                            <img src="{{item.product.image.url}}" width="200" height="300" alt="">
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
