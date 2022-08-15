@@ -2,18 +2,20 @@ import binascii
 import ipaddress
 import socket
 
-# ADRESS = '83.69.139.250'
+ADRESS = '83.69.139.250'
 
-# ip = ipaddress.ip_address(ADRESS)
-# ip_network = ipaddress.ip_network(ADRESS)
-# print(ip_network)
-# print(ip_network.version)
-# print(ip.is_private)
-# print(int(ip))
-hosts = [
-    'pyblog.uz',
-    'robocode.uz'
-]
+ip = ipaddress.ip_address(ADRESS)
+ip_network = ipaddress.ip_network(ADRESS)
+print(ip_network)
+print(ip_network.version)
+print(ip.is_private)
+print(int(ip))
+
+
+# hosts = [
+#     'pyblog.uz',
+#     'robocode.uz'
+# ]
 # for h in hosts:
 #     print(f"{h} : {socket.gethostbyname(h)}")
 
@@ -29,4 +31,4 @@ hosts = [
 
 # get server name
 
-print(socket.getfqdn(hosts[0]))
+# print(socket.getfqdn(hosts[0]))
