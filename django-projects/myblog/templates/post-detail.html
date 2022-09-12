@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-9">
+                <div class="post p-3">
+                    <div class="card mb-3">
+                        <img src="{{post.image.url}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{post.title}}</h5>
+                            <p class="card-text">
+                                {{post.body}}
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">Last updated
+                                    <big>{{post.published}}</big>
+                                </small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3">
+                <div class="card mt-3" style="width: 18rem;">
+                    <div class="card-header">
+                        Featured
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">An item</li>
+                        <li class="list-group-item">A second item</li>
+                        <li class="list-group-item">A third item</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</section>
+{% endblock %}
