@@ -1,0 +1,19 @@
+<nav>
+    <ul class="navbar">
+        <li>
+            <a href="/" style="color:orange;">Logo</a>
+        </li>
+        {% for category in categories %}
+
+        {% if category.name %}
+        <li>
+            <a href="{% url 'main:category_list' category.slug %}">{{category.name}}</a>
+        </li>
+        {% else %}
+        {# {% empty %} #}
+        <h2 style="color: white;">Categories not found !</h2>
+        {% endif %}
+
+        {% endfor %}
+    </ul>
+</nav>

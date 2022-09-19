@@ -11,3 +11,15 @@ def home(request):
         "posts": posts
     }
     return render(request, 'index.html', context)
+
+
+def post_detail(request, post_slug):
+    post = Post.objects.get(slug=post_slug)
+    return render(request, 'detail.html',
+                  {"post": post})
+
+
+def category_list(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
+    posts = Post.objects.filter(category=category)
+    return render(request, 'list.html', {"posts": posts})
