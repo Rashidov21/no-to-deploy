@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Category, Post
+from .forms import ContactForm
 # Create your views here.
 
 
@@ -11,6 +12,11 @@ def home(request):
         "posts": posts
     }
     return render(request, 'index.html', context)
+
+
+def contact(request):
+    form = ContactForm()
+    return render(request, 'contact.html', {"form": form})
 
 
 def post_detail(request, post_slug):

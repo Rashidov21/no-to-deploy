@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Contact page</title>
+</head>
+
+<body>
+    {% include 'components/navbar.html'%}
+    <br>
+    <section>
+        <div class="container">
+            <center>
+                <h3>Contact page</h3>
+
+            </center>
+            <br>
+            <center>
+                <form action="" method="">
+                    {{form.as_p}}
+                </form>
+            </center>
+        </div>
+    </section>
+</body>
+
+</html>
