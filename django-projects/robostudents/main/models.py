@@ -27,5 +27,8 @@ class Student(models.Model):
     brithday = models.DateField()
     payment_method = models.CharField(choices=PAYMENT, max_length=30)
 
+    def get_fullname(self):
+        return f"{self.name} {self.surname}"
+
     def __str__(self):
         return str(self.name)

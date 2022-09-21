@@ -4,17 +4,17 @@
 <section class="mt-5">
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-6">
+            {% for st in students %}
+            <div class="col-sm-12 col-md-4 my-3">
                 <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
+                    <img src="{{st.image.url}}" class="card-img-top" alt="{{st.name}}">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                            of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <h5 class="card-title">{{st.get_fullname}}</h5>
+                        <a href="#" class="btn btn-primary">View profile</a>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 </section>
