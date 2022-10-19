@@ -11,7 +11,7 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    title = models.CharField(verbose_name="Maqola nomi", max_length=250)
+    title = models.CharField(verbose_name="Maqola nomi", max_length=350)
     body = models.TextField()
     author = models.CharField(verbose_name="Maqola muallifi", max_length=100)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
@@ -21,7 +21,7 @@ class Post(models.Model):
         return str(self.title)
 
 
-class Comment:
+class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     name = models.CharField(verbose_name="Foydalanuvchi ismi", max_length=100)
     comment = models.TextField()

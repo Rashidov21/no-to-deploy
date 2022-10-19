@@ -18,7 +18,21 @@
     <br><br>
     <section>
         <div class="container">
-
+            <div class="posts">
+                {% for post in posts %}
+                <div class="post">
+                    <h3>{{post.title}}</h3>
+                    <br>
+                    <p>{{post.body}}</p>
+                    <br>
+                    <a href="#">
+                        {{post.author}}
+                        <br>
+                        <b>{{post.published}}</b>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </section>
 </body>
