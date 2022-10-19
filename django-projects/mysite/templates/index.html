@@ -11,43 +11,14 @@
 <body>
     <section>
         <center>
-            <h2>Django Questions</h2>
+            <h2>Django Blog</h2>
         </center>
     </section>
 
     <br><br>
     <section>
         <div class="container">
-            <center>
-                {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-                        {% endfor %}
-                </ul>
-                {% endif %}
-            </center>
-            {% for question in questions %}
-            <form action="{% url 'main:results' question.id %}">
-                <h4>{{question.question}}</h4>
-                <p>
-                    <input type="radio" name="answer" id="answer_1" value="1">
-                    <label for="answer_1">{{question.answer_1}}</label>
-                    <br>
-                    <input type="radio" name="answer" id="answer_2" value="2">
-                    <label for="answer_2">{{question.answer_2}}</label>
-                    <br>
-                    <input type="radio" name="answer" id="answer_3" value="3">
-                    <label for="answer_3">{{question.answer_3}}</label>
-                    <br>
-                    <input type="radio" name="answer" id="answer_4" value="4">
-                    <label for="answer_4">{{question.answer_4}}</label>
-                </p>
 
-                <br>
-                <button type="submit">Tekshirish</button>
-            </form>
-            {% endfor %}
         </div>
     </section>
 </body>
