@@ -1,15 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'wrapper.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{% block content %}
 
-<body>
-    <center>Django template</center>
-</body>
+<section class="my-5">
 
-</html>
+    <div class="container mt-3">
+        <div class="my-3 fw-bold fs-3">
+            All Cards
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3 bg-dark text-light">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deleniti, exercitationem alias
+                    mollitia nulla, consequatur excepturi quis dolor neque quia eum, expedita voluptatem provident
+                    autem. Possimus architecto mollitia eaque quaerat!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 bg-dark text-light">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deleniti, exercitationem alias
+                    mollitia nulla, consequatur excepturi quis dolor neque quia eum, expedita voluptatem provident
+                    autem. Possimus architecto mollitia eaque quaerat!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 bg-dark text-light">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deleniti, exercitationem alias
+                    mollitia nulla, consequatur excepturi quis dolor neque quia eum, expedita voluptatem provident
+                    autem. Possimus architecto mollitia eaque quaerat!
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% load static %}
+<!-- header  -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <ul class="nav py-3 px-5 bg-dark">
+            <li class="nav-item"><a href="#" class="nav-link text-light fw-bold fs-5">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-light fw-bold fs-5">About</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-light fw-bold fs-5">Projects</a></li>
+            <li class="nav-item"><a href="#" class="nav-link text-light fw-bold fs-5">Contact</a></li>
+        </ul>
+    </header>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- footer  -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>
