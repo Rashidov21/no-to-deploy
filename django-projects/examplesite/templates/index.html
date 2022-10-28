@@ -7,31 +7,26 @@
 
     <div class="container mt-3">
         <div class="my-3 fw-bold fs-3">
-            All Cards
+            HomePageView test
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card p-3 bg-dark text-light">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deleniti, exercitationem alias
-                    mollitia nulla, consequatur excepturi quis dolor neque quia eum, expedita voluptatem provident
-                    autem. Possimus architecto mollitia eaque quaerat!
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card p-3 bg-dark text-light">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deleniti, exercitationem alias
-                    mollitia nulla, consequatur excepturi quis dolor neque quia eum, expedita voluptatem provident
-                    autem. Possimus architecto mollitia eaque quaerat!
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card p-3 bg-dark text-light">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae deleniti, exercitationem alias
-                    mollitia nulla, consequatur excepturi quis dolor neque quia eum, expedita voluptatem provident
-                    autem. Possimus architecto mollitia eaque quaerat!
-                </div>
-            </div>
+        <div class="alert alert-danger">{{header}}</div>
+        <div class="alert alert-success">{{content}}</div>
+        <br><br>
+        <div class="card p-3">
+            <ul>
+                <!-- |slice:'5' -->
+                {% for num in numbers %}
+                <li class="p-1 my-2 {% if num == 5 %}bg-danger {% else %} bg-success {% endif %}">{{num}}</li>
+                {% endfor %}
+            </ul>
+
+            <!-- {% if contidion %}
+                html content 
+            {% else %}
+                html content
+            {% endif %}  -->
         </div>
+
     </div>
 </section>
 
