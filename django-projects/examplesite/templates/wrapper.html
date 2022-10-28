@@ -24,7 +24,13 @@
     {% block content %}
 
     {% endblock %}
-
+    <footer class="footer mt-auto py-3 bg-dark">
+        <div class="container">
+            <span class=" text-light py-2 fw-bold fs-5">
+                {% now 'Y'%} year. by {{author}}
+            </span>
+        </div>
+    </footer>
     <!-- footer  -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>

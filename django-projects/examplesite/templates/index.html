@@ -9,23 +9,37 @@
         <div class="my-3 fw-bold fs-3">
             HomePageView test
         </div>
-        <div class="alert alert-danger">{{header}}</div>
-        <div class="alert alert-success">{{content}}</div>
-        <br><br>
-        <div class="card p-3">
-            <ul>
-                <!-- |slice:'5' -->
-                {% for num in numbers %}
-                <li class="p-1 my-2 {% if num == 5 %}bg-danger {% else %} bg-success {% endif %}">{{num}}</li>
-                {% endfor %}
-            </ul>
 
-            <!-- {% if contidion %}
+        <div class="card p-2 bg-dark">
+            <ul class="list-group">
+                <li class="list-group-item">{{fp.name}}</li>
+            </ul>
+        </div>
+        <div class="card p-2 bg-primary">
+            <ul class="list-group">
+                <li class="list-group-item">{{lp.name}}</li>
+            </ul>
+        </div>
+
+
+
+        <!-- <div class="alert alert-danger">{{header}}</div>
+        <div class="alert alert-success">{{content}}</div> -->
+        <br><br>
+
+        <!-- <ul>
+                |slice:'5' 
+            {% for num in numbers %}
+            <li class="p-1 my-2 {% if num == 5 %}bg-danger {% else %} bg-success {% endif %}">{{num}}</li>
+            {% endfor %}
+            </ul>-->
+
+        <!-- {% if contidion %}
                 html content 
             {% else %}
                 html content
             {% endif %}  -->
-        </div>
+
 
     </div>
 </section>
