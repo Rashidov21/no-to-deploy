@@ -19,3 +19,4 @@ class ClubAdmin(admin.ModelAdmin):
 class PlayerAdmin(admin.ModelAdmin):
     list_display = ['name']
     prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['club__name', 'country__name']
