@@ -11,21 +11,62 @@
 </head>
 
 <body class="text-tahiti">
+    <header>
+        <div class="container-xl bg-gray-300 px-5">
+            <ul class="flex flex-wrap flex-row py-2 gap-5">
+                <li class="font-bold text-yellow-800 hover:text-gray-500">
+                    <a href="#">Players</a>
+                </li>
+                <li class="font-bold text-yellow-800 hover:text-gray-500">
+                    <a href="#">Clubs</a>
+                </li>
+                <li class="font-bold text-yellow-800 hover:text-gray-500">
+                    <a href="#">Countries</a>
+                </li>
+            </ul>
+        </div>
+    </header>
     <div class="container-xl mx-auto my-5 px-4 text-center ">
-        <div class="flex flex-wrap justify-center gap-3">
-            <div class="w-96 bg-yellow-400 shadow-sm rounded my-5 md:my-auto h-full">
-                <div class="player">
+        <div class="px-3 my-5 mx-auto">
+            <form action="">
+                <input type="text" class="border p-3 rounded-md outline-none" name="query" placeholder="Search ...">
+                <button class="p-3 bg-gray-500 text-white rounded-md" type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-1">
+            <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
+                <div class="player py-3">
                     <h4 class="font-bold text-lg">Antony Elanga</h4>
-                    <h5>Manchester United</h5>
+                    <h5>
+                        <a href="#" class="text-blue-700">Manchester United</a>
+                    </h5>
+                    </h5>
                     <h5>Rating: <span class="font-bold">76</span> </h5>
-                    <h5>Sweden</h5>
+                    <h5>Country: <a href="#" class="font-bold text-blue-700">Sweden</a></h5>
                 </div>
             </div>
-            <div class="w-96 bg-yellow-400 shadow-sm rounded my-5">
-                card
+            <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
+                <div class="player py-3">
+                    <h4 class="font-bold text-lg">Antony Elanga</h4>
+                    <h5>
+                        <a href="#" class="text-blue-700">Manchester United</a>
+                    </h5>
+                    </h5>
+                    <h5>Rating: <span class="font-bold">76</span> </h5>
+                    <h5>Country: <a href="#" class="font-bold text-blue-700">Sweden</a></h5>
+                </div>
             </div>
-            <div class="w-96 bg-yellow-400 shadow-sm rounded my-5">
-                card
+            <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
+                <div class="player py-3">
+                    <h4 class="font-bold text-lg">Antony Elanga</h4>
+                    <h5>
+                        <a href="#" class="text-blue-700">Manchester United</a>
+                    </h5>
+                    </h5>
+                    <h5>Rating: <span class="font-bold">76</span> </h5>
+                    <h5>Country: <a href="#" class="font-bold text-blue-700">Sweden</a></h5>
+                </div>
             </div>
         </div>
     </div>
