@@ -28,46 +28,30 @@
     </header>
     <div class="container-xl mx-auto my-5 px-4 text-center ">
         <div class="px-3 my-5 mx-auto">
-            <form action="">
+            <form action="{% url 'main:result_page' %}" method="get">
                 <input type="text" class="border p-3 rounded-md outline-none" name="query" placeholder="Search ...">
                 <button class="p-3 bg-gray-500 text-white rounded-md" type="submit">Search</button>
             </form>
         </div>
 
         <div class="flex flex-wrap justify-center gap-1">
+            {% for player in players %}
+
             <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
                 <div class="player py-3">
-                    <h4 class="font-bold text-lg">Antony Elanga</h4>
+                    <h4 class="font-bold text-lg">{{player.name}}</h4>
                     <h5>
-                        <a href="#" class="text-blue-700">Manchester United</a>
+                        <a href="#" class="text-blue-700">{{player.club}}</a>
                     </h5>
                     </h5>
-                    <h5>Rating: <span class="font-bold">76</span> </h5>
-                    <h5>Country: <a href="#" class="font-bold text-blue-700">Sweden</a></h5>
+                    <h5>Rating: <span class="font-bold">{{player.rating}}</span> </h5>
+                    <h5>Country:
+                        <a href="#" class="font-bold text-blue-700">{{player.country}}</a>
+                    </h5>
                 </div>
             </div>
-            <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
-                <div class="player py-3">
-                    <h4 class="font-bold text-lg">Antony Elanga</h4>
-                    <h5>
-                        <a href="#" class="text-blue-700">Manchester United</a>
-                    </h5>
-                    </h5>
-                    <h5>Rating: <span class="font-bold">76</span> </h5>
-                    <h5>Country: <a href="#" class="font-bold text-blue-700">Sweden</a></h5>
-                </div>
-            </div>
-            <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
-                <div class="player py-3">
-                    <h4 class="font-bold text-lg">Antony Elanga</h4>
-                    <h5>
-                        <a href="#" class="text-blue-700">Manchester United</a>
-                    </h5>
-                    </h5>
-                    <h5>Rating: <span class="font-bold">76</span> </h5>
-                    <h5>Country: <a href="#" class="font-bold text-blue-700">Sweden</a></h5>
-                </div>
-            </div>
+
+            {% endfor %}
         </div>
     </div>
 </body>

@@ -5,11 +5,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Results</title>
 </head>
 
 <body>
-
+    <div class="container-lg my-5">
+        <div class="px-5 flex flex-wrap">
+            {% if object_list %}
+            {% for player in object_list %}
+            <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
+                <div class="player p-3">
+                    <h4 class="font-bold text-lg">{{player.name}}</h4>
+                    <h5>
+                        <a href="#" class="text-blue-700">{{player.club}}</a>
+                    </h5>
+                    </h5>
+                    <h5>Rating: <span class="font-bold">{{player.rating}}</span> </h5>
+                    <h5>Country:
+                        <a href="#" class="font-bold text-blue-700">{{player.country}}</a>
+                    </h5>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
+                <div class="font-bold p-3">
+                    Result not found !
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
 </body>
 
 </html>
