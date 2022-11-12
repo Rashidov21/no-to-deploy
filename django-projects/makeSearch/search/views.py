@@ -3,6 +3,8 @@ from django.views.generic import ListView
 
 from django.contrib.postgres.search import SearchQuery, SearchVector
 
+from django.db.models import Max, Avg,
+
 from main.models import Player
 # Create your views here.
 
