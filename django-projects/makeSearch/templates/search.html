@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Search</title>
+</head>
+
+<body>
+    <header>
+        <div class="container-xl bg-gray-300 px-5">
+            <ul class="flex flex-wrap flex-row py-2 gap-5">
+                <li class="font-bold text-yellow-800 hover:text-gray-500">
+                    <a href="#">Players</a>
+                </li>
+                <li class="font-bold text-yellow-800 hover:text-gray-500">
+                    <a href="#">Clubs</a>
+                </li>
+                <li class="font-bold text-yellow-800 hover:text-gray-500">
+                    <a href="#">Countries</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <br>
+    <div class="container-lg">
+        <div class="px-3 my-5 mx-auto">
+            <form action="" method="get">
+                <input type="text" class="border p-3 rounded-md outline-none" name="query" placeholder="Search ...">
+                <button class="p-3 bg-gray-500 text-white rounded-md" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="container-lg my-5">
+        <div class="px-5 flex flex-wrap">
+            {% if object_list %}
+            {% for player in object_list %}
+            <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
+                <div class="player p-3">
+                    <h4 class="font-bold text-lg">{{player.name}}</h4>
+                    <h5>
+                        <a href="#" class="text-blue-700">{{player.club}}</a>
+                    </h5>
+                    </h5>
+                    <h5>Rating: <span class="font-bold">{{player.rating}}</span> </h5>
+                    <h5>Country:
+                        <a href="#" class="font-bold text-blue-700">{{player.country}}</a>
+                    </h5>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
+                <div class="font-bold p-3">
+                    Result not found !
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
