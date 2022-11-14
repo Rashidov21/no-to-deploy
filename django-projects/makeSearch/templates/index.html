@@ -27,11 +27,58 @@
         </div>
     </header>
     <div class="container-xl mx-auto my-5 px-4 text-center ">
-        <div class="px-3 my-5 mx-auto">
+        <!-- <div class="px-3 my-5 mx-auto">
             <form action="{% url 'main:result_page' %}" method="get">
                 <input type="text" class="border p-3 rounded-md outline-none" name="query" placeholder="Search ...">
                 <button class="p-3 bg-gray-500 text-white rounded-md" type="submit">Search</button>
             </form>
+        </div> -->
+        <script>
+            function InlineSearch(query) {
+                fetch("/inline/search/",
+                    {
+                        method: "POST",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ q: query })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.object_list.length) {
+                            let res = document.querySelector("#results")
+                            let li = document.createElement("li")
+                            li.className = "my-2 py-2"
+                            let a = document.createElement('a')
+
+                            for (let obj of data.object_list) {
+                                a.href = `#`
+                                a.innerHTML = obj.name
+                                a.className = "text-black-400 hover:text-blue-400"
+                                li.appendChild(a)
+                            }
+
+                            res.insertAdjacentElement("afterEnd", li)
+                        } else {
+                            alert("Topilmadi")
+                        }
+                    })
+            }
+        </script>
+        <div class="card">
+            <h3>Inline Search</h3>
+            <div class="px-3 my-5 mx-auto">
+                <form action="#" method="POST" onkeyup="InlineSearch(this[0].value)">
+                    <input type="text" class="border-2 p-3 rounded-md outline-none" name="query"
+                        placeholder="Search ...">
+                    {% csrf_token %}
+                    <input type="hidden">
+                </form>
+                <ul class="result_list p-3 bg-gray-500 m-3" id="results">
+
+                </ul>
+            </div>
         </div>
 
         <div class="flex flex-wrap justify-center gap-1">

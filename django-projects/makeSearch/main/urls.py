@@ -9,4 +9,6 @@ urlpatterns = [
 
     # search results page
     path("results/", views.resultPageView, name='result_page'),
+    # inline search
+    path("inline/search/", views.inlineSearch, name='inline_search')
 ]
