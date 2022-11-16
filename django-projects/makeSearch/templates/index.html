@@ -35,6 +35,7 @@
         </div> -->
         <script>
             function InlineSearch(query) {
+                let ul = document.querySelector("#results")
                 fetch("/inline/search/",
                     {
                         method: "POST",
@@ -47,7 +48,6 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.object_list.length) {
-                            let res = document.querySelector("#results")
                             let li = document.createElement("li")
                             li.className = "my-2 py-2"
                             let a = document.createElement('a')
@@ -59,12 +59,16 @@
                                 li.appendChild(a)
                             }
 
-                            res.insertAdjacentElement("afterEnd", li)
+                            ul.insertAdjacentElement("afterEnd", li)
+
                         } else {
                             alert("Topilmadi")
                         }
+
                     })
+
             }
+
         </script>
         <div class="card">
             <h3>Inline Search</h3>
@@ -75,8 +79,8 @@
                     {% csrf_token %}
                     <input type="hidden">
                 </form>
-                <ul class="result_list p-3 bg-gray-500 m-3" id="results">
-
+                <ul class="result_list p-3 bg-gray-500 m-3">
+                    <li id="results"></li>
                 </ul>
             </div>
         </div>
