@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.db.models import Q
+
 from .models import Tag, Post
 
 # Create your views here.
@@ -22,3 +24,19 @@ def postDetailView(request, post_slug):
         "related_posts": related_posts
     }
     return render(request, 'post.html', context=data)
+
+
+def search(request):
+    q = request.GET.get('q')
+    # contains - katta va kichik harflar inobatga olinadi
+    # icontains - katta va kichik harflardan qatiy nazar mavjud bolsa olish
+    # exact - aniq topish >> A2s
+    # iexact - katta kichik harflardan qatiy nazar aniq topish
+    # lte - teng yoki katta
+    # gte - teng yoki kichik
+    posts = Post.objects.filter(
+        Q(title__icontains=q) | Q(body__icontains=q)
+        # Q(author__iexact=q)
+    )
+
+    return render(request, 'results.html', context={"posts": posts})
