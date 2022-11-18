@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 from .models import Tag, Post
 
@@ -9,9 +10,16 @@ from .models import Tag, Post
 def homePageView(request):
     random_posts = Post.objects.all().order_by("?")[:4]  # 6 posts
     all_posts = Post.objects.all()
+
+    paginator = Paginator(all_posts, 1)  # Show 3 posts per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    # print(page_obj)
+    # print(dir(page_obj))
     data = {
         'random_posts': random_posts,
-        'all_posts': all_posts
+        'page_obj': page_obj
     }
     return render(request, 'index.html', context=data)
 

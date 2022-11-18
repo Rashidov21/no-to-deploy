@@ -20,5 +20,8 @@ class Post(models.Model):
     tag = models.ManyToManyField(Tag)
     published = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-id']
+
     def __str__(self):
         return f"{self.title}"
