@@ -2,10 +2,23 @@ import json
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView, ListView, DeleteView
 from .models import Player
 
 from django.db.models import Q
 # Create your views here.
+
+
+class IndexTemplateView(TemplateView):
+    template_name = 'index.html'
+    extra_context = {"help": "help from django !"}
+
+
+class PlayerListView(ListView):
+    model = Player
+    template_name = 'index.html'
+    context_object_name = 'players'
+    paginate_by = 2
 
 
 def searchPageView(request):

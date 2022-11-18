@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+
 
 from django.contrib.postgres.search import SearchQuery, SearchVector
 
@@ -22,6 +22,6 @@ def searchMethodView(request):
     return render(request, 'search.html')
 
 
-class SearchClassView(ListView):
-    model = Player
-    template_name = 'search.html'
+# class SearchClassView(ListView):
+#     model = Player
+#     template_name = 'search.html'

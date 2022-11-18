@@ -71,18 +71,7 @@
 
         </script>
         <div class="card">
-            <h3>Inline Search</h3>
-            <div class="px-3 my-5 mx-auto">
-                <form action="#" method="POST" onkeyup="InlineSearch(this[0].value)">
-                    <input type="text" class="border-2 p-3 rounded-md outline-none" name="query"
-                        placeholder="Search ...">
-                    {% csrf_token %}
-                    <input type="hidden">
-                </form>
-                <ul class="result_list p-3 bg-gray-500 m-3">
-                    <li id="results"></li>
-                </ul>
-            </div>
+            {{help}}
         </div>
 
         <div class="flex flex-wrap justify-center gap-1">
