@@ -6,6 +6,8 @@ from . import views
 app_name = 'main'
 
 urlpatterns = [
+    # Player add
+    path("add/", views.PlayerAddView.as_view(), name='add'),
     # TemplateView() variant 1
     path("", views.IndexTemplateView.as_view(), name='home'),
     # TemplateView() variant 2

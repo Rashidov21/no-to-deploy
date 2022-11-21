@@ -41,3 +41,17 @@ class Player(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+class ClubManager(models.Model):
+    name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='managers/')
+    country = models.ForeignKey(
+        Country, on_delete=models.PROTECT)
+    club = models.ForeignKey(
+        Club, on_delete=models.PROTECT)
+    age = models.PositiveIntegerField()
+    rating = models.PositiveIntegerField()
+
+    def __str__(self):
+        return str(self.name)

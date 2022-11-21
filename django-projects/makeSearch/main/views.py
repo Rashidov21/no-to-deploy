@@ -1,12 +1,34 @@
 import json
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, ListView, DeleteView
-from .models import Player
-
+from django.views.generic import View, TemplateView, ListView, DeleteView
 from django.db.models import Q
+
+
+from .models import Player
+from .forms import ManagerAddForm
 # Create your views here.
+
+
+class PlayerAddView(View):
+    form_class = ManagerAddForm
+    template_name = 'form_template.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+        else:
+            print("not valid")
+
+        return render(request, self.template_name, {'form': form})
 
 
 class IndexTemplateView(TemplateView):
