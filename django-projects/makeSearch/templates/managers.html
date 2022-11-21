@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>View class - Form validation</title>
+</head>
+
+<body>
+    <div class="container-xl my-5 px-5 ">
+        <div class="flex flex-wrap justify-center gap-1">
+            {% for manager in managers %}
+
+            <div class="w-96 bg-yellow-400 shadow-sm rounded my-3 md:my-auto h-full">
+                <div class="player p-3">
+                    <img src="{{manager.image.url}}" class="rounded" width="100" height="auto" alt="">
+                    <h4 class="font-bold text-lg">{{manager.name}}</h4>
+                    <h5>
+                        <a href="#" class="text-blue-700">{{manager.club}}</a>
+                    </h5>
+                    </h5>
+                    <h5>Rating: <span class="font-bold">{{manager.rating}}</span> </h5>
+                    <h5>Country:
+                        <a href="#" class="font-bold text-blue-700">{{manager.country}}</a>
+                    </h5>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

@@ -7,7 +7,8 @@ app_name = 'main'
 
 urlpatterns = [
     # Player add
-    path("add/", views.PlayerAddView.as_view(), name='add'),
+    path("add/", views.ManagerAddView.as_view(), name='add'),
+    path("managers/", views.ManagersView.as_view(), name='managers'),
     # TemplateView() variant 1
     path("", views.IndexTemplateView.as_view(), name='home'),
     # TemplateView() variant 2

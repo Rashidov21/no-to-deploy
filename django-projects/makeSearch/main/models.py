@@ -53,5 +53,8 @@ class ClubManager(models.Model):
     age = models.PositiveIntegerField()
     rating = models.PositiveIntegerField()
 
+    class Meta:
+        ordering = ["-id"]
+
     def __str__(self):
         return str(self.name)

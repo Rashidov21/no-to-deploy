@@ -7,12 +7,18 @@ from django.views.generic import View, TemplateView, ListView, DeleteView
 from django.db.models import Q
 
 
-from .models import Player
+from .models import Player, ClubManager
 from .forms import ManagerAddForm
 # Create your views here.
 
 
-class PlayerAddView(View):
+class ManagersView(ListView):
+    model = ClubManager
+    template_name = 'managers.html'
+    context_object_name = "managers"
+
+
+class ManagerAddView(View):
     form_class = ManagerAddForm
     template_name = 'form_template.html'
 
@@ -21,10 +27,11 @@ class PlayerAddView(View):
         return render(request, self.template_name, {'form': form})
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
+
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/managers/')
         else:
             print("not valid")
 
