@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import View
 # Create your views here.
 from .models import Notes, Category, Status
+from .forms import AddNoteForm
 
 
 class NotesView(ListView):
@@ -12,7 +13,7 @@ class NotesView(ListView):
 
 class AddNoteView(View):
     """One note view"""
-    template_name = 'add.html'
+    template_name = 'note/add.html'
 
     def get(self, request, *args, **kwargs):
         form = AddNoteForm()

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container-md mx-10 my-10">
+        <div class="flex flex-wrap flex-row gap-3">
+            {% for note in object_list %}
+            <div class="card w-96 p-4 bg-[#e5e5e5] hover:bg-[#a3a3a3]">
+                <div class="flex justify-between">
+                    <div class="title text-lg">{{note.title}}</div>
+                    <div>
+                        <div class="status bg-{{note.status|lower}}-800"
+                            style="width: 25px; height:25px; border-radius:50%;">
+                        </div>
+                    </div>
+                </div>
+                <p>{{note.body}}</p>
+                <a href="#" class="text-blue-500">{{note.category}}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+
+</html>

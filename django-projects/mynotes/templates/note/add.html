@@ -1,0 +1,42 @@
+{% load tailwind_filters %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Note Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            margin: 50px 0px;
+            padding: 0px 30px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form">
+            <form action="" method="post">
+                {{form|crispy}}
+                <br>
+                {% csrf_token %}
+                <button class=" py-3 px-5 bg-gray-300 rounded hover:bg-yellow-400 text-blue-900"
+                    type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
