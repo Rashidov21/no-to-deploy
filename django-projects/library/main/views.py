@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 # Create your views here.
-from .models import Book, Category, Author
+from .models import Book, Category
 
 
 class BookListPageView(ListView):
