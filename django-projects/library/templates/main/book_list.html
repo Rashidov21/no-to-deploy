@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,58 +6,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include '../assets/styles.html' %}
     <title>Document</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            list-style: none;
-            font-family: Arial, Helvetica, sans-serif;
-        }
 
-        .container {
-            padding: 3%;
-        }
-
-        .cats {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-
-    </style>
 </head>
 
 <body>
-    <div class="container">
-        <ul class="cats">
-            {% for cat in categories %}
-            <li>
-                <a href="{% url 'main:cat_list' cat.slug %}">{{cat.name}}</a>
-            </li>
-            {% endfor %}
-        </ul>
+    <ul class="nav bg-dark py-2">
+        {% for cat in categories %}
+        <li class="nav-item px-5">
+            <a href="{% url 'main:cat_list' cat.slug %}" class="nav-link fw-bold text-primary">{{cat.name}}</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="section">
+        <div class="row container">
+            <div class="col-3">
+                {% include '../assets/list.html' %}
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    {% for book in object_list %}
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-image-top">
+                                <img src="{{book.poster.url}}" class="card-img-top" alt="">
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h4>{{book.title}}</h4>
 
-        <ul>
-            {% for book in object_list %}
-            <li>
-                <p>
-                    <a href="{% url 'main:book_detail' book.id %}">
-                        <img src="{{book.poster.url}}" width="100" alt="">
-                    </a>
-                </p>
-                <h3>
-                    <a href="{% url 'main:book_detail' book.id %}">
-                        {{book.title}}
-                    </a>
-                </h3>
-                <h5><a href="#">{{book.category}}</a></h5>
-                <h5><a href="#">{{book.author}}</a></h5>
-            </li>
-            {% endfor %}
-        </ul>
+                                </div>
+                                <h5><a href="#">{{book.category}}</a></h5>
+                                <h5><a href="#">{{book.author}}</a></h5>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </body>
 

@@ -24,3 +24,21 @@ class CategoryListView(ListView):
             category = self.model.objects.get(slug=self.kwargs.get('slug'))
             queryset = Book.objects.filter(category=category)
         return queryset
+
+# CRUD Views
+
+
+class CreateBookView(CreateView):
+    # template_name = None
+    # template_name_suffix = '_create'
+    model = Book
+    fields = ["title", "category", "poster"]
+    success_url = '/'
+
+
+class UpdateBookView(UpdateView):
+    pass
+
+
+class DeleteBookView(DeleteView):
+    pass
