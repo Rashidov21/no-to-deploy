@@ -97,7 +97,9 @@ body {
   border-radius: 5px;
 }
 
-
+::-webkit-datetime-edit {
+  font-family: 'Poppins Medium';
+}
 
 ::-webkit-calendar-picker-indicator {
   background-color: #45e10c;
