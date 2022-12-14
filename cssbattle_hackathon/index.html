@@ -64,7 +64,7 @@
                         Smartfon
                         yutib oling !
                       </p>
-                      <a href="#" class="section_hero_link">
+                      <a href="#register" class="section_hero_link">
                         <button class="section_hero_btn">Ishtirok etish</button>
                       </a>
                     </li>
@@ -87,7 +87,7 @@
                           <br>
                           Tayyormisiz?
                         </h1>
-                        <a href="#" class="section_hero_link hero_link">
+                        <a href="#register" class="section_hero_link hero_link">
                           <button class="section_hero_btn">Ishtirok etish</button>
                         </a>
                       </li>
@@ -192,7 +192,7 @@
             4- pyblog va robocode telegram va instagram sahifalariga obuna bo’lish
           </p>
           <center class="section_about_center">
-            <a href="#">
+            <a href="#register">
               <button class="section_hero_btn">Ishtirok etish</button>
             </a>
           </center>
@@ -311,35 +311,53 @@
         </div>
       </div>
     </div>
-    <div class="section_partners" id="partners">
+    <div class="section_partners" id="register">
       <div class="section-wrapp">
         <h1 class="heading">
           <span class="number_span">5</span> Ro'yhatdan o'tish
         </h1>
-        <div class="container" style="display: flex; flex-direction: column;align-items: center; margin-top: 50px;">
+        <div id="form_container">
 
-          <form action="" class="card card-accent" method="POST">
-            <p>
-              <label for="name">Ism Familya</label>
-              <input type="text" id="name" placeholder="Ism (to'liq holda)*">
-            </p>
-            <p>
-              <label for="date">Tug'ilgan yili</label>
-              <input type="date" name="date" id="date">
-            </p>
-            <p>
-              <label for="phone">Telefon</label>
-              <input type="number" name="date" id="phone">
-            </p>
-            <p>
-              <label for="addres">Yashash manzili</label>
-              <input type="text" name="date" id="addres">
-            </p>
-          </form>
+          <div class="form">
+            <form action="" class="card card-accent" method="POST">
+              <p>
+                <label for="name">Ism Familya</label>
+                <input type="text" id="name" placeholder="Ism (to'liq holda)*">
+              </p>
+              <p>
+                <label for="date">Tug'ilgan yili</label>
+                <input type="date" name="date" id="date">
+              </p>
+              <p>
+                <label for="phone">Telefon</label>
+                <input type="number" name="date" id="phone" placeholder="+998-">
+              </p>
+              <p>
+                <label for="addres">Yashash manzili</label>
+                <input type="text" name="date" id="addres" placeholder="Shahar , tuman ">
+              </p>
+
+              <p>
+                <button class="send_btn">Yuborish</button>
+              </p>
+            </form>
+          </div>
+          <div class="divider_block"></div>
+          <div class="images_partners">
+            <img src="./images/section_partners_robocode.svg" alt="">
+            <img src="./images/section_hero_img.png" width="300" alt="">
+            <img src="./images/section_partners_pyblog.svg" alt="">
+            <img src="./images/section_partners_texnopark.svg" alt="">
+          </div>
         </div>
       </div>
     </div>
   </main>
+  <div class="arrow-up">
+    <a href="#" onclick="window.scrollTo(0,0)">
+      <img src="./images/up.png" alt="">
+    </a>
+  </div>
   <footer>
     <div class="section-wrapp">
       <div class="container">
@@ -347,6 +365,12 @@
           <li class="footer_item">
             <h3 class="footer_heading">Batafsil ma’lumot uchun</h3>
             <p class="footer_text"><a href="tel:+998 99 899 90 05">+998 99 899 90 05</a></p>
+          </li>
+          <li class="footer_item">
+            <h3 class="footer_heading">Telegram manzillar</h3>
+            <p class="footer_text"><a href="https://t.me/robocode_andijan" target="_blank">robocode.uz</a></p>
+            <p class="footer_text"><a href="https://t.me/pybloguz" target="_blank">pyblog.uz</a></p>
+            <p class="footer_text"><a href="https://t.me/yoshlartexnoparki" target="_blank">Yoshlar texnoparki</a></p>
           </li>
           <li class="footer_item">
             <h3 class="footer_heading">Manzilimiz</h3>

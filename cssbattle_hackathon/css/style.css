@@ -63,9 +63,33 @@ body {
   position: relative;
 }
 
+.form form {}
+
+.form {
+  width: 80%;
+}
+
+.divider_block {
+  width: 100px;
+}
+
+.images_partners {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+#form_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 50px;
+  padding: 0px 4%;
+}
 
 .card {
-  min-width: 300px;
+  min-width: 100%;
   max-width: 600px;
   background: var(--color-background);
   padding: calc(4 * var(--size-bezel));
@@ -100,6 +124,8 @@ body {
 ::-webkit-datetime-edit {
   font-family: 'Poppins Medium';
 }
+
+
 
 ::-webkit-calendar-picker-indicator {
   background-color: #45e10c;
@@ -375,6 +401,18 @@ header.scroll {
   top: 0;
 }
 
+.send_btn {
+  background-color: #3C2D2B;
+  color: white;
+  padding: 10px 0px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.send_btn:hover {
+  background-color: #4e413f;
+}
+
 .section_timeline_list {
   display: flex;
   justify-content: center;
@@ -476,7 +514,12 @@ header.scroll {
 }
 
 .section_partners {
-  padding: 100px 0;
+  padding: 80px 0;
+  position: relative;
+}
+
+.section_partners#register {
+  padding: 20px 0;
   position: relative;
 }
 
@@ -506,6 +549,14 @@ header.scroll {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.arrow-up a img {
+  position: fixed;
+  bottom: 50px;
+  right: 60px;
+  width: 20px;
+  transform: rotate(135deg);
 }
 
 .section_partners_item:hover img {
