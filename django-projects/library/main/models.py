@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+
+from ckeditor.fields import RichTextField
 # Create your models here.
 
 
@@ -18,6 +20,7 @@ class Book(models.Model):
         User, on_delete=models.PROTECT, blank=True, null=True)
     views = models.PositiveIntegerField(default=0, blank=True)
     poster = models.ImageField(upload_to='posters/')
+    description = RichTextField()
 
     def __str__(self):
         return str(self.title)

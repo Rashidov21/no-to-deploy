@@ -32,13 +32,18 @@ class CreateBookView(CreateView):
     # template_name = None
     # template_name_suffix = '_create'
     model = Book
-    fields = ["title", "category", "poster"]
+    fields = ["title", "category", "poster", "description"]
     success_url = '/'
 
 
 class UpdateBookView(UpdateView):
-    pass
+    # book_update_form.html
+    template_name = 'main/book_form.html'
+    model = Book
+    fields = ["title", "category", "poster"]
+    success_url = '/'
 
 
 class DeleteBookView(DeleteView):
-    pass
+    model = Book
+    success_url = '/'

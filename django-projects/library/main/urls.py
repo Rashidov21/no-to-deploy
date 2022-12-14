@@ -9,5 +9,7 @@ urlpatterns = [
     path('category/<slug:slug>/', views.CategoryListView.as_view(), name='cat_list'),
 
     # CRUD
-    path("add/", views.CreateBookView.as_view(), name='add')
+    path("add/", views.CreateBookView.as_view(), name='add'),
+    path("update/<pk>", views.UpdateBookView.as_view(), name='update'),
+    path("delete/<pk>", views.DeleteBookView.as_view(), name='delete')
 ]

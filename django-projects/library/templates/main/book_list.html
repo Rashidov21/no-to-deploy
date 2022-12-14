@@ -35,10 +35,24 @@
                             <div class="card-body">
                                 <div class="card-title">
                                     <h4>{{book.title}}</h4>
-
+                                    <h5><a href="#">{{book.category|upper}}</a></h5>
+                                    <h5><a href="#">{{book.author}}</a></h5>
                                 </div>
-                                <h5><a href="#">{{book.category}}</a></h5>
-                                <h5><a href="#">{{book.author}}</a></h5>
+                                <div class="d-flex flex-wrap gap-1">
+
+                                    <h5>
+                                        <a href="{% url 'main:update' book.id %}" class="btn btn-outline-primary">
+                                            <i class="fas fa-redo-alt"></i>
+                                            Update
+                                        </a>
+                                    </h5>
+                                    <h5>
+                                        <a href="{% url 'main:delete' book.id %}" class="btn btn-outline-primary">
+                                            <i class="fas fa-trash"></i>
+                                            Delete
+                                        </a>
+                                    </h5>
+                                </div>
                             </div>
                         </div>
                     </div>

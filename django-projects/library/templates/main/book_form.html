@@ -13,13 +13,16 @@
 
 <body>
     <div class="container">
-        <h3>Book Add Form</h3>
+        <h3>Book {% if request.path == '/add/' %}Add{% else %}Update{% endif %} Form</h3>
         <br>
         {% load crispy_forms_tags %}
         <form action="" method="POST" class="w-50" enctype="multipart/form-data">
             {% csrf_token %}
+
             {{form|crispy}}
-            <button class="btn btn-primary my-3" type="submit">Add</button>
+            <button class="btn btn-primary my-3" type="submit">
+                {% if request.path == '/add/' %}Add{% else %}Update{% endif %}
+            </button>
         </form>
         <br><br>
         {% include '../assets/list.html' %}
