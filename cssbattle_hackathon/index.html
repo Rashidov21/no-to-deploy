@@ -2,38 +2,344 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="CSS Battle Front-End hakaton. Andijon 2022">
-    <meta name="description"
-        content="robocode.uz va pyblog.uz hamkorlikda dasturchi, yoshlarni rag'batlantirish va shaxsiy rivojlanishiga ko'maklashish maqsadida hakaton o'tqazadi">
-    <meta name="keywords"
-        content="hakaton , hackathon, css, andijon, yoshlar, frontend, dasturlash, robocode,pyblog, musobaqa, dasturlash musobaqasi, vodiy">
-    <meta name="robots" content="noindex, nofollow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="language" content="English">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="./library/css/swiper.min.css" />
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+  <link rel="shortcut icon" href="./images/black-vertical.png" type="image/x-icon">
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://metatags.io/">
-    <meta property="og:title" content="CSS Battle hakatoni">
-    <meta property="og:description"
-        content="robocode.uz va pyblog.uz hamkorlikda dasturchi, yoshlarni rag'batlantirish va shaxsiy rivojlanishiga ko'maklashish maqsadida hakaton o'tqazadi">
-    <meta property="og:image"
-        content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">
-    <title>CSS Battle - css hakaton</title>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cssbattle.robocode.uz/">
+  <meta property="og:title" content="CSS hakaton - Frontend hakaton">
+  <meta property="og:description"
+    content="Vodiydagi dasturlashga qiziquvchi yoshlar uchun Robocode IT Academy va pylbog CSS hakaton uyishtiradi. O'z CSS bilimlaringizni sinab ko'ring va smartfon yutib oling!">
+  <meta property="og:image" content="https://robocode.uz/static/images/mainpage/header/robocode.png">
+
+
+  <title>CSS Hackathon - Frontend musobaqa</title>
 </head>
 
 <body>
+  <header>
+    <div class="section-wrapp">
+      <div class="container">
+        <ul class="header_navbar">
+          <li class="header_navbar_item reached"><a href="#about">Hakaton haqida</a></li>
+          <li class="header_navbar_item"><a href="#timeline">Taymlayn</a></li>
+          <li class="header_navbar_item"><a href="#faq">FAQ</a></li>
+          <li class="header_navbar_item"><a href="#partners">Hamkorlar</a></li>
+          <li class="header_navbar_item"><a href="tel: +998 99 899 90 05">Bog’lanish</a></li>
+        </ul>
+        <div class="burger_wrapper">
+          <div class="header_burger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="header_line"></div>
+  </header>
+  <main>
+    <div class="hero">
+      <div class="siwper_wrapper">
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div class="section_hero">
+                <div class="section-wrapp">
+                  <ul class="section_hero_list">
+                    <li class="section_hero_item">
+                      <h1 class="section_hero_heading">CSS
+                        <img src="./images/section_hero_img.png"> <br>
+                        Hackathon
+                      </h1>
+                      <p class="section_hero_text">CSS Battle da qatnashing va ko’plab sovrinlardan
+                        <br> birini va
+                        ayniqsa
+                        Smartfon
+                        yutib oling !
+                      </p>
+                      <a href="#" class="section_hero_link">
+                        <button class="section_hero_btn">Ishtirok etish</button>
+                      </a>
+                    </li>
+                    <li class="section_hero_item">
+                      <img class="hero_img" src="./images/section_hero_img_two.png">
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <div class="section_hero">
+                <div class="section-wrapp">
+                  <div class="container">
+                    <ul class="section_hero_list">
+                      <li class="section_hero_item">
+                        <h1 class="section_hero_heading hero_text">
+                          <img src="./images/section_hero_img.png">
+                          Battlega
+                          <br>
+                          Tayyormisiz?
+                        </h1>
+                        <a href="#" class="section_hero_link hero_link">
+                          <button class="section_hero_btn">Ishtirok etish</button>
+                        </a>
+                      </li>
+                      <li class="section_hero_item">
+                        <img src="./images/section_hero_img_three.png">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section_min_about">
+      <div class="section-wrapp">
+        <div class="container">
+          <h1 class="heading">
+            <span class="number_span">0</span> Hakaton haqida
+          </h1>
+          <ul class="section_min_about_list">
+            <li class="section_min_about_item">
+              <h1>01</h1>
+              <p>CSS <br>
+                bilimlaringizni <br>
+                sinab ko’ring</p>
+            </li>
+            <li class="section_min_about_item">
+              <h1>02</h1>
+              <p>Berilgan <br> shartlarni <br>
+                bajaring</p>
+            </li>
+            <li class="section_min_about_item">
+              <h1>03</h1>
+              <p>Smartfon <br>
+                yutib <br>
+                oling</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <img src="./images/section_timiline_ukr.png" class="section_min_about_ukr images_ukr" alt="">
+    </div>
+    <div class="section_about" id="about">
+      <div class="section-wrapp">
+        <div class="container">
+          <h1 class="heading">
+            <span class="number_span">1</span> Hakaton haqida
+          </h1>
+          <h3 class="section_about_heading">
+            CSS hakaton nima ?
+          </h3>
+          <p class="section_about_text">
+            O'quvchilarimiz va qatnashchilarning bilimini sinab ko'rish va do'stona raqobatni rivojlantirish maqsadida
+            navbatdagi
+            CSS Battle Hakatonini uyushtirishga qaror qildik.
+          </p>
+          <h3 class="section_about_heading">
+            Hakaton qay tartibda o’tadi ?
+          </h3>
+          <p class="section_about_text">
+            2 bosqichdan iborat cssbattle.dev platformasi orqali o’tqaziladi.
+          </p>
+          <p class="section_about_text">1-bosqich saralash va unda ro’yhatdan o’tgan barcha ishtirok etishlari mumkin
+            bo’ladi.</p>
+          <p class="section_about_text">
+            1-bosqichda barcha qatnashish istagida bo'lganlar o'rtasida musoboqa o'tkazamiz, o’zinginzni sinab
+            ko’rishingiz uchun
+            belgilangan vaqt va qilishingiz kerak bo'lgan vazifa beriladi! <br>
+            Qancha ko'p va aniq vazifani bajarishingizga qarab, platforma sizni baholaydi, o'yinda ballari eng yuqori
+            bo'lganlargina
+            yuta oladi! <br>
+            Belgilangan vaqtdan keyin berilgan javoblar qabul qilinmaydi!
+          </p>
+          <p class="section_about_text">
+            2-bosqichda esa saralashda eng yuqori natijalarni ko’rsatgan 15 ta dasturchi ishtirok etadi.
+          </p>
+          <p class="section_about_text_two">
+            2-bosqich natijalariga ko’ra ;
+          <ul class="section_about_list">
+            <li class="section_about_item">1-o’rin : Samsung smartfoni</li>
+            <li class="section_about_item">2-o’rin : Huawei Band 7</li>
+            <li class="section_about_item">3-o’rin : HyperX quloqchinlari</li>
+            <li class="section_about_item">Qolgan finalchilar esa esdalik sovg’alari bilan taqdirlanadi.</li>
+          </ul>
+          </p>
+          <h3 class="section_about_heading">
+            Ishtirokchi uchun talablar qanday?
+          </h3>
+          <p class="section_about_text">
+            1-cssbattle.dev platformasidan ro’yhatdan o’tgan bo’lish va ushbu saytda ishlash ko’nikmasiga ega bo’lish.
+          </p>
+          <p class="section_about_text">
+            2-ishtirokchilar uchun yosh chegarasi 12 yoshdan 18 yoshgacha deb belgilangan
+          </p>
+          <p class="section_about_text">
+            3-botdan ro’yhatdan o’tish va qatnashuvchi maxsus ID’sini olish
+          </p>
+          <p class="section_about_text">
+            4- pyblog va robocode telegram va instagram sahifalariga obuna bo’lish
+          </p>
+          <center class="section_about_center">
+            <a href="#">
+              <button class="section_hero_btn">Ishtirok etish</button>
+            </a>
+          </center>
+        </div>
+      </div>
+      <img src="./images/section_about_ukr.png" class="section_about_ukr_one images_ukr" alt="">
+      <img src="./images/section_about_ukr_two.png" class="section_about_ukr_two images_ukr" alt="">
+    </div>
+    <div class="section_timeline" id="timeline">
+      <img src="./images/section_timiline_ukr.png" class="section_timeline_ukr images_ukr" alt="">
+      <div class="section-wrapp">
+        <div class="container">
+          <h1 class="heading">
+            <span class="number_span">2</span> Taymlayn
+          </h1>
+          <ul class="section_timeline_list">
+            <li class="section_timeline_item">15 - 25 - dekabr <br>
+              Ro’yhatdan o’tish</li>
+            <li class="section_timeline_item">25-26-dekabr <br>
+              Saralash bosqichi</li>
+            <li class="section_timeline_item">27-28-dekabr <br>
+              Final</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="section_faq" id="faq">
+      <img src="./images/section_faq_ukr_one.png" class="section_faq_ukr_one images_ukr" alt="">
+      <img src="./images/section_faq_ukr_two.png" class="section_faq_ukr_two images_ukr" alt="">
+      <img src="./images/section_faq_ukr_three.png" class="section_faq_ukr_three images_ukr" alt="">
+      <div class="section-wrapp">
+        <div class="container">
+          <h1 class="heading">
+            <span class="number_span">3</span> FAQ
+          </h1>
+          <ul class="section_faq_accordion_list">
+            <li class="section_faq_accordion_item">
+              <ul class="section_faq_inner_list">
+                <li class="section_faq_inner_item">
+                  Hakaton o’tqazishdan maqsad? <button class="section_faq_btn"><i
+                      class="bi bi-chevron-right"></i></button>
+                </li>
+                <li class="section_faq_inner_item_accordion">
+                  Yosh chegarasi muhim. Viloyatimizdagi dasturlashga qiziqayotgan yoshlar orasidan yosh va
+                  qiziquvchanlarini topib ularni
+                  rag’batlantirish va shaxsiy rivojlanishlari uchun ko’maklashish asosiy maqsadimiz.
+                </li>
+              </ul>
+            </li>
+            <li class="section_faq_accordion_item">
+              <ul class="section_faq_inner_list">
+                <li class="section_faq_inner_item">
+                  Qaysi dasturlash tilida musobaqa o’tkaziladi? <button class="section_faq_btn"><i
+                      class="bi bi-chevron-right"></i></button>
+                </li>
+                <li class="section_faq_inner_item_accordion">
+                  Yosh chegarasi muhim. Viloyatimizdagi dasturlashga qiziqayotgan yoshlar orasidan yosh va
+                  qiziquvchanlarini topib ularni
+                  rag’batlantirish va shaxsiy rivojlanishlari uchun ko’maklashish asosiy maqsadimiz.
+                </li>
+              </ul>
+            </li>
+            <li class="section_faq_accordion_item">
+              <ul class="section_faq_inner_list">
+                <li class="section_faq_inner_item">
+                  Ishtirok etmasa ham borsa bo’ladimi? <button class="section_faq_btn"><i
+                      class="bi bi-chevron-right"></i></button>
+                </li>
+                <li class="section_faq_inner_item_accordion">
+                  Yosh chegarasi muhim. Viloyatimizdagi dasturlashga qiziqayotgan yoshlar orasidan yosh va
+                  qiziquvchanlarini topib ularni
+                  rag’batlantirish va shaxsiy rivojlanishlari uchun ko’maklashish asosiy maqsadimiz.
+                </li>
+              </ul>
+            </li>
+            <li class="section_faq_accordion_item">
+              <ul class="section_faq_inner_list">
+                <li class="section_faq_inner_item">
+                  Aynan nimalarni bilishi kerak? <button class="section_faq_btn"><i
+                      class="bi bi-chevron-right"></i></button>
+                </li>
+                <li class="section_faq_inner_item_accordion">
+                  Yosh chegarasi muhim. Viloyatimizdagi dasturlashga qiziqayotgan yoshlar orasidan yosh va
+                  qiziquvchanlarini topib ularni
+                  rag’batlantirish va shaxsiy rivojlanishlari uchun ko’maklashish asosiy maqsadimiz.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="section_partners" id="partners">
+      <div class="section-wrapp">
+        <h1 class="heading">
+          <span class="number_span">4</span> Hamkorlar
+        </h1>
+        <div class="container">
+          <ul class="section_partners_list">
+            <li class="section_partners_item">
+              <a href="https://robocode.uz" target="_blank">
+                <img src="./images/section_partners_robocode.svg" alt="">
+              </a>
+            </li>
+            <li class="section_partners_item">
+              <a href="https://pyblog.uz" target="_blank">
+                <img src="./images/section_partners_pyblog.svg" alt="">
+              </a>
+            </li>
+            <li class="section_partners_item">
+              <a href="https://t.me/yoshlartexnoparki" target="_blank">
+                <img src="./images/section_partners_texnopark.svg" alt="">
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="section-wrapp">
+      <div class="container">
+        <ul class="footer_list">
+          <li class="footer_item">
+            <h3 class="footer_heading">Batafsil ma’lumot uchun</h3>
+            <p class="footer_text"><a href="tel:+998 99 899 90 05">+998 99 899 90 05</a></p>
+          </li>
+          <li class="footer_item">
+            <h3 class="footer_heading">Manzilimiz</h3>
+            <p class="footer_text">Andijon viloyati, Andijon shahri, 2-kichik daha , eski Diyora kafesi orqasida</p>
+          </li>
+          <!-- <li class="footer_item">
+            <div class="footer_map" style="position:relative;overflow:hidden;"><a class="footer_location"
+                href="https://yandex.uz/maps/10329/andijan/?utm_medium=mapframe&utm_source=maps"
+                style="color:#eee;font-size:12px;position:absolute;top:0px;">Андижан</a><a class="footer_location"
+                href="https://yandex.uz/maps/10329/andijan/?from=mapframe&ll=72.346167%2C40.747367&source=mapframe&utm_medium=mapframe&utm_source=maps&z=19"
+                style="color:#eee;font-size:12px;position:absolute;top:14px;">Андижан — Яндекс Карты</a><iframe
+                src="https://yandex.uz/map-widget/v1/-/CCUnmVUtgC" width="560" height="400" frameborder="1"
+                allowfullscreen="true" style="position:relative;"></iframe></div>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </footer>
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
-</body>
+  <script src="./library/js/swiper.min.js"></script>
+  <script src="./js/swiper_settings.js"></script>
+  <script src="./js/main.js"></script>
 </body>
 
 </html>
