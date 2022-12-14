@@ -63,6 +63,49 @@ body {
   position: relative;
 }
 
+
+.card {
+  min-width: 300px;
+  max-width: 600px;
+  background: var(--color-background);
+  padding: calc(4 * var(--size-bezel));
+  margin-top: calc(4 * var(--size-bezel));
+  border-radius: var(--size-radius);
+  border: 3px solid var(--color-shadow, currentColor);
+  box-shadow: 0.5rem 0.5rem 0 var(--color-shadow, currentColor);
+  padding: 15px 25px;
+}
+
+.card-accent {
+  background-color: #fab700;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
+}
+
+.card-accent p {
+  margin: 5px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-accent p input {
+  padding: 10px 20px;
+  outline: none;
+  border: solid 0.8px black;
+  border-radius: 5px;
+}
+
+
+
+::-webkit-calendar-picker-indicator {
+  background-color: #45e10c;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
 .container {
   max-width: 1400px;
   padding: 0 4%;
