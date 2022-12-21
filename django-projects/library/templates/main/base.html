@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include '../assets/styles.html' %}
+    <title>Document</title>
+
+</head>
+
+<body>
+    <ul class="nav bg-dark py-2">
+        {% for cat in categories %}
+        <li class="nav-item px-5">
+            <a href="{% url 'main:cat_list' cat.slug %}" class="nav-link fw-bold text-primary">{{cat.name}}</a>
+        </li>
+        {% endfor %}
+        <li class="nav-item px-5">
+            <a href="#" class="nav-link btn btn-outline-primary" title="Login">
+                <i class="fa-solid fa-angle-right"></i>
+            </a>
+        </li>
+        <li class="nav-item px-5">
+            <a href="#" class="nav-link btn btn-outline-primary" title="Logout">
+                <i class="fa-solid fa-angle-left"></i>
+            </a>
+        </li>
+        <li class="nav-item px-5">
+            <a href="#" class="nav-link btn btn-outline-primary" title="Logout">
+                <i class="fa-solid fa-user"></i>
+                {{request.user.username}}
+            </a>
+        </li>
+    </ul>
+    {% block content %}
+    {% endblock %}
+
+</body>
+
+</html>

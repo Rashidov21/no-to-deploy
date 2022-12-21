@@ -1,68 +1,47 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% include '../assets/styles.html' %}
-    <title>Document</title>
-
-</head>
-
-<body>
-    <ul class="nav bg-dark py-2">
-        {% for cat in categories %}
-        <li class="nav-item px-5">
-            <a href="{% url 'main:cat_list' cat.slug %}" class="nav-link fw-bold text-primary">{{cat.name}}</a>
-        </li>
-        {% endfor %}
-    </ul>
-    <div class="section">
-        <div class="row container">
-            <div class="col-3">
-                {% include '../assets/list.html' %}
-            </div>
-            <div class="col-9">
-                <div class="row">
-                    {% for book in object_list %}
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <div class="card" style="width: 18rem;">
-                            <div class="card-image-top">
-                                <img src="{{book.poster.url}}" class="card-img-top" alt="">
+{% extends 'main/base.html' %}
+{% block content %}
+<div class="section">
+    <div class="row container">
+        <div class="col-3">
+            {% include '../assets/list.html' %}
+        </div>
+        <div class="col-9">
+            <div class="row">
+                {% for book in object_list %}
+                <div class="col-12 col-sm-6 col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-image-top">
+                            <img src="{{book.poster.url}}" class="card-img-top" alt="">
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h4>{{book.title}}</h4>
+                                <h5><a href="#">{{book.category|upper}}</a></h5>
+                                <h5><a href="#">{{book.author}}</a></h5>
                             </div>
-                            <div class="card-body">
-                                <div class="card-title">
-                                    <h4>{{book.title}}</h4>
-                                    <h5><a href="#">{{book.category|upper}}</a></h5>
-                                    <h5><a href="#">{{book.author}}</a></h5>
-                                </div>
-                                <div class="d-flex flex-wrap gap-1">
+                            <div class="d-flex flex-wrap gap-1">
 
-                                    <h5>
-                                        <a href="{% url 'main:update' book.id %}" class="btn btn-outline-primary">
-                                            <i class="fas fa-redo-alt"></i>
-                                            Update
-                                        </a>
-                                    </h5>
-                                    <h5>
-                                        <a href="{% url 'main:delete' book.id %}" class="btn btn-outline-primary">
-                                            <i class="fas fa-trash"></i>
-                                            Delete
-                                        </a>
-                                    </h5>
-                                </div>
+                                <h5>
+                                    <a href="{% url 'main:update' book.id %}" class="btn btn-outline-primary">
+                                        <i class="fas fa-redo-alt"></i>
+                                        Update
+                                    </a>
+                                </h5>
+                                <h5>
+                                    <a href="{% url 'main:delete' book.id %}" class="btn btn-outline-primary">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                    </a>
+                                </h5>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
+                {% endfor %}
             </div>
         </div>
-
-
     </div>
-</body>
 
-</html>
+
+</div>
+{% endblock %}

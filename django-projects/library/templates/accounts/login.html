@@ -1,0 +1,19 @@
+{% extends 'accounts/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="d-flex flex-column">
+        <div class="mt-5 px-5 card border-none shadow-lg">
+            <div class="text-center py-3">
+                <h3 class="fw-bold">Login Form</h3>
+            </div>
+            <form action="" class="p-2 w-50" method="POST">
+                {% csrf_token %}
+                {{form}}
+                <p>
+                    <input type="submit" value="Login" class="btn btn-outline-success">
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
