@@ -1,0 +1,29 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% block content %}
+<!-- title  -->
+{% block title %}
+<title>
+    Profile -
+    {% if request.user.first_name %}
+    {{request.user.first_name}}
+    {% else %}
+    {{request.user.username}}
+    {% endif %}
+</title>
+{% endblock title %}
+<!-- end title  -->
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+
+        </div>
+        <div class="col-9">
+            <h2>username :{{request.user.username}}</h2>
+            <h2>first name :{{request.user.first_name}}</h2>
+            <h2>last name :{{request.user.last_name}}</h2>
+            <h2> email : {{request.user.email}}</h2>
+        </div>
+    </div>
+</div>
+{% endblock %}

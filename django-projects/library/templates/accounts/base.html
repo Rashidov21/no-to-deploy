@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,8 +13,26 @@
 </head>
 
 <body>
+    {% if messages %}
+    <div class="card my-5 p-3">
+        <div class="messages">
+            {% for message in messages %}
+            <div{% if message.tags %} class="bg-{{ message.tags }}" {% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+        </div>
+        {% endfor %}
+        <a href="#" class="btn btn-outline-success" onclick="this.parentElement.style.display = 'none'">
+            <i class="fas fa-times"></i>
+        </a>
+    </div>
+    </div>
+    {% endif %}
+
     {% block content %}
     {% endblock %}
+
+    <script src="{% static 'script.js' %}"></script>
 </body>
 
 </html>

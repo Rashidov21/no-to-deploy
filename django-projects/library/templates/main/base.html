@@ -18,26 +18,49 @@
             <a href="{% url 'main:cat_list' cat.slug %}" class="nav-link fw-bold text-primary">{{cat.name}}</a>
         </li>
         {% endfor %}
+        {% if request.user.is_authenticated %}
         <li class="nav-item px-5">
-            <a href="#" class="nav-link btn btn-outline-primary" title="Login">
-                <i class="fa-solid fa-angle-right"></i>
-            </a>
-        </li>
-        <li class="nav-item px-5">
-            <a href="#" class="nav-link btn btn-outline-primary" title="Logout">
+            <a href="{% url 'accounts:logout' %}" class="nav-link btn btn-outline-primary" title="Logout">
+                Logout
                 <i class="fa-solid fa-angle-left"></i>
             </a>
         </li>
         <li class="nav-item px-5">
-            <a href="#" class="nav-link btn btn-outline-primary" title="Logout">
+            <a href="{% url 'accounts:profile' %}" class="nav-link btn btn-outline-primary" title="Profile">
                 <i class="fa-solid fa-user"></i>
                 {{request.user.username}}
             </a>
         </li>
+        {% else %}
+        <li class="nav-item px-5">
+            <a href="{% url 'accounts:login' %}" class="nav-link btn btn-outline-primary" title="Login">
+                Login
+                <i class="fa-solid fa-angle-right"></i>
+            </a>
+        </li>
+        {% endif %}
+
     </ul>
+
+    {% if messages %}
+    <div class="card my-5 p-3">
+        <div class="messages">
+            {% for message in messages %}
+            <div{% if message.tags %} class="bg-{{ message.tags }}" {% endif %}>
+                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                {{ message }}
+        </div>
+        {% endfor %}
+        <a href="#" class="btn btn-outline-success" onclick="this.parentElement.style.display = 'none'">
+            <i class="fas fa-times"></i>
+        </a>
+    </div>
+    </div>
+    {% endif %}
     {% block content %}
     {% endblock %}
 
+    <script src="{% static 'script.js' %}"></script>
 </body>
 
 </html>
