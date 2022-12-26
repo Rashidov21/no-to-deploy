@@ -2,18 +2,25 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import DetailView
+from django.views.generic.edit import UpdateView
 from django.contrib import messages
 # Create your views here.
-# from .forms import CreateUserForm
+from .models import User
+from .forms import CreateUserForm
 
 
 def register(request):
-    form = UserCreationForm()
+    form = CreateUserForm()
+
     if request.method == "POST":
         # form = UserCreationForm(request.POST)
-        form = UserCreationForm(request.POST)
+        form = CreateUserForm(request.POST)
+        for i in form:
+            print(i)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             messages.add_message(request, messages.SUCCESS, "Well done !")
             return redirect("/")
         else:
@@ -23,16 +30,13 @@ def register(request):
 
         return render(request, "accounts/register.html", {"form": form})
     return render(request, "accounts/register.html", {"form": form})
-# def login(request):
 
-#     username = request.POST.get("username")
-#     password = request.POST.get("password")
-#     user = authenticate(request, username=username, password=password)
-#     if user is not None:
-#         login(user)
-#         # Redirect to a success page.
-#         return HttpResponse(f"Success !\n User is auth..{user.username} ")
-#     else:
-#         # Return an 'invalid login' error message.
-#         return render(request, "accounts/login.html")
-#     return render(request, "accounts/login.html")
+
+class ProfileEditView(UpdateView):
+    model = User
+    fields = ["first_name", "last_name", "photo", "gender", "age", "bio"]
+    success_url = "/accounts/profile"
+
+
+class OtherProfileView(DetailView):
+    model = User

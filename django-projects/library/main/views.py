@@ -35,6 +35,13 @@ class CreateBookView(CreateView):
     fields = ["title", "category", "poster", "description"]
     success_url = '/'
 
+    def form_valid(self, form):
+        user = self.request.user
+        self.object = form.save(commit=False)
+        self.object.author = user
+        self.object.save()
+        return super().form_valid(form)
+
 
 class UpdateBookView(UpdateView):
     # book_update_form.html

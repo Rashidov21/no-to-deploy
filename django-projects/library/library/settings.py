@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'crispy_forms',
-    'ckeditor'
+    'ckeditor',
+    "accounts"
 ]
 # X_FRAME_OPTIONS = "SAMEORIGIN"
 # SILENCED_SYSTEM_CHECKS = ["security.W019"]
@@ -129,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'uz'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -143,6 +144,9 @@ LOGIN_URL = 'accounts/login'
 LOGOUT_URL = 'accounts/logout'
 # kirganidan song ochilishi kerak bolgan url
 LOGIN_REDIRECT_URL = '/'
+
+AUTH_USER_MODEL = "accounts.User"
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

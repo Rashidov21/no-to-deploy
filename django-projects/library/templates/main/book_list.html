@@ -17,7 +17,8 @@
                             <div class="card-title">
                                 <h4>{{book.title}}</h4>
                                 <h5><a href="#">{{book.category|upper}}</a></h5>
-                                <h5><a href="#">{{book.author}}</a></h5>
+                                <h5><a href="{% url 'accounts:profile_view' book.author.id %}">{{book.author}}</a>
+                                </h5>
                             </div>
                             <div class="d-flex flex-wrap gap-1">
 

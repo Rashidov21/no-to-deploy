@@ -41,19 +41,19 @@
         {% endif %}
 
     </ul>
-
     {% if messages %}
     <div class="card my-5 p-3">
-        <div class="messages">
+        <div class="messages w-25">
             {% for message in messages %}
-            <div{% if message.tags %} class="bg-{{ message.tags }}" {% endif %}>
+            <div{% if message.tags %} class="alert alert-{{ message.tags }} p-3" {% endif %}>
                 {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
                 {{ message }}
+                <a href="#" class="btn btn-outline-success float-end"
+                    onclick="this.parentElement.parentElement.style.display = 'none'">
+                    <i class=" fas fa-times"></i>
+                </a>
         </div>
         {% endfor %}
-        <a href="#" class="btn btn-outline-success" onclick="this.parentElement.style.display = 'none'">
-            <i class="fas fa-times"></i>
-        </a>
     </div>
     </div>
     {% endif %}
