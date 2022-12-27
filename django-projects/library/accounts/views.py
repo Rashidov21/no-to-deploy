@@ -14,7 +14,7 @@ def register(request):
     form = CreateUserForm()
 
     if request.method == "POST":
-        # form = UserCreationForm(request.POST)
+  
         form = CreateUserForm(request.POST)
         for i in form:
             print(i)
