@@ -15,8 +15,12 @@
                     <input type="submit" value="Login" class="btn btn-outline-success">
                 </p>
                 <p>
+                    Forget your password ? <a href="{% url 'accounts:password_reset' %}">Reset my passowrd</a>
+                </p>
+                <p>
                     Don't have an account ? <a href="{% url 'accounts:register' %}">Register now</a>
                 </p>
+
             </form>
         </div>
         {% else %}

@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+from .config import email_user, password_user
+import dotenv
 import os
 from pathlib import Path
 
@@ -146,6 +147,14 @@ LOGOUT_URL = 'accounts/logout'
 LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = "accounts.User"
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'server3.ahost.uz'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 465
+EMAIL_HOST_USER = email_user
+EMAIL_HOST_PASSWORD = password_user
 
 
 # Static files (CSS, JavaScript, Images)
