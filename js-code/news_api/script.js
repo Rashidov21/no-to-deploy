@@ -18,12 +18,12 @@ function render(data) {
         let card = document.createElement("div").classList.add("card")
         let post = `
         <div class="card" style="width: 50%;">
-        <img src="${news.urlToImage}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${news.title}</h5>
           <p class="card-text">${news.description}</p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
+        <img src="${news.urlToImage}" class="card-img-top" alt="...">
       </div>
         `
         postsDiv.insertAdjacentElement("afterbegin", post)
