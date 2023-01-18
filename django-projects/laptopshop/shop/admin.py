@@ -18,7 +18,7 @@ admin.site.register(Color)
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("id","name", "price", "category", "brand")
+    list_display = ("id","name", "price", "category", "discount")
     list_filter = ("category", "brand", "top", "views")
     search_fields = ("brand", "name", "description")
     prepopulated_fields = {"slug":("name",)}

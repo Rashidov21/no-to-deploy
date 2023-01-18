@@ -79,26 +79,18 @@
         <div class="best-seller">
           <h2 class="best-seller__title">Eng ko‘p sotilganlar</h2>
           <ul class="best-seller-list">
+            {% for product in popular_products %}
             <li class="best-seller-list__item">
-              <img class="best-seller-list__img" src="./images/cards-img.png" alt="Best seller computer">
-              <h3 class="best-seller-list__title">HP Noutbuk. Sichqoncha va qo‘shimcha aksessuarlari</h3>
-              <div class="best-seller-list__price">$1200</div>
+              <img class="best-seller-list__img"
+              src="{{product.product_images.all.0.image.url}}"
+              alt="Best seller computer">
+
+              <h3 class="best-seller-list__title">
+                {{product.name}}
+              </h3>
+              <div class="best-seller-list__price">$ {{product.price}}</div>
             </li>
-            <li class="best-seller-list__item">
-              <img class="best-seller-list__img" src="./images/cards-img.png" alt="Best seller computer">
-              <h3 class="best-seller-list__title">HP Noutbuk. Sichqoncha va qo‘shimcha aksessuarlari</h3>
-              <div class="best-seller-list__price">$1200</div>
-            </li>
-            <li class="best-seller-list__item">
-              <img class="best-seller-list__img" src="./images/cards-img.png" alt="Best seller computer">
-              <h3 class="best-seller-list__title">HP Noutbuk. Sichqoncha va qo‘shimcha aksessuarlari</h3>
-              <div class="best-seller-list__price">$1200</div>
-            </li>
-            <li class="best-seller-list__item">
-              <img class="best-seller-list__img" src="./images/cards-img.png" alt="Best seller computer">
-              <h3 class="best-seller-list__title">HP Noutbuk. Sichqoncha va qo‘shimcha aksessuarlari</h3>
-              <div class="best-seller-list__price">$1200</div>
-            </li>
+            {% endfor %}
           </ul>
 
           <button class="best-seller__btn">Barchasi</button>
@@ -111,26 +103,21 @@
         <div class="discounts">
           <h2 class="discounts__title">Chegirmadagilar</h2>
           <ul class="discounts-list">
+            {% for product in discount_products %}
             <li class="discounts-list__item">
-              <img class="discounts-list__img" src="./images/cards-img.png" alt="Best seller computer">
-              <h3 class="discounts-list__title">HP Noutbuk. Sichqoncha va qo‘shimcha aksessuarlari</h3>
-              <div class="discounts-list__price">$1200</div>
+              {% if product.product_images.all %}
+              <img class="discounts-list__img" 
+              src="{{product.product_images.all.0.image.url}}" 
+              alt="Best seller computer">
+              {% else %}
+              <img src="" class="discounts-list__img" alt="No product image">
+              {% endif %}
+              <h3 class="discounts-list__title">
+                {{product.name}}
+              </h3>
+              <div class="discounts-list__price">$ {{product.price}}</div>
             </li>
-            <li class="discounts-list__item">
-              <img class="discounts-list__img" src="./images/cards-img.png" alt="Best seller computer">
-              <h3 class="discounts-list__title">HP Noutbuk. Sichqoncha va qo‘shimcha aksessuarlari</h3>
-              <div class="discounts-list__price">$1200</div>
-            </li>
-            <li class="discounts-list__item">
-              <img class="discounts-list__img" src="./images/cards-img.png" alt="Best seller computer">
-              <h3 class="discounts-list__title">HP Noutbuk. Sichqoncha va qo‘shimcha aksessuarlari</h3>
-              <div class="discounts-list__price">$1200</div>
-            </li>
-            <li class="discounts-list__item">
-              <img class="discounts-list__img" src="./images/cards-img.png" alt="Best seller computer">
-              <h3 class="discounts-list__title">HP Noutbuk. Sichqoncha va qo‘shimcha aksessuarlari</h3>
-              <div class="discounts-list__price">$1200</div>
-            </li>
+            {% endfor %}
           </ul>
 
           <button class="discounts__btn">Barchasi</button>
