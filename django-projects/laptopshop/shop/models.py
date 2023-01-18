@@ -61,3 +61,14 @@ class ProductImages(models.Model):
 	class Meta:
 		verbose_name = 'Tovar rasmlari'
 		verbose_name_plural = 'Tovar rasmlari'
+  
+
+class Contact(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=50)
+    phone = models.CharField(max_length=50)
+    message = models.TextField()
+    
+    def __str__(self):
+        return self.first_name
