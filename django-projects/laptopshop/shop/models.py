@@ -42,6 +42,9 @@ class Product(models.Model):
     top = models.BooleanField(default=False)
     description = models.TextField()
     views = models.PositiveIntegerField(default=1)
+    
+    def __str__(self):
+	    return self.name
 
     
 class ProductImages(models.Model):
