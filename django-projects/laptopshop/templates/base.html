@@ -1,0 +1,180 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'css/slider.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles.css ' %}">
+  <link rel="short icon" href="{% static 'images/logo.svg' %}">
+  <title>Laptop</title>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <a class="site-logo" href="/">
+          <img class="site-logo__img" src="{% static 'images/logo.svg' %}" alt="Site logo">
+        </a>
+
+        <ul class="nav-list">
+          <li class="nav-list__item">
+            <a class="nav-list__link nav-list__link--active" href="./index.html">Asosiy</a>
+          </li>
+          <li class="nav-list__item">
+            <a class="nav-list__link" href="./products.html">Do‘kon</a>
+          </li>
+          <li class="nav-list__item">
+            <a class="nav-list__link" href="#">Aksessuarlar</a>
+          </li>
+          <li class="nav-list__item">
+            <a class="nav-list__link" href="#">Kategoriya</a>
+          </li>
+          <li class="nav-list__item">
+            <a class="nav-list__link" href="#">Biz haqimizda</a>
+          </li>
+          <li class="nav-list__item">
+            <a class="nav-list__link" href="#">Aloqa</a>
+          </li>
+        </ul>
+
+        <div class="brands-burger-box">
+          <ul class="header-brends">
+            <li class="header-brends__icon">
+              <a href="#">
+                <img src="{% static 'images/telegram.svg' %}" alt="Telegram icon">
+              </a>
+            </li>
+            <li class="header-brends__icon">
+              <a href="#">
+                <img src="{% static 'images/instagram.svg' %}" alt="Telegram icon">
+              </a>
+            </li>
+            <li class="header-brends__icon">
+              <a href="./shopping.html">
+                <img src="{% static 'images/shopping-cart.svg' %}" alt="Telegram icon">
+              </a>
+            </li>
+          </ul>
+
+          <div class="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+{% block content %}
+{% endblock %}
+
+<footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <a class="footer-logo__link" href="./index.html">
+            <img src="{% static 'images/logo-footer.svg' %}" alt="Logo">
+          </a>
+
+          <p class="footer-logo__info">
+            Sed vitae feugiat mi, id lacus. Viverra tortor, facilisis at sed facilisi sed. Nisi imperdiet nibh et, sodales. .
+          </p>
+        </div>
+
+        <div class="footer-menu">
+          <h2 class="footer-menu__title">Menu</h2>
+          <ul class="footer-menu__list">
+            <li class="footer-menu__list-item">
+              <a class="footer-menu__list-link" href="#">Asosiy</a>
+            </li>
+            <li class="footer-menu__list-item">
+              <a class="footer-menu__list-link" href="#">Do‘kon</a>
+            </li>
+            <li class="footer-menu__list-item">
+              <a class="footer-menu__list-link" href="#">Aksessuarlar</a>
+            </li>
+            <li class="footer-menu__list-item">
+              <a class="footer-menu__list-link" href="#">Kategoriya</a>
+            </li>
+            <li class="footer-menu__list-item">
+              <a class="footer-menu__list-link" href="#">Biz haqimizda</a>
+            </li>
+            <li class="footer-menu__list-item">
+              <a class="footer-menu__list-link" href="#">Aloqa</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-products">
+          <h2 class="footer-products__title">Mahsulot</h2>
+          <ul class="footer-products__list">
+            <li class="footer-products__list-item">
+              <a class="footer-products__list-link" href="#">Mahsulotlar</a>
+            </li>
+            <li class="footer-products__list-item">
+              <a class="footer-products__list-link" href="#">Top mahsulotalr</a>
+            </li>
+            <li class="footer-products__list-item">
+              <a class="footer-products__list-link" href="#">Eng ko‘p sotilgan</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-shop">
+          <h2 class="footer-shop__title">Shop</h2>
+          <ul class="footer-shop__list">
+            <li class="footer-shop__list-item">
+              <a class="footer-shop__list-link" href="#">Savatcha</a>
+            </li>
+            <li class="footer-shop__list-item">
+              <a class="footer-shop__list-link" href="#">Kategoriya</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-contact">
+          <h2 class="footer-contact__title">Aloqa</h2>
+          <ul class="footer-contact__list">
+            <li class="footer-contact__list-item">
+              <a class="footer-contact__list-link" href="#">(+089) 19918989 - 0123456789</a>
+            </li>
+            <li class="footer-contact__list-item">
+              <a class="footer-contact__list-link" href="#">onlinestore.sydney@gmail.com</a>
+            </li>
+            <li class="footer-contact__list-item">
+              <a class="footer-contact__list-link" href="#">14 LE Gounlburn St, Sydney 119NSA</a>
+            </li>
+          </ul>
+
+          <h3 class="footer-brands__title">Bizga azo bo‘ling:</h3>
+          <div class="footer-brands">
+            <a href="#">
+              <img src="{% static 'images/footer-facebook.png' %}" alt="facebook icon">
+            </a>
+            <a href="#">
+              <img src="{% static 'images/footer-twitter.png' %}" alt="twitter icon">
+            </a>
+            <a href="#">
+              <img src="{% static 'images/footer-instagramm.png' %}" alt="instagram icon">
+            </a>
+            <a href="#">
+              <img src="{% static 'images/footer-youtube.png' %}" alt="youtube icon">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/slider.min.js' %}"></script>
+  <script src="{% static 'js/main-slider.js' %}"></script>
+  <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>
