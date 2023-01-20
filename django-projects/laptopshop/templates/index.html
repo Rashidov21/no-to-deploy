@@ -81,12 +81,14 @@
           <ul class="best-seller-list">
             {% for product in popular_products %}
             <li class="best-seller-list__item">
-              <img class="best-seller-list__img"
-              src="{{product.product_images.all.0.image.url}}"
-              alt="Best seller computer">
+              <a href="{% url 'shop:detail' product.slug %}">
+                <img class="best-seller-list__img"
+                src="{{product.product_images.all.0.image.url}}"
+                alt="Best seller computer">
+              </a>
 
               <h3 class="best-seller-list__title">
-                {{product.name}}
+                <a href="{% url 'shop:detail' product.slug %}">{{product.name}}</a>
               </h3>
               <div class="best-seller-list__price">$ {{product.price}}</div>
             </li>
@@ -106,14 +108,17 @@
             {% for product in discount_products %}
             <li class="discounts-list__item">
               {% if product.product_images.all %}
-              <img class="discounts-list__img" 
-              src="{{product.product_images.all.0.image.url}}" 
-              alt="Best seller computer">
+                <a href="{% url 'shop:detail' product.slug %}">
+                  <img class="discounts-list__img" 
+                  src="{{product.product_images.all.0.image.url}}" 
+                  alt="Best seller computer">
+                </a>
               {% else %}
               <img src="" class="discounts-list__img" alt="No product image">
               {% endif %}
+
               <h3 class="discounts-list__title">
-                {{product.name}}
+                <a href="{% url 'shop:detail' product.slug %}"> {{product.name}} </a>
               </h3>
               <div class="discounts-list__price">$ {{product.price}}</div>
             </li>
@@ -189,7 +194,7 @@
               </div>
             </div>
           </div>
-          <img class="about-image" src="./images/about-section-img.png" alt="img">
+          <img class="about-image" src="{% static 'images/about-section-img.png' %}" alt="img">
         </div>
       </div>
     </section>
@@ -200,34 +205,34 @@
           <h2 class="why-us__title">Nega aynan biz ?</h2>
           <ul class="why-us-list">
             <li class="why-us-list__card">
-              <img class="why-us-card__img" src="./images/why-us-card1.png" alt="icon">
+              <img class="why-us-card__img" src="{% static 'images/why-us-card1.png' %}" alt="icon">
               <h3 class="why-us-card__title">Tez va sifatli yetkazib berish</h3>
               <p class="why-us-card__info">O‘zbekiston bo‘ylab tez va sifatli yetkazib berish</p>
             </li>
             <li class="why-us-list__card">
-              <img class="why-us-card__img" src="./images/why-us-card2.png" alt="icon">
+              <img class="why-us-card__img" src="{% static 'images/why-us-card2.png' %}" alt="icon">
               <h3 class="why-us-card__title">Arzon narxlar</h3>
               <p class="why-us-card__info">Barcha yirik dilerlar bizdan sotib oladi Bizda arzonroq yanada arzonroq
                 sotamiz</p>
             </li>
             <li class="why-us-list__card">
-              <img class="why-us-card__img" src="./images/why-us-card3.png" alt="icon">
+              <img class="why-us-card__img" src="{% static 'images/why-us-card3.png' %}" alt="icon">
               <h3 class="why-us-card__title">Kafolat</h3>
               <p class="why-us-card__info">Biz mahsulotlar sifatiga kafolat beramiz</p>
             </li>
             <li class="why-us-list__card">
-              <img class="why-us-card__img" src="./images/why-us-card4.png" alt="icon">
+              <img class="why-us-card__img" src="{% static 'images/why-us-card4.png' %}" alt="icon">
               <h3 class="why-us-card__title">Biz pulingizni qaytarib beramiz</h3>
               <p class="why-us-card__info">Mahsulotni alishtirish uchun 30 kun</p>
             </li>
             <li class="why-us-list__card">
-              <img class="why-us-card__img" src="./images/why-us-card5.png" alt="icon">
+              <img class="why-us-card__img" src="{% static 'images/why-us-card5.png ' %}" alt="icon">
               <h3 class="why-us-card__title">Har qanday turdagi to‘lov</h3>
               <p class="why-us-card__info">Naqd, va plastik karta:
                 Visa, MasterCard, Uzcard.</p>
             </li>
             <li class="why-us-list__card">
-              <img class="why-us-card__img" src="./images/why-us-card6.png" alt="icon">
+              <img class="why-us-card__img" src="{% static 'images/why-us-card6.png ' %}" alt="icon">
               <h3 class="why-us-card__title">Mutaxassislar</h3>
               <p class="why-us-card__info">Mutaxassislar tomonidan tekshirilga va sifatli mahsulotlar</p>
             </li>
@@ -252,7 +257,7 @@
                 <button class="contact-form__btn">Xabar qoldirish</button>
               </form>
             </div>
-            <iframe class="gmap_iframe" src="https://maps.google.com/maps?width=1000&amp;height=500&amp;hl=en&amp;q=Andijan&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
+            <!-- <iframe class="gmap_iframe" src="https://maps.google.com/maps?width=1000&amp;height=500&amp;hl=en&amp;q=Andijan&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe> -->
           </div>
         </div>
       </div>

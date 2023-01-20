@@ -1,5 +1,5 @@
 from django.db import models
-
+from taggit.managers import TaggableManager
 # Create your models here.
 class Category(models.Model):
     name = models.CharField("Kategoriya", max_length=150)
@@ -36,6 +36,8 @@ class Product(models.Model):
         Color, 
         on_delete=models.PROTECT,
         related_name='color_products')
+    tags = TaggableManager()
+    
     price = models.PositiveIntegerField(default=0)
     discount = models.PositiveIntegerField("Necha foiz chegirma ?",default=0)
     addedd =models.DateTimeField(auto_now_add=True)
@@ -43,8 +45,18 @@ class Product(models.Model):
     description = models.TextField()
     views = models.PositiveIntegerField(default=1)
     
+    def get_discount_price(self):
+        price = self.price
+        if self.discount:            
+            p = self.discount * self.price // 100
+            price = price - p
+            return price
+        else:
+            return 0
+    
     def __str__(self):
-	    return self.name
+        return str(self.name)
+
 
     
 class ProductImages(models.Model):
