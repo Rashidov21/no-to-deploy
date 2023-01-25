@@ -12,8 +12,8 @@
           </div>
 
           <ul class="shopping-list">
-
-
+            {% if message %}
+            {% for product in cart.products.all %}
             <li class="shopping-list__item shop-cart">
               <img class="shop-cart__img" src="./images/cards-img.png" alt="img">
 
@@ -47,7 +47,10 @@
                 </div>
               </div>
             </li>
-            
+            {% endfor %}
+            {% else %}
+            <h2>Cart is empty !</h2>
+            {% endif %}
           </ul>
 
      

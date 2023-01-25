@@ -59,8 +59,13 @@
               </div>
             </div>
             <div class="about-content__btns">
-              <a href=""> <button>Savatcha</button></a>
-
+            
+              <a href="#" onclick="AddToCart({{product.id}})">
+                <button>Savatcha</button>
+       
+             </a>
+             
+            
             </div>
           </div>
         </div>
@@ -84,5 +89,45 @@
       </div>
     </section>
   </main>
+<script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
+  function AddToCart(product_id){
+    let csrftoken =  getCookie('csrftoken');
+    //console.log(document.cookie)
+    let qty = Number(document.querySelector(".amount-result").textContent)
+
+    fetch("/cart/add/", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        "X-CSRFToken": csrftoken
+      },
+      method: 'POST',
+      //make sure to serialize your JSON body
+      body: JSON.stringify({
+        product_id: product_id,
+        qty: qty
+      })
+    })
+    .then(data => console.log(data)) 
+  }
+  
+
+
+</script>
   {% endblock %}
