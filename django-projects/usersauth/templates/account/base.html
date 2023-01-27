@@ -24,14 +24,15 @@
     {% endif %}
 
     <div>
-      <strong>Menu:</strong>
-      <ul>
+      
+      <ul class="nav w-50 float-end d-flex py-3 justify-content-evenly">
+
         {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+        <li class="nav-item"><a href="{% url 'account_email' %}" class="nav-link btn btn-outline-primary">Change E-mail</a></li>
+        <li class="nav-item"><a href="{% url 'account_logout' %}" class="nav-link btn btn-outline-primary">Sign Out</a></li>
         {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+        <li class="nav-item"><a href="{% url 'account_login' %}" class="nav-link btn btn-outline-primary">Sign In</a></li>
+        <li class="nav-item"><a href="{% url 'account_signup' %}" class="nav-link btn btn-outline-primary">Sign Up</a></li>
         {% endif %}
       </ul>
     </div>
