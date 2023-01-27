@@ -124,7 +124,13 @@
         qty: qty
       })
     })
-    .then(data => console.log(data)) 
+    .then(data => {
+      if(data.status == "added"){
+        alert("Tovar qoshildi")
+      }else{
+        alert("Tovar uje savatchada")
+      }
+    }) 
   }
   
 

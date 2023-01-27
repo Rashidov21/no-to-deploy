@@ -28,9 +28,18 @@ class CartView(TemplateView):
         cart = cart_init(request)
         return render(request, self.template_name, {"cart":cart})
     
-
+import json
 def add_to_cart(request):
-    print(request.POST)
-
+    data = json.loads(request.body)
+    # print(data)
+    cart = cart_init(request)
+    status = cart.add(product_id=data.get("product_id"), qty=data.get("qty"))
+    if status.get("done"):
+        return JsonResponse({"status":"added"})
+    else:
+        return JsonResponse({"status":"notadded"})
     
-    return JsonResponse({"status":200})
+def deleteItem(request,product_id,qty):
+    cart = cart_init(request)
+    cart.deleteItem(product_id,qty)
+    return redirect('cart:cart')

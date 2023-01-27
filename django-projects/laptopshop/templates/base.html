@@ -59,7 +59,7 @@
               </a>
             </li>
             <li class="header-brends__icon">
-              <a href="./shopping.html">
+              <a href="{% url 'cart:cart' %}">
                 <img src="{% static 'images/shopping-cart.svg' %}" alt="Telegram icon">
               </a>
             </li>
@@ -133,8 +133,8 @@
           <h2 class="footer-shop__title">Shop</h2>
           <ul class="footer-shop__list">
             <li class="footer-shop__list-item">
-              <a class="footer-shop__list-link" href="#">Savatcha</a>
-            </li>
+              <a class="footer-shop__list-link" href="{% url 'cart:cart' %}">Savatcha</a>
+            </li> 
             <li class="footer-shop__list-item">
               <a class="footer-shop__list-link" href="#">Kategoriya</a>
             </li>
