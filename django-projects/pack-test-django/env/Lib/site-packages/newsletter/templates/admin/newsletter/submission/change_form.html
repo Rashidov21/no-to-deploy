@@ -1,0 +1,24 @@
+{% extends "admin/change_form.html" %}
+
+{% load i18n admin_urls %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<script src="{% url "admin:newsletter_js18n" %}" type="text/javascript"></script>
+<script src="{% static "newsletter/admin/js/subscriber_lookup.js" %}" type="text/javascript"></script>
+<script src="{% static "newsletter/admin/js/submit_interface.js" %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block object-tools-items %}
+  {{ block.super }}
+
+  <li><a href="{% url opts|admin_urlname:'submit' original.pk %}" id="submitlink">{% trans "Submit" %}</a></li>
+{% endblock %}
+
+{% block after_related_objects %}{{ block.super }}<script type="text/javascript">
+django.jQuery(window).load(function() {
+    JsonSubscribers.init('id_message'{% if add %}, add=true{% endif %});
+    SubmitInterface.init('#submitlink');
+});
+</script>{% endblock %}

@@ -1,0 +1,13 @@
+CHANGES.rst
+MANIFEST.in
+README.rst
+ldif3.py
+setup.cfg
+setup.py
+docs/Makefile
+docs/conf.py
+docs/index.rst
+ldif3.egg-info/PKG-INFO
+ldif3.egg-info/SOURCES.txt
+ldif3.egg-info/dependency_links.txt
+ldif3.egg-info/top_level.txt

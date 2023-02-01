@@ -1,0 +1,4 @@
+[console_scripts]
+change_tz = card_me.change_tz:main
+ics_diff = card_me.ics_diff:main
+

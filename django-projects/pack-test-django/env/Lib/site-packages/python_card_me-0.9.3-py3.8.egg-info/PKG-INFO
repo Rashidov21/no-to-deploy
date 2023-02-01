@@ -1,0 +1,33 @@
+Metadata-Version: 1.1
+Name: python-card-me
+Version: 0.9.3
+Summary: UNKNOWN
+Home-page: https://github.com/tBaxter/python-card-me
+Author: Tim Baxter, Jeffrey Harris
+Author-email: mail.baxter@gmail.com
+License: Apache
+Description: 
+        Python-Card-Me parses iCalendar and vCard files into Python data structures,
+        decoding the relevant encodings.
+        It can also serialize vobject data structures to iCalendar, vCard, or hCalendar unicode strings.
+        
+        It is a substantially reworked version of Vobject, updated for python3, with other improvements.
+        
+        Requirements
+        ------------
+        
+        Requires Python 2.7 or later, dateutil (http://labix.org/python-dateutil) 2.4 or later, and six.
+        
+        For older changes, see
+           - http://vobject.skyhouseconsulting.com/history.html or
+           - http://websvn.osafoundation.org/listing.php?repname=vobject&path=/trunk/
+        
+Platform: any
+Classifier: Development Status :: 5 - Production/Stable
+Classifier:           Environment :: Console
+Classifier:           License :: OSI Approved :: BSD License
+Classifier:           Intended Audience :: Developers
+Classifier:           Natural Language :: English
+Classifier:           Programming Language :: Python
+Classifier:           Operating System :: OS Independent
+Classifier:           Topic :: Text Processing

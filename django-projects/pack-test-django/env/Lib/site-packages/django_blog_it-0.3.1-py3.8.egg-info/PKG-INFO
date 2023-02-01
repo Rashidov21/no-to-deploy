@@ -1,0 +1,170 @@
+Metadata-Version: 1.1
+Name: django-blog-it
+Version: 0.3.1
+Summary: A simple installable app for writing blog posts
+Home-page: https://github.com/MicroPyramid/django-blog-it.git
+Author: Micropyramid
+Author-email: hello@micropyramid.com
+License: UNKNOWN
+Description: django-blog-it
+        --------------
+        
+        .. image:: https://readthedocs.org/projects/django-blog-it/badge/?version=latest
+           :target: http://django-blog-it.readthedocs.org/en/latest/?badge=latest
+        
+        .. image:: https://img.shields.io/pypi/v/django-blog-it.svg
+            :target: https://pypi.python.org/pypi/django-blog-it
+            :alt: Latest Release
+        
+        .. image:: https://travis-ci.org/MicroPyramid/django-blog-it.svg?branch=master
+           :target: https://travis-ci.org/MicroPyramid/django-blog-it
+        
+        .. image:: https://coveralls.io/repos/github/MicroPyramid/django-blog-it/badge.svg?branch=master
+           :target: https://coveralls.io/github/MicroPyramid/django-blog-it?branch=master
+        
+        .. image:: https://img.shields.io/github/license/micropyramid/django-blog-it.svg
+            :target: https://pypi.python.org/pypi/django-blog-it/
+        
+        .. image:: https://landscape.io/github/MicroPyramid/django-blog-it/master/landscape.svg?style=flat
+           :target: https://landscape.io/github/MicroPyramid/django-blog-it/master
+           :alt: Code Health
+        
+        .. image:: https://api.codacy.com/project/badge/Grade/7eab875ee3b943d1a3a443f9b5d274b9
+           :alt: Codacy Badge
+           :target: https://app.codacy.com/app/ashwin/django-blog-it?utm_source=github.com&utm_medium=referral&utm_content=MicroPyramid/django-blog-it&utm_campaign=badger
+        
+        
+        Simple blog package developed with Django.
+        
+        Features:
+        
+        - Dynamic blog articles
+        - Blog pages
+        - Contact us page (configurable)
+        - google analytics
+        - SEO compliant
+        
+        Installation
+        --------------
+        
+        1. Install django-blog-it using the following command::
+        
+            pip install django-blog-it
+        
+        
+                    (or)
+        
+            git clone git://github.com/micropyramid/django-blog-it.git
+        
+            cd django-blog-it
+        
+            python setup.py install
+        
+        2. Add app name in settings.py::
+        
+            INSTALLED_APPS = [
+               '..................',
+               'simple_pagination',
+               'django_blog_it.django_blog_it',
+               '..................'
+            ]
+        
+        3. Include the django_blog_it urls in your urls.py::
+        
+            from django.conf.urls import include
+        
+            urlpatterns = [
+                url(r'^admin/', admin.site.urls),
+                url(r'', include('django_blog_it.urls')),
+            ]
+        
+        4. After installing/cloning this, add the following settings in the virtual env/bin/activate file to start discussions on blog articles ::
+        
+            You can create your disqus account at https://disqus.com/profile/login/
+        
+            # Disquss details
+        
+            DISQUSSHORTNAME="Your Disquss Short Name"
+        
+            export DISQUSSHORTNAME
+        
+            # google api key for short url
+        
+            API_KEY="google api key"
+        
+            export API_KEY
+        
+            # google captcha
+        
+            GOOGLE_CAPTCHA_SITE_KEY="Site key"
+        
+            export GOOGLE_CAPTCHA_SITE_KEY
+        
+            GOOGLE_CAPTCHA_SECRET_KEY="Secret key"
+        
+            export GOOGLE_CAPTCHA_SECRET_KEY
+        
+            # Google Analytics Account
+        
+            GOOGLE_ANALYTICS_ID="UA-123456789"
+        
+            export GOOGLE_ANALYTICS_ID
+        
+            # Google Login
+        
+            GP_CLIENT_ID="google client id"
+        
+            export GP_CLIENT_ID
+        
+            GP_CLIENT_SECRET="secret key"
+        
+            export GP_CLIENT_SECRET
+        
+            # Facebook Login
+        
+            FB_APP_ID="facebook app id"
+        
+            export FB_APP_ID
+        
+            FB_SECRET="023df180c6d868e76a02aec17134c843"
+        
+            export FB_SECRET
+        
+            # Default E-mail
+        
+            DEFAULT_EMAIL="noreply@djangoblogit.com"
+        
+            export DEFAULT_EMAIL
+        
+        
+        5. If you cloned the package from git use virtualenv to install requirements::
+        
+            pip install -r requirements.txt
+        
+        You can try it by hosting on your own or deploy to Heroku with a button click.
+        
+        Deploy To Heroku:
+        
+        .. image:: https://www.herokucdn.com/deploy/button.svg
+           :target: https://heroku.com/deploy?template=https://github.com/MicroPyramid/django-blog-it
+        
+        Visit our Django web development page `Here`_
+        
+        We welcome your feedback and support, raise github ticket if you want to report a bug. Need new features? `Contact us here`_
+        
+        .. _contact us here: https://micropyramid.com/contact-us/
+        .. _Here: https://micropyramid.com/django-ecommerce-development/
+        
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content

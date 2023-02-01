@@ -1,0 +1,8 @@
+boto
+Django
+django-simple-pagination
+django-storages
+Pillow
+requests
+wheel
+microurl

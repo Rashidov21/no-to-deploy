@@ -1,0 +1,15 @@
+Metadata-Version: 1.1
+Name: surlex
+Version: 0.2.0
+Summary: Simple URL expression translator: alternative to regular expressions for URL pattern matching and data extraction.
+Home-page: http://github.com/codysoyland/surlex/tree/master
+Author: Cody Soyland
+Author-email: codysoyland@gmail.com
+License: BSD
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
