@@ -9,7 +9,23 @@
 <body>
     <main>
         <div class="container">
-
+            <div class="my">
+                <h3>Search objects...</h3>
+                <form action="{% url 'main_app:search' %}" method="get">
+                    <input type="text" name="q" placeholder="Search">
+                    <input type="submit">
+                </form>
+            </div>
+            <div class="my">
+                {% if message %}
+                <h3>{{message}}</h3>
+                {% endif %}
+                <ul>
+                    {% for obj in object_list %}
+                    <li>{{obj.name}} , {{obj.age}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </main>
 
@@ -19,11 +35,18 @@
             padding: 0;
             box-sizing: border-box;
             text-decoration: none;
+            font-family: "Poppins",sans-serif;
         }
         .container{
             max-width: 1440px;
             margin: 0 auto;
             padding: 0 7%;
+        }
+        .my{
+            margin: 50px 0;
+        }
+        input{
+            padding: 10px 20px;
         }
     </style>
 </body>
