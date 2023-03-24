@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/css/boxicons.min.css" integrity="sha512-cn16Qw8mzTBKpu08X0fwhTSv02kK/FojjNLz0bwp2xJ4H+yalwzXKFw/5cLzuBZCxGWIA+95X4skzvo8STNtSg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
-</head>
+{% extends 'base.html' %}
+{% load static %}
 
+{% block content %}
 <body>
     <script>
         if ( window.history.replaceState ) {
@@ -26,7 +20,7 @@
         <br>
         <br>
         <div class="container">
-            <h3>Courses</h3>
+            <h3 >Courses</h3>
             <h4>Add new course</h4>
             <form action="{% url 'main_app:add_course' %}" method="POST">
                 {% csrf_token %}
@@ -93,53 +87,4 @@
         </div>
     </main>
 
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            text-decoration: none;
-            font-family: "Poppins",sans-serif;
-            transition: all 0.3s ease-in-out;
-        }
-        .container{
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 7%;
-        }
-        .my{
-            margin: 50px 0;
-        }
-        input{
-            padding: 10px 20px;
-        }
-        .messages{
-            width: 450px;
-            padding: 20px 40px;
-            margin: 0 auto;
-            border-radius: 20px;
-            background-color: cadetblue;
-            color: white;
-            margin-top: 100px;
-            position: fixed;
-            left: 30%;
-    
-        }
-        .messages button{
-            background-color: transparent;
-            padding: 10px;
-            font-size: 1.2em;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            float: right;
-            position: relative;
-            margin-top: -40px;
-        }
-        .messages button:hover{
-            transform: rotate(90deg);
-        }
-    </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.1.4/dist/boxicons.js" integrity="sha512-kWH92pHUC/rcjpSMu19lT+H6TlZwZCAftg9AuSw+AVYSdEKSlXXB8o6g12mg5f+Pj5xO40A7ju2ot/VdodCthw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</body>
-</html>
+{% endblock %}
