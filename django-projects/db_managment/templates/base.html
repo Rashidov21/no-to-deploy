@@ -8,6 +8,19 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <title>Document</title>
 </head>
+<header>
+    <nav class="contianer">
+        <ul class="nav px-5 py-3 ">
+            <li class="nav-item">
+                <a href="/" class="nav-link fw-bold">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'articles:post_list' %}" class="nav-link fw-bold">Posts</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<body>
 {% block content %}
 {% endblock %}
 
