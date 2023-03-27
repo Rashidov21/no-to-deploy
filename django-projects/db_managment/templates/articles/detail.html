@@ -1,0 +1,33 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="container">
+        <h3 class="text-center">Posts</h3>
+        <div class="my-5"></div>
+        <div class="posts d-flex justify-content-center align-items-center gap-5">
+          
+            <div class="card p-3 shadow">
+                <h3>{{object.title}}</h3>
+                <p>{{object.body}}</p>
+                <p class="d-flex justify-content-around">
+                    <a href="#" class="text-decoration-none">
+                        <i class="fa-solid fa-user"></i>
+                        {{object.author}}
+                    </a>
+                    <a href="#" class="text-decoration-none">
+                        <i class="fa-solid fa-clock"></i>
+                        {{object.published_date|date:'H:m'}}
+                    </a>
+                    <a href="#" class="text-decoration-none">
+                        <i class="fa-solid fa-calendar"></i>
+                        {{object.published_date|date:'d M Y'}}
+                    </a>
+                </p>
+            </div>
+           
+        </div>
+    </div>
+</main>
+
+{% endblock %}
