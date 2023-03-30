@@ -10,7 +10,20 @@
             <div class="card p-3 shadow">
                 <h3>{{object.title}}</h3>
                 <p>{{object.body}}</p>
+
+                <p class="px-5 d-flex justify-content-around flex-wrap">
+                    <a href="#" class="text-decoration-none">
+                        <i class="fa-solid fa-eye"></i>
+                        {{object.views}}
+                    </a>
+                    <a href="#" class="text-decoration-none">
+                        <i class="fa-solid fa-star"></i>
+                        {{object.rating}}
+                    </a>
+                </p>
+
                 <p class="d-flex justify-content-around">
+      
                     <a href="#" class="text-decoration-none">
                         <i class="fa-solid fa-user"></i>
                         {{object.author}}

@@ -26,7 +26,7 @@
                 <div class="posts d-flex justify-content-center align-items-center gap-5">
                     {% for article in posts %}
                     <div class="card p-3 shadow">
-                        <a href="{% url 'articles:detail' article.id %}">
+                        <a href="{% url 'articles:detail' article.slug %}">
                             <h3>{{article.title}}</h3>
                         </a>     
                         <p>{{article.body|truncatewords:'25'}}</p>
