@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Avg
 # from django.template.defaultfilters import slugify
 
 
@@ -22,7 +23,9 @@ class Tag(models.Model):
     
     def __str__(self):
         return str(self.name)
-    
+
+
+  
 class Article(models.Model):
     title = models.CharField(max_length=300)
     slug = models.SlugField(max_length=300, unique=True)
@@ -30,15 +33,29 @@ class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='categories')
     author = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
     body = models.TextField()
-    rating = models.PositiveIntegerField(default=0)
     published = models.BooleanField(default=False)
     published_date = models.DateTimeField(auto_now_add=True)
     on_top = models.BooleanField(default=False)
     comments = models.PositiveIntegerField(default=0)
     views = models.PositiveIntegerField(default=0)
     
+    @property
+    def average_rating(self):
+        rating = self.rating_set.all().aggregate(Avg('value'))['value__avg']
+        if rating:
+            return rating
+        else:
+            return 0 
+        
+    
     def __str__(self):
         return str(self.title)
+
+class Rating(models.Model):
+    value = models.PositiveIntegerField(default=0)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='post_comments')
@@ -47,4 +64,5 @@ class Comment(models.Model):
     
     def __str__(self):
         return str(self.user.username)
+    
     

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
 
 from .models import *
 from .utils import check_article_view
@@ -40,4 +41,24 @@ def category_list(request, category_slug):
     articles = Article.objects.filter(category=category)
     return render(request, 'articles/category_posts.html', context={"posts":articles})
     # comm
+    
+import json
+def add_rating(request):
+ 
+    data = json.loads(request.GET.get("data"))
+
+    if data:
+        article = Article.objects.get(pk=int(data.get("article_id")))
+        for rate in article.rating_set.all():            
+            if request.user == rate.user:
+                return JsonResponse({"status":400})
+        else:
+            Rating.objects.create(
+                value=int(data.get("rating")),
+                article=article,
+                user=request.user
+            )
+            return JsonResponse({"status":200, "updated_rating":article.average_rating})
+    else:
+        return JsonResponse({"status":404})
     

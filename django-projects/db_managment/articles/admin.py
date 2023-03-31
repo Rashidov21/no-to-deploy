@@ -18,4 +18,6 @@ class ArticleAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'views']
     prepopulated_fields = {"slug":("title",)} 
     
+admin.site.register(Rating)
+    
 

@@ -11,19 +11,12 @@
                 <h3>{{object.title}}</h3>
                 <p>{{object.body}}</p>
 
-                <p class="px-5 d-flex justify-content-around flex-wrap">
+
+                <p class="d-flex justify-content-around">
                     <a href="#" class="text-decoration-none">
                         <i class="fa-solid fa-eye"></i>
                         {{object.views}}
                     </a>
-                    <a href="#" class="text-decoration-none">
-                        <i class="fa-solid fa-star"></i>
-                        {{object.rating}}
-                    </a>
-                </p>
-
-                <p class="d-flex justify-content-around">
-      
                     <a href="#" class="text-decoration-none">
                         <i class="fa-solid fa-user"></i>
                         {{object.author}}
@@ -36,11 +29,48 @@
                         <i class="fa-solid fa-calendar"></i>
                         {{object.published_date|date:'d M Y'}}
                     </a>
+                  
                 </p>
             </div>
-           
+
         </div>
-    </div>
+        <div class="my-5"><hr></div>
+           
+        <div class="card px-4 py-3 shadow-lg d-flex justify-content-around">
+            <h3>Post rating : <span id="article_rating">{{object.average_rating}}</span></h3>
+            <div class="d-flex gap-3">
+                <a href="#" onclick="SetArticleRating(1,{{object.id}})" class="text-decoration-none fs-4 text-warning d-flex flex-column text-center">
+                    <i class="fa-solid fa-star"></i>
+                    <span class="text-muted fs-5">1</span>
+                </a>
+                <a href="#" onclick="SetArticleRating(2,{{object.id}})"  class="text-decoration-none fs-4 text-warning d-flex flex-column text-center">
+                    <i class="fa-solid fa-star"></i>
+                    <span class="text-muted fs-5">2</span>
+                </a>
+                <a href="#" onclick="SetArticleRating(3,{{object.id}})"  class="text-decoration-none fs-4 text-warning d-flex flex-column text-center">
+                    <i class="fa-solid fa-star"></i>
+                    <span class="text-muted fs-5">3</span>
+                </a>
+                <a href="#" onclick="SetArticleRating(4,{{object.id}})"  class="text-decoration-none fs-4 text-warning d-flex flex-column text-center">
+                    <i class="fa-solid fa-star"></i>
+                    <span class="text-muted fs-5">4</span>
+                </a>
+                <a href="#" onclick="SetArticleRating(5,{{object.id}})"  class="text-decoration-none fs-4 text-warning d-flex flex-column text-center">
+                    <i class="fa-solid fa-star"></i>
+                    <span class="text-muted fs-5">5</span>
+                </a>    
+                <input type="hidden" id="token" name="csrfmiddlewaretoken" value="">   
+            </div>
+            <h5 class="my-3">Post comments</h5>
+            <div>
+                <a href="#" class="text-decoration-none">
+                    <i class="fa-solid fa-user"></i>
+                    {{object.author}}
+                </a>
+         
+            </div>
+     </div>
+        </div>
 </main>
 
 {% endblock %}
