@@ -63,6 +63,6 @@ class Comment(models.Model):
     comment = models.TextField()
     
     def __str__(self):
-        return str(self.user.username)
+        return str(self.article.slug)
     
     

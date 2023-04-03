@@ -61,16 +61,48 @@
                 </a>    
                 <input type="hidden" id="token" name="csrfmiddlewaretoken" value="">   
             </div>
-            <h5 class="my-3">Post comments</h5>
+            <h5 class="my-3">Post comments : <span>{{comments.count }}</span></h5>
+            {% for comment in comments %}
+            <div class="comment p-2">
+                {% if comment.user == None %}
+                    <h5>Anonymus user</h5>
+                {% else %}
+                    <h5>{{comment.user}}</h5>
+                {% endif %}
+                <p>{{comment.comment}}</p>
+                {% if request.user.is_superuser %}
+                <div class="float-end">
+                    <a href="{% url 'articles:delete_comment' comment.id %}">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </div>
+                {% endif %}
+                <hr width="300">
+            </div>
+            {% endfor %}
             <div>
-                <a href="#" class="text-decoration-none">
-                    <i class="fa-solid fa-user"></i>
-                    {{object.author}}
-                </a>
-         
+                <div>
+                    {% if messages %}
+                    <div class="messages list-style-none w-50">
+                        {% for message in messages %}
+                        <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}
+                            <button class="float-end" onclick="this.parentElement.style.display= 'none'">&times;</button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <form action="" method="post">
+                    <p>
+                        {% csrf_token %}
+                        <textarea name="comment" id=""  cols="50" rows="4"></textarea>
+                    </p>
+                    <input type="submit" class="btn btn-success">
+                </form>         
             </div>
      </div>
         </div>
+        <div class="my-5"></div>
 </main>
 
 {% endblock %}

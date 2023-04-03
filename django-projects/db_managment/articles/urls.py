@@ -9,5 +9,6 @@ urlpatterns = [
     path('detail/<slug:article_slug>', views.post_detail, name='detail'),
     path("category/<slug:category_slug>/", views.category_list, name='category_list'),
     
-    path('add/rating/', views.add_rating, name="add_rating")
+    path('add/rating/', views.add_rating, name="add_rating"),
+    path("delete/comment/<int:comment_id>", views.delete_comment, name='delete_comment')
 ]

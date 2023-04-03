@@ -22,4 +22,5 @@ urlpatterns = [
     
     
     path('posts/', include('articles.urls', namespace='articles')),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]

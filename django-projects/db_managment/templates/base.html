@@ -10,6 +10,11 @@
     <title>Document</title>
 </head>
 <header>
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
     <nav class="contianer">
         <ul class="nav px-5 py-3 ">
             <li class="nav-item">

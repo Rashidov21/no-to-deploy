@@ -19,5 +19,6 @@ class ArticleAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug":("title",)} 
     
 admin.site.register(Rating)
+admin.site.register(Comment)
     
 

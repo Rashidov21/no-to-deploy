@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render,redirect
+from django.http import JsonResponse
+from django.contrib import messages
 
 from .models import *
 from .utils import check_article_view
@@ -26,15 +27,34 @@ def all_articles_view(request):
 
 
 def post_detail(request,article_slug):
-    article = Article.objects.get(slug=article_slug)  
+    article = Article.objects.select_related("author").get(slug=article_slug)  
     
     if check_article_view(request,article.id):
         article.views += 1
         article.save()
     else:
         pass  
-
-    return render(request, 'articles/detail.html', context={"object":article})
+    article_comments = article.post_comments.all()
+    data = {"object":article, 'comments':article_comments}
+    if request.method == "POST":
+        comment = request.POST.get("comment")
+        u = None
+        if request.user.is_authenticated:
+            u = request.user
+        else:
+            u = None
+     
+        
+        if len(comment) > 3:
+            Comment.objects.create(article=article, user=u,comment=comment)
+            messages.add_message(request, messages.SUCCESS, "Commented !")
+            data.update({"comments":article_comments})
+            return render(request, 'articles/detail.html', context=data)
+        else:
+            messages.add_message(request, messages.WARNING, "Comment too short !")
+            return render(request, 'articles/detail.html', context=data)
+            
+    return render(request, 'articles/detail.html', context=data)
 
 def category_list(request, category_slug):
     category = Category.objects.get(slug=category_slug)
@@ -61,4 +81,11 @@ def add_rating(request):
             return JsonResponse({"status":200, "updated_rating":article.average_rating})
     else:
         return JsonResponse({"status":404})
+    
+
+def delete_comment(request, comment_id):
+    com = Comment.objects.get(pk=comment_id)
+    com.delete()
+    
+    return redirect("/posts/detail/"+com.article.slug)
     
