@@ -1,0 +1,20 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+<main>
+    <div class="container">
+        <h3 class="text-center">Add Article Form</h3>
+        <div class="my-5"></div>
+        <div class="posts d-flex justify-content-center align-items-center gap-5">
+            <form action="" method="post" enctype="multipart/form-data" class="p-3 shadow-lg w-50">
+                {% csrf_token %}
+                {{form}}
+                <div class="my-2"></div>
+                <div>
+                    <input type="submit" value="Add" class="btn btn-outline-success">
+                </div>
+            </form>
+        </div>
+</main>
+
+{% endblock %}

@@ -1,9 +1,11 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.contrib import messages
+from django.views.generic import ListView
 
 from .models import *
 from .utils import check_article_view
+from .forms import AddArticleForm
 
 # Create your views here.
 def all_articles_view(request):
@@ -89,3 +91,21 @@ def delete_comment(request, comment_id):
     
     return redirect("/posts/detail/"+com.article.slug)
     
+from django.template.defaultfilters import slugify
+def add_article(request):
+    form = AddArticleForm()
+    if request.method == "POST":
+        form = AddArticleForm(request.POST)
+
+        if form.is_valid():
+            f = form.save(commit=False)
+            f.slug = slugify(f.title)
+            f.tag = f.cleaned_data.get("tag")
+            print(f.tag)
+            f.author = request.user
+            f.save()
+            messages.add_message(request, messages.SUCCESS, "Form saved!")
+            return redirect('/')
+        else:
+            messages.add_message(request, messages.ERROR, "Form not valid!")
+    return render(request, 'articles/add.html', {"form":form})
