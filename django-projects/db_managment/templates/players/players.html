@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+
+    <main>
+        <br>
+        <br>
+        <div class="container">
+            {% if messages %}
+            {% for message in messages %}
+                <div class="messages">
+                    <h4>{{message}}</h4>
+                    <button onclick="this.parentElement.style.display= 'none'">X</button>
+                </div>
+            {% endfor %}
+            {% endif %}
+            <h3 >Players</h3>
+
+          
+    
+
+        </div>
+    </main>
+
+{% endblock %}
