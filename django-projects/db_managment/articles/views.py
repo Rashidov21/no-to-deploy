@@ -91,7 +91,7 @@ def delete_comment(request, comment_id):
     
     return redirect("/posts/detail/"+com.article.slug)
     
-from django.template.defaultfilters import slugify
+
 def add_article(request):
     form = AddArticleForm()
     if request.method == "POST":
@@ -99,11 +99,8 @@ def add_article(request):
 
         if form.is_valid():
             f = form.save(commit=False)
-            f.slug = slugify(f.title)
-            f.tag = f.cleaned_data.get("tag")
-            print(f.tag)
             f.author = request.user
-            f.save()
+            f.save()            
             messages.add_message(request, messages.SUCCESS, "Form saved!")
             return redirect('/')
         else:
