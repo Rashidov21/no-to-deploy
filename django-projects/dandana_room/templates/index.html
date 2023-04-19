@@ -1,0 +1,339 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <!-- HEADER -->
+
+  <header class="dandana-header">
+    <div class="container">
+      <div class="dandana-header__inner">
+
+        <div class="dandana-header__inner-burger">
+          <span class="inner__burger-span"></span>
+          <span class="inner__burger-span"></span>
+          <span class="inner__burger-span"></span>
+        </div>
+
+        <a class="dandana-header__inner-hd1" href="#">Salom, mehmon !</a>
+
+        <form class="dandana-header__inner-form">
+          <img class="inner__form-img" src="{% static 'image/loop.png' %}" alt="">
+          <input class="inner__form-search" type="text" placeholder="Bugun qanday taom ta’tib ko’ramiz ?">
+        </form>
+
+      </div>
+    </div>
+  </header>
+  
+  <div class="second-serve">
+    <form class="second-serve__form">
+      <img class="second-serve__form-img" src="{% static 'image/loop.png' %}" alt="">
+      <input class="second-serve__form-inp" type="text" placeholder="Bugun qanday taom ta’tib ko’ramiz ?">
+    </form>
+  </div>
+
+
+  <!-- MAIN -->
+
+  <main>
+
+    <!-- SECTION - 1 < HERO > -->
+
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <!-- text -->
+          <div class="hero-inner__discount">
+            <h2 class="hero-inner__discount-hd2">Barcha hamrli ovqatlar <br> uchun CHEGIRMA !</h2>
+            <p class="hero-inner__discount-title">Lag’mon, Ayrimsay, Chuchvara va Manpar taomlari uchun 15% <br> gacha chegirmalar shu oyning 25-sanasiga qadar mavjud.</p>
+          </div>
+          <!-- text -->
+        </div>
+      </div>
+    </section>
+    
+    <!-- SECTION - 2 < SORT > -->
+
+    <section class="sort">
+      <div class="container">
+        <div class="sort-inner">
+          <!-- text -->
+          <div class="sort-inner__text">
+            <h2 class="sort-inner__text-hd2">Ovqat turlari</h2>
+            <a href="#" class="sort-inner__text-link">Barchasini ko’rish <img src="./image/Vector.png" alt=""></a>
+          </div>
+          <!-- text -->
+          <!-- img -->
+          <div class="sort-inner__looks">
+
+            <a class="sort-inner__looks-link'" href="./type-1.html">
+              <div class="looks__link-card">
+                <img class="link__card-img" src="{% static 'image/qoyiq.png' %}" alt="">
+                Qo'yiq
+              </div>
+            </a>
+
+            <a class="sort-inner__looks-link'" href="#">
+              <div class="looks__link-card">
+                <img class="link__card-img" src="{% static 'image/suyuq.png' %}" alt="">
+                Suyuq
+              </div>
+            </a>
+
+            <a class="sort-inner__looks-link'" href="#">
+              <div class="looks__link-card">
+                <img class="link__card-img" src="{% static 'image/hamrli.png' %}" alt="">
+                Hamrli
+              </div>
+            </a>
+
+            <a class="sort-inner__looks-link'" href="#">
+              <div class="looks__link-card">
+                <img class="link__card-img" src="{% static 'image/shashliklar.png' %}" alt="">
+                Shashliklar  
+              </div>
+            </a>
+
+            <a class="sort-inner__looks-link'" href="#">
+              <div class="looks__link-card">
+                <img class="link__card-img" src="{% static 'image/Saladlar.png' %}" alt="">
+                Saladlar
+              </div>
+            </a>
+
+            <a class="sort-inner__looks-link'" href="#">
+              <div class="looks__link-card">
+                <img class="link__card-img" src="{% static 'image/ichimliklar.png' %}" alt="">
+                Ichimliklar
+              </div>
+            </a>
+
+          </div>
+          <!-- img -->
+        </div>
+      </div>
+    </section>
+
+    <!-- popular -->
+
+    <section class="popular">
+      <div class="container">
+        <div class="popular-inner">
+          <!-- text -->
+          <div class="popular-inner__text">
+            <h2 class="popular-inner__text-hd2">Mashhur taomlarimiz</h2>
+            <a href="#" class="popular-inner__text-link">Barchasini ko’rish <img src="./image/Vector.png" alt=""></a>
+          </div>
+          <!-- text -->
+          <!-- cards -->
+          <div class="popular-inner__cards">
+            <div class="popular-inner__cards-boxes">
+              <div class="cards__boxes-img">
+                <img class="big-burger" src="./image/fir-burger.png" alt="">
+              </div>
+
+              <div class="cards__boxes-text">
+                <div class="boxes__text-info">
+                  <img  src="./image/rating.png" alt="">
+                  <p class="text__info-title">Baliqli Burger</p>
+                  <span class="text__info-span">25.000</span>
+                </div>
+                <img class="fir-plus pluses" src="./image/button-plus.png" alt="">
+              </div>
+            </div>  
+
+            <div class="popular-inner__cards-boxes">
+              <div class="cards__boxes-img">
+                <img class="big-burger" src="./image/sec-burger.png" alt="">
+              </div>
+
+              <div class="cards__boxes-text">
+                <div class="boxes__text-info">
+                  <img src="./image/rating.png" alt="">
+                  <p class="text__info-title">Go'shtli Burger</p>
+                  <span class="text__info-span">30.000</span>
+                </div>
+                <img class="fir-plus pluses" src="./image/button-plus.png" alt="">
+              </div>
+            </div>
+
+            <div class="popular-inner__cards-boxes">
+              <div class="cards__boxes-img">
+                <img class="big-burger" src="./image/thr-burger.png" alt="">
+              </div>
+
+              <div class="cards__boxes-text">
+                <div class="boxes__text-info">
+                  <img src="./image/rating.png" alt="">
+                  <p class="text__info-title">Pishloqli Burger</p>
+                  <span class="text__info-span">25.000</span>
+                </div>
+                <img class="fir-plus pluses" src="./image/button-plus.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- menu -->
+
+    
+    <section class="menu">
+      <div class="container">
+        <div class="menu-inner">
+          <!-- text -->
+          <div class="menu-inner__text">
+            <h2 class="menu-inner__text-hd2">Mashhur taomlarimiz</h2>
+            <a href="#" class="menu-inner__text-link">Barchasini ko’rish <img src="./image/Vector.png" alt=""></a>
+          </div>
+          <!-- text -->
+          <!-- cards -->
+          <div class="menu-inner__cards">
+            <div class="menu-inner__cards-items">
+              <div class="cards__items-img">
+                <img class="big-lagmon" src="./image/lag'mon.png" alt="">
+              </div>
+
+              <div class="cards__items-text">
+                <div class="items__text-about">
+                  <img  src="./image/rating.png" alt="">
+                  <p class="text__about-title">Uyg'ur Lag'mon</p>
+                  <span class="text__about-span">25.000</span>
+                </div>
+                <img class="fir-plus pluses" src="./image/button-plus.png" alt="">
+              </div>
+            </div>
+
+            <div class="menu-inner__cards-items">
+              <div class="cards__items-img">
+                <img class="big-lagmon" src="./image/lag'mon.png" alt="">
+              </div>
+
+              <div class="cards__items-text">
+                <div class="items__text-about">
+                  <img src="./image/rating.png" alt="">
+                  <p class="text__about-title">Uyg'ur Lag'mon</p>
+                  <span class="text__about-span">25.000</span>
+                </div>
+                <img class="fir-plus pluses" src="./image/button-plus.png" alt="">
+              </div>
+            </div>
+
+            <div class="menu-inner__cards-items">
+              <div class="cards__items-img">
+                <img class="big-lagmon" src="./image/lag'mon.png" alt="">
+              </div>
+
+              <div class="cards__items-text">
+                <div class="items__text-about">
+                  <img src="./image/rating.png" alt="">
+                  <p class="text__about-title">Uyg'ur Lag'mon</p>
+                  <span class="text__about-span">25.000</span>
+                </div>
+                <img class="fir-plus pluses" src="./image/button-plus.png" alt="">
+              </div>
+            </div>
+
+          </div>
+          <!-- cards -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ORDER -->
+
+    <section class="order">
+      <div class="container">
+        <div class="order-inner">
+
+          <!-- text -->
+          <div class="order-inner__text">
+            <h2 class="order-inner__texthd2">Hozir buyurtma qilishdi</h2>
+            <a href="#" class="order-inner__text-link">Barchasini ko’rish <img src="./image/Vector.png" alt=""></a>
+          </div>
+          <!-- text -->
+
+          <!-- location -->
+          <div class="order-inner__location">
+
+            <div class="order-inner__location-food">
+              <img src="./image/last-pizza.png" alt="">
+              <p class="location__food-title">Pepperoni</p>
+              <span class="location__food-span">30.000</span>
+              <h3 class="location__food-hd3">4.97 km 21 min</h3>
+            </div>
+
+            <div class="order-inner__location-food">
+              <img src="./image/last-lagmon.png" alt="">
+              <p class="location__food-title">Uyg'ur Lag'mon</p>
+              <span class="location__food-span">20.000</span>
+              <h3 class="location__food-hd3">4.97 km 21 min</h3>
+            </div>
+
+            <div class="order-inner__location-food">
+              <img src="./image/last-meat.png" alt="">
+              <p class="location__food-title">Qovurma Lag'mon</p>
+              <span class="location__food-span">18.000</span>
+              <h3 class="location__food-hd3">4.97 km 21 min</h3>
+            </div>
+            
+          </div>
+          <!-- location -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- SIDEBAR -->
+
+  <div class="sidebar">
+    <div class="sidebar-inner">
+
+      <div class="sec-burger">
+        <div class="anim1"></div>
+        <div class="anim2"></div>
+      </div>
+
+      <div class="sidebar-inner__services">
+        <p class="sidebar-inner__services-title"><span class="services__title-span">D</span>andana.</p>
+
+        <div class="sidebar-inner__services-items">
+          <a class="services__items-infos fir" href="index.html">
+            <img class="items__infos-img location" src="./image/Restaurant-Location.svg" alt="">
+            Asosiy
+          </a>
+          <a class="services__items-infos sec" href="orders.html">
+            <img class="items__infos-img delivery" src="./image/Delivery.svg" alt="">
+            Buyurtmalar
+          </a>
+          <a class="services__items-infos thr" href="#">
+            <img class="items__infos-img bill" src="./image/Bill.svg" alt="">
+            Kafe haqida
+          </a>
+          <a class="services__items-infos fou" href="#">
+            <img class="items__infos-img like" src="./image/like.svg" alt="">
+            Menga yoqdi !
+          </a>
+          <a class="services__items-infos fiv" href="#">
+            <img class="items__infos-img dislike" src="./image/dislike.svg" alt="">
+            Ma'qul kelmadi
+          </a>
+        </div>
+      </div>
+
+      <div class="sidebar-inner__card">
+        <h3 class="sidebar-inner__card-hd3">Upgrade your <br>
+          Account to Get Free<br> Voucher</h3>
+          <button class="sidebar-inner__card-upgrade">Upgrade</button>
+      </div>
+
+      <div class="sidebar-inner__reserve">
+        <p class="sidebar-inner__reserve-title">All rights Reserved <imgs class="reserve__title-symbol" src="./image/Symbol.png" alt=""></p>
+          <h4 class="sidebar__reserve-hd4">By Abdurakhmon Rashidov, 2023</h4>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
