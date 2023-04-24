@@ -27,29 +27,50 @@
                         <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
                           Categories
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                        <a href="{% url 'players:sort_by_position' 'gk' %}" class="list-group-item list-group-item-action">
+                          Goalkeeper
+                        </a>
+                        <a href="{% url 'players:sort_by_position' 'df' %}" class="list-group-item list-group-item-action">
+                          Deffender
+                        </a>
+                        <a href="{% url 'players:sort_by_position' 'md' %}" class="list-group-item list-group-item-action">
+                          Middle Deffender
+                        </a>
+                        <a href="{% url 'players:sort_by_position' 'fw' %}" class="list-group-item list-group-item-action">
+                          Forward
+                        </a>
+                        <a href="{% url 'players:sort_by_position' 'st' %}" class="list-group-item list-group-item-action">
+                          Stiker
+                        </a>
             
                       </div>
                       <div class="list-group mt-3">
                         <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                          Clubs
+                          Sort by Club
                         </a>
-                        <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+                        {% for c in club_list %}
+                          <a href="{% url 'players:sort_by_club' c.name %}" class="list-group-item list-group-item-action">
+                            <img width="30" height="30" src="{{c.logo.url}}" alt=""> {{c.name}}
+                          </a>
+                        {% endfor %}
             
                       </div>
-                      <div class="list-group mt-3">
-                        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                          Countries
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-            
-                      </div>
-                      <form action="">
-                        <label for="disabledRange" class="form-label">Filter by price</label>
-                        <input type="range" class="form-range" id="disabledRange" >
+
+                      <form action="" class="mb-5">
+                        <label for="disabledRange" class="form-label">Filter by age : 
+                          <span class="slected_price"></span>
+                        </label>
+                        <input 
+                          type="range" 
+                          id="price" 
+                          value="0" 
+                          min="0" 
+                          max="{{max_price}}" 
+                          class="form-range"
+                        >
                         <label for="disabledRange" class="form-label">Filter by age</label>
                         <input type="range" class="form-range" id="disabledRange" >
-                        
+        
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
@@ -83,12 +104,15 @@
                       </form>
                 </div>
                 <div class="col-9">
+                  {% if  info %}
+                    <h3 >{{info}}</h3>
+                  {% else %}
                     <h3 >Players</h3>
-
+                  {% endif %}
                     {% for obj in object_list %}
                     <div class="card shadow-lg px-5 py-2">
                         <div class="d-flex flex-wrap justify-content-between ">
-                            <img class="img-rounded" src="{{obj.image.url}}" alt="">
+                            <img width="150" height="150" src="{{obj.image.url}}" alt="">
                             <div class="info">
                                 <h4>{{obj.name}}</h4>
                                 <p>Club : <a href="" class="text-decoration-none">{{obj.club}}</a> </p>

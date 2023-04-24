@@ -24,6 +24,7 @@ class Player(models.Model):
     
     name = models.CharField(max_length=150)
     birthday = models.DateField(blank=True)
+    age = models.PositiveIntegerField(default=0, blank=True)
     image = models.ImageField(upload_to='players/%Y/%m/%d')    
     height = models.FloatField(blank=True)
     weight = models.FloatField(blank=True)

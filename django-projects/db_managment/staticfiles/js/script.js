@@ -25,3 +25,9 @@ function SetArticleRating(rating,article_id){
     })
 
 }
+
+
+
+document.querySelector("#price").addEventListener("change", (e)=>{
+    document.querySelector(".slected_price").innerHTML = e.target.value
+  })
