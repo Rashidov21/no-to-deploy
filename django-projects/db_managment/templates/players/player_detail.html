@@ -1,0 +1,48 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+
+    <main>
+        <br>
+        <br>
+        <div class="container">
+            {% if messages %}
+            {% for message in messages %}
+                <div class="messages">
+                    <h4>{{message}}</h4>
+                    <button onclick="this.parentElement.style.display= 'none'">X</button>
+                </div>
+            {% endfor %}
+            {% endif %}
+            <div class="row">
+                <div class="col-12">
+       
+                    <div class="card shadow-lg px-5 py-2">
+                        <div class="d-flex flex-wrap justify-content-between ">
+                            <img width="150" height="150" src="{{object.image.url}}" alt="">
+                            <div class="info">
+                                <h4>{{object.name}}</h4>
+                                <p>Club : <a href="" class="text-decoration-none">{{object.club}}</a> </p>
+                                <p>{{object.country}}</p>
+                                <p>{{object.age}}</p>
+                                <p>{{object.height}}</p>
+                                <p>{{object.weight}}</p>
+                            </div>
+                        </div>
+                      </div>
+                  
+                </div>
+            </div>
+    
+
+        </div>
+    </main>
+
+{% endblock %}

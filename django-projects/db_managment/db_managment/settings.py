@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'main_app',
     'players',
     'articles',
+    'django_unicorn',
+    'unicornapp',
     'debug_toolbar'
 ]
 INTERNAL_IPS = [

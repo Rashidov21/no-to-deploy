@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 
 # Create your models here.
@@ -9,7 +10,10 @@ class Club(models.Model):
         return str(self.name)
 
 
-    
+def calculate_age(born):
+    today = date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+ 
 
 class Player(models.Model):
     
@@ -35,6 +39,10 @@ class Player(models.Model):
     
     def __str__(self):
         return str(self.name)
+    
+    # def save(self):
+    #     self.age = calculate_age(self.birthday)
+    #     self.save()
 
 
 class PlayerImages(models.Model):

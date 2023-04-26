@@ -1,4 +1,5 @@
 {% load static %}
+{% load unicorn %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% unicorn_scripts %}
     <title>Document</title>
 </head>
 <header>
+   
     <script>
         if ( window.history.replaceState ) {
             window.history.replaceState( null, null, window.location.href );
@@ -22,6 +25,9 @@
             </li>
             <li class="nav-item">
                 <a href="{% url 'articles:post_list' %}" class="nav-link fw-bold">Posts</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'players:players' %}" class="nav-link fw-bold">Players</a>
             </li>
             <li class="nav-item">
                 <a href="{% url 'articles:add_article' %}" class="nav-link fw-bold">Add Post</a>

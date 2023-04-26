@@ -28,6 +28,10 @@ function SetArticleRating(rating,article_id){
 
 
 
-document.querySelector("#price").addEventListener("change", (e)=>{
+document.querySelector("#price").addEventListener("keyup", (e)=>{
     document.querySelector(".slected_price").innerHTML = e.target.value
+  })
+
+document.querySelector("#age").addEventListener("change", (e)=>{
+    document.querySelector(".slected_age").innerHTML = e.target.value
   })

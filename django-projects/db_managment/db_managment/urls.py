@@ -21,7 +21,8 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('', include('players.urls', namespace='players')),
+    path('', include('unicornapp.urls', namespace='unicornapp')),
+    path('players/', include('players.urls', namespace='players')),
     path('admin/', admin.site.urls),
     
     
@@ -31,6 +32,9 @@ urlpatterns = [
     
     path('posts/', include('articles.urls', namespace='articles')),
     path('__debug__/', include('debug_toolbar.urls')),
+    
+    # AJAX - reactive Unicorn app 
+    path("unicorn/", include("django_unicorn.urls")),
 ]
 
 

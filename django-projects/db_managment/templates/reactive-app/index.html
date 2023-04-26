@@ -1,0 +1,15 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block content %}
+{% load unicorn %}
+{% unicorn_scripts %}
+{% csrf_token %}
+    <main>
+        <section>
+            <div class="container">
+                {% unicorn 'form' %}
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

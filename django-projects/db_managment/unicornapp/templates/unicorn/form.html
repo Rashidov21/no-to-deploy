@@ -1,0 +1,22 @@
+<div>
+    <form action="" class="w-50 card shadow py-3 px-5">
+        <p>
+            <input class="form-control" name="query" type="text" unicorn:change="search_player($event.target.value.trim())">
+        </p>
+        {% if finded_players %}
+        <p>
+            {% for obj in finded_players %}
+            <ul class="list-unstyled">
+                <li class="my-2">
+                    <a href="{% url 'players:player_detail' obj.id %}" class="d-flex gap-3 text-decoration-none text-muted">
+                        <img src="{{obj.image.url}}" width="50" height="50" alt="">
+                        <h4>{{obj.name}}</h4>
+                    </a>
+                </li>
+            </ul>
+            {% endfor %}     
+        </p>
+        {% endif %}
+       
+    </form>
+</div>

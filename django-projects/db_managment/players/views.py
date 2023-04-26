@@ -1,15 +1,14 @@
-from datetime import date
+
+
+from django.urls import reverse
 
 from django.shortcuts import render
-from django.views.generic import View, ListView
+from django.views.generic import View, ListView,DetailView
 from .models import Player,Club
 
-from django.db.models import Min, Max, Avg 
+from django.db.models import Min, Max, Avg , Q, F
 
 # Create your views here.
-def calculate_age(born):
-    today = date.today()
-    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
 
 
@@ -18,13 +17,14 @@ class PlayersHomeView(View):
     
     # http get method handler 
     def get(self,request):
-        players = Player.objects.all()
-        clubs = Club.objects.all()
-
-        for pl in players:
-            print(calculate_age(pl.birthday))
-
         
+        
+        
+        players = Player.objects.all()
+        # for p in players:
+        #     p.age = calculate_age(p.birthday)
+        #     p.save()
+        clubs = Club.objects.all()       
 
         data = {
             "object_list":players,
@@ -35,6 +35,10 @@ class PlayersHomeView(View):
     # http post method handler 
     def post(self,request):
         pass
+
+class PlayerDetailView(DetailView):
+    model = Player
+    template_name = "players/player_detail.html"
 
 class SortByClub(View):
     
@@ -65,5 +69,32 @@ class SortByPositon(View):
              "info":f"Sorting players by postion."
         }
         return render(request, "players/players.html", context=data)
-        
+
+class PlayerFilterFormView(View):
     
+    
+    def get(self,request):
+        price = request.GET.get("price")
+        age = request.GET.get("age")
+        gk = request.GET.get("gk")
+        df = request.GET.get("df")
+        md = request.GET.get("md")
+        fw = request.GET.get("fw")
+        st = request.GET.get("st")
+        
+        
+        
+        if price or age or any([gk,df,md,fw,st]):
+            object_list= Player.objects.filter(
+               ( Q(position=gk) | Q(position=df) | Q(position=md)| Q(position=fw)| Q(position=st))
+                ).filter(Q(current_price__lte=int(price)) | Q(age__lte=int(age)))
+
+           
+            print(object_list)
+            data = {
+                "object_list":object_list,
+                "info":f"Sorting players by filter form."
+            }
+            return render(request, "players/players.html", context=data)
+        else:
+            return render(request, "players/players.html")
