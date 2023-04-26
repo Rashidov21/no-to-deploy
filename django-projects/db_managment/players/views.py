@@ -98,3 +98,6 @@ class PlayerFilterFormView(View):
             return render(request, "players/players.html", context=data)
         else:
             return render(request, "players/players.html")
+        
+
+
