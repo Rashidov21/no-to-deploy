@@ -10,7 +10,8 @@ from django.db.models import Min, Max, Avg , Q, F
 
 # Create your views here.
 
-
+def players_sort_by_club(club_name):
+    pass
 
 class PlayersHomeView(View):
     
@@ -76,18 +77,14 @@ class PlayerFilterFormView(View):
     def get(self,request):
         price = request.GET.get("price")
         age = request.GET.get("age")
-        gk = request.GET.get("gk")
-        df = request.GET.get("df")
-        md = request.GET.get("md")
-        fw = request.GET.get("fw")
-        st = request.GET.get("st")
+
         
         
         
-        if price or age or any([gk,df,md,fw,st]):
+        if price or age:
             object_list= Player.objects.filter(
-               ( Q(position=gk) | Q(position=df) | Q(position=md)| Q(position=fw)| Q(position=st))
-                ).filter(Q(current_price__lte=int(price)) | Q(age__lte=int(age)))
+                Q(current_price__lte=int(price)) | Q(age__lte=int(age))
+                )
 
            
             print(object_list)
