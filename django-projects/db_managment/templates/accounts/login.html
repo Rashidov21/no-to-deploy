@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <section>
+            <div class="container">
+                <div class="login-form d-flex justify-content-center">
+                    <form action="" method="POST" class="card p-3 shadow w-25">
+                        <h4>Login form</h4>
+                        {% csrf_token %}
+                        <p>
+                            <input type="text" maxlength="50" name="username" class="form-control" placeholder="Username" required>
+                        </p>
+                        <p>
+                            <input type="password" maxlength="50" name="password" class="form-control" placeholder="Password" required>
+                        </p>
+                        <p>
+                            <input type="submit" value="Login" class="btn btn-outline-success">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

@@ -16,13 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+from django.contrib.auth.views import LoginView
+
 from django.conf.urls.static import static
 from django.conf import settings
 
 
 urlpatterns = [
-    path('', include('unicornapp.urls', namespace='unicornapp')),
-    path('players/', include('players.urls', namespace='players')),
+    path('unicorn-app/', include('unicornapp.urls', namespace='unicornapp')),
+    
+    # Players App 
+    path('', include('players.urls', namespace='players')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
+    
+    
     path('admin/', admin.site.urls),
     
     
