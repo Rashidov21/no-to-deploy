@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.views.generic import ListView
 
+from django.template.defaultfilters import slugify
+
 from .models import *
 from .utils import check_article_view
 from .forms import AddArticleForm
@@ -93,16 +95,27 @@ def delete_comment(request, comment_id):
     
 
 def add_article(request):
+    tags = Tag.objects.all()
     form = AddArticleForm()
     if request.method == "POST":
         form = AddArticleForm(request.POST)
 
         if form.is_valid():
+   
             f = form.save(commit=False)
             f.author = request.user
+            f.slug = slugify(f.title)
+            # print(request.POST["tags"])
+            selected_tags = [tag for tag in request.POST["tags"]]
+            print(selected_tags)
+            for tag_obj in selected_tags:
+                tag = Tag.objects.get(id=tag_obj)
+                print(tag)
+                f.tag.add(tag.id)
+                
             f.save()            
             messages.add_message(request, messages.SUCCESS, "Form saved!")
             return redirect('/')
         else:
             messages.add_message(request, messages.ERROR, "Form not valid!")
-    return render(request, 'articles/add.html', {"form":form})
+    return render(request, 'articles/add.html', {"form":form, "tags":tags})

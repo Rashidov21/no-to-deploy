@@ -46,7 +46,11 @@ class Article(models.Model):
             return rating
         else:
             return 0 
-        
+    
+    # def set_tags(self, tag_list):
+    #     self.tag.add(*tag_list)
+        # for tag in tag_list:
+        #     self.tag.add(tag)
     
     def __str__(self):
         return str(self.title)

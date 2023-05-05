@@ -9,6 +9,11 @@
             <form action="" method="post" enctype="multipart/form-data" class="p-3 shadow-lg w-50">
                 {% csrf_token %}
                 {{form}}
+                <select name="tags" id="" class="form-select" multiple>
+                    {% for tag in tags %}
+                    <option value="{{tag.id}}">{{tag.name}}</option>
+                    {% endfor %}
+                </select>
                 <div class="my-2"></div>
                 <div>
                     <input type="submit" value="Add" class="btn btn-outline-success">

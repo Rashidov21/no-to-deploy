@@ -7,7 +7,8 @@ class AddArticleForm(forms.ModelForm):
     
     class Meta:
         model = Article
-        fields = ['title', 'tag', 'category', 'body']
+        fields = ['title','category', 'body']
+
         # exclude = ['slug', 'author','published','on_top','comments','views']
         widgets = {
             'title':forms.TextInput(attrs={"class":"form-control"}),
@@ -16,10 +17,7 @@ class AddArticleForm(forms.ModelForm):
             'body':forms.Textarea(attrs={"class":"form-control"}),            
         }
 
-    def save(self, commit=True):
-
-            self.instance.slug = slugify(self.instance.title)
-            
-            for t in self.cleaned_data.get("tag"):
-                self.instance.tag.add(t)                
-     
+    # def save(self, commit=True):
+    #     self.instance.slug = slugify(self.instance.title)
+                  
+    

@@ -11,6 +11,14 @@
                 <h3>{{object.title}}</h3>
                 <p>{{object.body}}</p>
 
+                <p class="d-flex justify-content-start gap-2">
+                    {% for tag in object.tag.all %}
+                    <a href="#" class="text-primary text-decoration-none">
+                        <i class="fa-solid fa-circle"></i>
+                        {{tag.name}}
+                    </a>                 
+                    {% endfor %}
+                </p>
 
                 <p class="d-flex justify-content-around">
                     <a href="#" class="text-decoration-none">

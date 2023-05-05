@@ -23,29 +23,32 @@
             <div class="col-10">
                 <h3 class="text-center">Posts</h3>
                 <div class="my-5"></div>
-                <div class="posts d-flex justify-content-center align-items-center gap-5">
+                <div class="row">
                     {% for article in posts %}
-                    <div class="card p-3 shadow">
-                        <a href="{% url 'articles:detail' article.slug %}">
-                            <h3>{{article.title}}</h3>
-                        </a>     
-                        <p>{{article.body|truncatewords:'25'}}</p>
-                        <p class="d-flex justify-content-around">
-                            <a href="#" class="text-decoration-none">
-                                <i class="fa-solid fa-user"></i>
-                                {{article.author}}
-                            </a>
-                            <a href="#" class="text-decoration-none">
-                                <i class="fa-solid fa-clock"></i>
-                                {{article.published_date|date:'H:m'}}
-                            </a>
-                            <a href="#" class="text-decoration-none">
-                                <i class="fa-solid fa-calendar"></i>
-                                {{article.published_date|date:'d M Y'}}
-                            </a>
-                        </p>
+                    <div class="col-sm-12 col-md-3">
+                        <div class="card p-3 shadow">
+                            <a href="{% url 'articles:detail' article.slug %}">
+                                <h3>{{article.title}}</h3>
+                            </a>     
+                            <p>{{article.body|truncatewords:'25'}}</p>
+                            <p class="d-flex justify-content-around">
+                                <a href="#" class="text-decoration-none">
+                                    <i class="fa-solid fa-user"></i>
+                                    {{article.author}}
+                                </a>
+                                <a href="#" class="text-decoration-none">
+                                    <i class="fa-solid fa-clock"></i>
+                                    {{article.published_date|date:'H:m'}}
+                                </a>
+                                <a href="#" class="text-decoration-none">
+                                    <i class="fa-solid fa-calendar"></i>
+                                    {{article.published_date|date:'d M Y'}}
+                                </a>
+                            </p>
+                        </div>
                     </div>
                     {% endfor %}
+        
                 </div>
             </div>
         </div>
