@@ -8,6 +8,8 @@ from .models import Player,Club
 
 from django.db.models import Min, Max, Avg , Q, F
 
+from django.core.mail import send_mail, send_mass_mail
+
 # Create your views here.
 
 def players_sort_by_club(club_name):
