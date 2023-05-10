@@ -4,7 +4,37 @@
 <main>
     <section>
         <div class="container">
-            
+            <div class="p-4 p-md-5 my-4 text-white rounded bg-dark">
+                <div class="col-md-6 px-0">
+                  <h1 class="display-4 fst-italic">Title of a longer featured blog post</h1>
+                  <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what’s most interesting in this post’s contents.</p>
+                  <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+                </div>
+              </div>
+              <div class="row mb-2">
+                {% for object in object_list %}
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{object.image.url}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <div class="d-flex justify-content-between">
+                            <h5 class="card-title">{{object.name}}</h5>
+                            <span class="fw-bold p-1 bg-warning rounded">-{{object.discount}}%</span>
+                          </div>
+                          <h4 class="card-title fw-bold text-dark">
+                            <strike class="text-muted">${{object.price}}</strike>
+                            ${{object.get_discount_price}}
+                        </h4>
+                          <p class="card-text">
+                            {{object.description|truncatewords:'10'}}
+                          </p>
+                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                      </div>
+                </div>
+                {% endfor %}
+         
+              </div>
         </div>
     </section>
 </main>

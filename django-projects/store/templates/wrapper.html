@@ -28,9 +28,12 @@
             </a>
     
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-              <li><a href="#" class="nav-link px-2 text-secondary">Home
-                <i class="fas fa-user"></i>
-              </a></li>
+              <li>
+                <a href="/" class="nav-link px-2 text-secondary">
+                  <i class="fas fa-home"></i>
+                    Home
+                </a>
+                </li>
               <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
               <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
               <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
@@ -43,16 +46,22 @@
     
             <div class="text-end">
               <button type="button" class="btn btn-outline-light me-2">
-
+                  +<span>3</span>
+                <i class="fas fa-shopping-cart"></i>
               </button>
-              <button type="button" class="btn btn-warning">Sign-up</button>
+              <!-- <button type="button" class="btn btn-warning">Sign-up</button> -->
             </div>
           </div>
         </div>
       </header>
     {% block content %}
     {% endblock %}
-
+    <br>
+    <footer class="footer mt-auto py-3 bg-light border">
+        <div class="container">
+          <span class="text-muted">Django 3.2 and Bootstrap 5 Store proejct</span>
+        </div>
+      </footer>
     {% bootstrap_javascript %}
 </body>
 </html>
