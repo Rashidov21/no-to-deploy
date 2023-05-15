@@ -8,6 +8,9 @@
         <div class="row">
             <aside class="col-lg-9">
                 <div class="card my-2">
+                    <div class="card-header">
+                        <h3>Cart = {{ cart.id}}</h3>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-borderless table-shopping-cart">
                             <thead class="text-muted">
@@ -19,24 +22,32 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {% for object in cart.products.all %}
                                 <tr>
                                     <td>
-                                        <img src="" alt="">
+                                        <img class="mw-100" src="{{object.product.image.url}}" alt="">
                                     </td>
-                                    <td> <select class="form-control">
+                                    <td> 
+                                        <select class="form-select">
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
                                             <option>4</option>
                                         </select> </td>
                                     <td>
-                                        <div class="price-wrap"> <var class="price">$10.00</var> <small class="text-muted"> $9.20 each </small> </div>
+                                        <div class="price-wrap">   
+                                            <small class="text-muted"> 
+                                                ${{object.product.price}}
+                                            </small> 
+                                            <var class="price"> ${{object.product.get_discount_price}} each </var> 
+                                          
+                                        </div>
                                     </td>
-                                    <td class="text-right d-none d-md-block">
+                                    <td  class="text-right d-none d-md-block">
                                          <a href="" class="btn btn-success" data-abc="true"> Remove</a> 
                                     </td>
                                 </tr>
-   
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>

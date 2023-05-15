@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'fontawesomefree',
     'django_quill',
     'main',
+    'cart',
 ]
 
 MIDDLEWARE = [

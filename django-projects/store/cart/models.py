@@ -22,6 +22,17 @@ class Cart(models.Model):
     total_quantity = models.PositiveIntegerField(default=0)
     total_price = models.PositiveIntegerField(default=0)
 
-    
+    def add(self, product_id):
+        product = Product.objects.get(id=product_id)
+        self.products.create(
+                product=product,
+                quantity=1,
+                price=product.price
+            )
+        self.total_quantity += 1
+        self.total_price += product.price
+        self.save()
+        print("added")
+        return True
     def __str__(self):
         return f"Cart = {self.id}"
