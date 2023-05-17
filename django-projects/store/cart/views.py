@@ -29,3 +29,19 @@ class AddToCartView(View):
             return redirect('/')
         
         return render(request, 'cart.html', {"cart":cart})
+
+
+def cart_remove(request):
+    cart = cart_init(request)
+    cart.clear_cart()
+    return redirect('/cart/')
+
+
+def cart_item_update(request):
+    cart = cart_init(request)
+    
+    obj_id = int(request.GET.get('object_id'))
+    qty = request.GET.get("quantity")
+    
+    cart.update_item(obj_id,qty)
+    return redirect('/cart/')

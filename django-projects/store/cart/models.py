@@ -27,12 +27,26 @@ class Cart(models.Model):
         self.products.create(
                 product=product,
                 quantity=1,
-                price=product.price
+                price=product.get_discount_price()
             )
         self.total_quantity += 1
-        self.total_price += product.price
+        self.total_price += product.get_discount_price()
         self.save()
-        print("added")
         return True
+    
+    def clear_cart(self):
+        self.delete()
+
+
+    def update_item(self,item_id, qty):
+        obj = self.products.get(id=item_id)     
+        self.total_price =self.total_price+(obj.product.get_discount_price()*(int(qty)-obj.quantity))
+        self.total_quantity=self.total_quantity+(int(qty)-obj.quantity)
+        obj.quantity = qty
+        obj.price = obj.product.get_discount_price() * int(qty)
+        obj.save()
+        self.save()
+    
+    
     def __str__(self):
         return f"Cart = {self.id}"
