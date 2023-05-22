@@ -40,6 +40,9 @@ class Player(models.Model):
     def __str__(self):
         return str(self.name)
     
+        
+    def get_country(self):
+        return self.country.capitalize()
     # def save(self):
     #     self.age = calculate_age(self.birthday)
     #     self.save()

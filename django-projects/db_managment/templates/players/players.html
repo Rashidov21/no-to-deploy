@@ -1,113 +1,175 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 
-{% block content %}
+<script>
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
+</script>
 
-    <script>
-        if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-        }
-    </script>
-
-    <main>
-        <br>
-        <br>
-        <div class="container">
-            {% if messages %}
-            {% for message in messages %}
-                <div class="messages">
-                    <h4>{{message}}</h4>
-                    <button onclick="this.parentElement.style.display= 'none'">X</button>
-                </div>
+<main>
+  <br />
+  <br />
+  <div class="container">
+    {% if messages %} {% for message in messages %}
+    <div class="messages">
+      <h4>{{message}}</h4>
+      <button onclick="this.parentElement.style.display= 'none'">X</button>
+    </div>
+    {% endfor %} {% endif %}
+    <div class="row">
+      <div class="col-3">
+        <form action="{% url 'players:sort_by_club_and_positon' %}" method="post">
+          {% csrf_token %}
+          <select name="country" id="" class="form-select">
+            {% for c in club_list %}
+            <option value="{{c.name}}">{{c.name}}</option>
             {% endfor %}
-            {% endif %}
-            <div class="row">
-                <div class="col-3">
-                    <div class="list-group">
-                        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                          Categories
-                          
-                        </a>
-                        <a href="{% url 'players:sort_by_position' 'gk' %}" class="list-group-item list-group-item-action">
-                          Goalkeeper
-                        </a>
-                        <a href="{% url 'players:sort_by_position' 'df' %}" class="list-group-item list-group-item-action">
-                          Deffender
-                        </a>
-                        <a href="{% url 'players:sort_by_position' 'md' %}" class="list-group-item list-group-item-action">
-                          Middle Deffender
-                        </a>
-                        <a href="{% url 'players:sort_by_position' 'fw' %}" class="list-group-item list-group-item-action">
-                          Forward
-                        </a>
-                        <a href="{% url 'players:sort_by_position' 'st' %}" class="list-group-item list-group-item-action">
-                          Stiker
-                        </a>
-            
-                      </div>
-                      <div class="list-group mt-3">
-                        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-                          Sort by Club
-                        </a>
-                        {% for c in club_list %}
-                          <a href="{% url 'players:sort_by_club' c.name %}" class="list-group-item list-group-item-action">
-                            <img width="30" height="30" src="{{c.logo.url}}" alt=""> {{c.name}}
-                          </a>
-                        {% endfor %}
-            
-                      </div>
+          </select>
+          <p>
+            <input type="radio" name="positon"  value="gk" />
+            <label for="pos">GK</label>
+          </p>
+          <p>
+            <input type="radio" name="positon" value="df" />
+            <label for="pos">DF</label>
+          </p>
+          <p>
+            <input type="radio" name="positon"  value="md"/>
+            <label for="pos">MD</label>
+          </p>
+          <p>
+            <input type="radio" name="positon" value="fw"/>
+            <label for="pos">FW</label>
+          </p>
+          <p>
+            <input type="submit" value="Filter" class="btn btn-success">
+          </p>
+        </form>
 
-                      <form action="{% url 'players:player_filter_form' %}"
-                      method="get" class="mb-5">
-                        <label for="disabledRange" class="form-label">Filter by price : 
-                          <span class="slected_price"></span>
-                        </label>
-                        <input 
-                          name="price"
-                          type="text" 
-                          id="price" 
-                          value="0"  
-                          class="form-control"
-                        >
-                        <label for="disabledRange" class="form-label">Filter by age :
-                          <span class="slected_age"></span>
-                        </label>
-                        <input type="range" name="age" value="0" id='age' min="0" max="60" class="form-range" id="disabledRange" >
-        
-                          <div class="my-2">
-                            <button type="submit" class="btn btn-outline-success">
-                              Filter
-                            </button>
-                          </div>
-                      </form>
-                </div>
-                <div class="col-9">
-                  {% if  info %}
-                    <h3 >{{info}}</h3>
-                  {% else %}
-                    <h3 >Players</h3>
-                  {% endif %}
-                    {% for obj in object_list %}
-                    <div class="card shadow-lg px-5 py-2">
-                        <div class="d-flex flex-wrap justify-content-between ">
-                            <img width="150" height="150" src="{{obj.image.url}}" alt="">
-                            <div class="info">
-                                <h4>{{obj.name}}</h4>
-                                <p>Club : <a href="" class="text-decoration-none">{{obj.club}}</a> </p>
-                                <p>{{obj.country}}</p>
-                                <p>{{obj.current_price}}</p>
-                                <p>{{obj.age}}</p>
-                                <p>{{obj.height}}</p>
-                                <p>{{obj.weight}}</p>
-                            </div>
-                        </div>
-                      </div>
-                    {% endfor %}
-                </div>
-            </div>
-    
-
+        <div class="list-group">
+          <a
+            href="#"
+            class="list-group-item list-group-item-action active"
+            aria-current="true"
+          >
+            Categories
+          </a>
+          <a
+            href="{% url 'players:sort_by_position' 'gk' %}"
+            class="list-group-item list-group-item-action"
+          >
+            Goalkeeper
+          </a>
+          <a
+            href="{% url 'players:sort_by_position' 'df' %}"
+            class="list-group-item list-group-item-action"
+          >
+            Deffender
+          </a>
+          <a
+            href="{% url 'players:sort_by_position' 'md' %}"
+            class="list-group-item list-group-item-action"
+          >
+            Middle Deffender
+          </a>
+          <a
+            href="{% url 'players:sort_by_position' 'fw' %}"
+            class="list-group-item list-group-item-action"
+          >
+            Forward
+          </a>
+          <a
+            href="{% url 'players:sort_by_position' 'st' %}"
+            class="list-group-item list-group-item-action"
+          >
+            Stiker
+          </a>
         </div>
-    </main>
+        <div class="list-group mt-3">
+          <a
+            href="#"
+            class="list-group-item list-group-item-action active"
+            aria-current="true"
+          >
+            Sort by Club
+          </a>
+          {% for c in club_list %}
+          <a
+            href="{% url 'players:sort_by_club' c.name %}"
+            class="list-group-item list-group-item-action"
+          >
+            <img width="30" height="30" src="{{c.logo.url}}" alt="" />
+            {{c.name}}
+          </a>
+          {% endfor %}
+        </div>
+
+        <form
+          action="{% url 'players:player_filter_form' %}"
+          method="get"
+          class="mb-5"
+        >
+          <label for="disabledRange" class="form-label"
+            >Filter by price :
+            <span class="slected_price"></span>
+          </label>
+          <input
+            name="price"
+            type="text"
+            id="price"
+            value="0"
+            class="form-control"
+          />
+          <label for="disabledRange" class="form-label"
+            >Filter by age :
+            <span class="slected_age"></span>
+          </label>
+          <input
+            type="range"
+            name="age"
+            value="0"
+            id="age"
+            min="0"
+            max="60"
+            class="form-range"
+            id="disabledRange"
+          />
+
+          <div class="my-2">
+            <button type="submit" class="btn btn-outline-success">
+              Filter
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="col-9">
+        {% if info %}
+        <h3>{{info}}</h3>
+        {% else %}
+        <h3>Players</h3>
+        {% endif %} {% for obj in object_list %}
+        <div class="card shadow-lg px-5 py-2">
+          <div class="d-flex flex-wrap justify-content-between">
+            <img width="150" height="150" src="{{obj.image.url}}" alt="" />
+            <div class="info">
+              <h4>{{obj.name}}</h4>
+          
+              <p>
+                Club : <a href="" class="text-decoration-none">{{obj.club}}</a>
+              </p>
+              <p>{{obj.get_country}}</p>
+              <p>{{obj.current_price}}</p>
+              <p>{{obj.age}}</p>
+              <p>{{obj.height}}</p>
+              <p>{{obj.weight}}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</main>
 
 {% endblock %}

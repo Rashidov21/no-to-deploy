@@ -10,7 +10,8 @@ urlpatterns = [
     # filtering and sort 
     path('sort/by/club/<str:club_name>', views.SortByClub.as_view(), name='sort_by_club'),
     path('sort/by/position/<str:position>', views.SortByPositon.as_view(), name='sort_by_position'),
-    path("filter-form/", views.PlayerFilterFormView.as_view(), name='player_filter_form')
+    path("filter-form/", views.PlayerFilterFormView.as_view(), name='player_filter_form'),
+    path('sort_by_club_and_positon/', views.sort_by_club_and_positon, name='sort_by_club_and_positon')
     
 ]
 
