@@ -1,0 +1,27 @@
+{% extends 'wrapper.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="main-in">
+                <h2>Chiqimlar</h2>
+                <img class="image" src="{% static 'images/login.svg' %}" alt="Login image">
+                <h2>Kirish</h2>
+                <form class="form">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
+                    </div>
+                {% endif %}
+                    <input class="fields" type="text" placeholder="Username yoki telefon raqam *" required>
+                    <input class="fields" type="password" placeholder="Parol *" required>
+                    <div class="forgot-password">
+                        <span>Parol esdan chiqdimi ?</span>
+                        <a href="{% url 'main:password_reset' %}">Parolni tiklash</a>
+                    </div>
+                    <button class="submit" type="submit">Kirish</button>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}

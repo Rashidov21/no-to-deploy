@@ -1,0 +1,25 @@
+{% extends 'wrapper.html' %}
+{% load static %}
+{% block content %}
+    <main>
+        <div class="container">
+            <div class="main-in">
+                <h2>Chiqimlar</h2>
+                <img class="image" src="{% static 'images/register.svg' %}" alt="Register image">
+                <p class="description">Moliyaviy savodingizni oshiring har oylik chiqimlaringizni nazorat qiling</p>
+                <h2>Ro'yhatdan o'tish</h2>
+                <form class="form">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
+                    </div>
+                {% endif %}
+                    <input class="fields" type="email" placeholder="Email *" required>
+                    <input class="fields" type="password" placeholder="Parol *" required>
+                    <input class="fields" type="password" placeholder="Parol takroran *" required>
+                    <button class="submit" type="submit">Ro'yhatdan o'tish</button>
+                </form>
+            </div>
+        </div>
+    </main>
+    {% endblock content %}

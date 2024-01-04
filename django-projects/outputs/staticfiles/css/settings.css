@@ -1,0 +1,63 @@
+@font-face {
+    font-display: swap;
+    font-family: 'Onest';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/onest-v6-latin-regular.woff2') format('woff2');
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    outline: none;
+    font-family: "Onest";
+}
+.container{
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 3%;
+}
+.header-in{
+    padding: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+.hero-in{
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.hero__form{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+.hero__title{
+    margin: 30px 0px 10px 0px;
+}
+.hero__fields{
+    padding: 10px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 4px 4px 7px 4px lightgrey;
+    margin: 10px 0px;
+}
+.hero__submit{
+    background-color: #6347EB;
+    border-radius: 30px;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+@media only screen and (max-width: 400px){
+    .hero__form{
+        width: 100%;
+    }
+}
