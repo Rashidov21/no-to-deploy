@@ -13,6 +13,7 @@
                         {{ form.errors }}
                     </div>
                 {% endif %}
+                {% csrf_token %}
                     <input class="fields" type="text" name='username' placeholder="Username yoki telefon raqam *" required>
                     <input class="fields" type="password" name='password' placeholder="Parol *" required>
                     <div class="forgot-password">
