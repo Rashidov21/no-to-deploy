@@ -11,6 +11,8 @@ db = firebase.database()
 # push data
 # db.child("potatoes/").push({"potato": "pakistan potatota"})
 
+
+
 # get data
 data = db.child("potatoes/").get()
 for k in data.val().items():
