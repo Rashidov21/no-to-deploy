@@ -1,5 +1,5 @@
 // api >> 8fbfbadfa5da4acd8237984c8e26cf4b
-let url = "https://newsapi.org/v2/everything?q=keyword&apiKey=8fbfbadfa5da4acd8237984c8e26cf4b";
+let url = "https://newsapi.org/v2/everything?q=keyword&apiKey=YOURKEY";
 
 // author: "David Ogletree"
 // content: "Negative keywords are the backbone of any PPC strategy. Ever since Google all but eliminated the ability to specifically target keywords by expanding phrase match to include broad match traffic, nega… [+5420 chars]"
