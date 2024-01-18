@@ -1,7 +1,7 @@
 <script>
 	import AddTodo from "./components/AddTodo.svelte";
 	const props = {
-		title:"Add new todo",
+		title:"Add new TODO",
 		btnTitle:"Go!",
 	}
 </script>
