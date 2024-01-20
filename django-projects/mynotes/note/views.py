@@ -20,7 +20,6 @@ class AddNoteView(View):
         return render(request, self.template_name, {"form": form})
 
     def post(self, request, *args, **kwargs):
-
         if request.method == "POST":
             form = AddNoteForm(request.POST)
             if form.is_valid():
