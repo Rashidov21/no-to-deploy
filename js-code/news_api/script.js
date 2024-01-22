@@ -10,13 +10,12 @@ let url = "https://newsapi.org/v2/everything?q=keyword&apiKey=YOURKEY";
 // url: "https://searchengineland.com/negative-keywords-lowest-common-denominator-method-382296"
 // urlToImage: "http
 
-
 function render(data) {
-    let postsDiv = document.querySelector(".posts")
-    for (let news of data) {
-        console.log(news)
-        let card = document.createElement("div").classList.add("card")
-        let post = `
+  let postsDiv = document.querySelector(".posts");
+  for (let news of data) {
+    console.log(news);
+    let card = document.createElement("div").classList.add("card");
+    let post = `
         <div class="card" style="width: 50%;">
         <div class="card-body">
           <h5 class="card-title">${news.title}</h5>
@@ -25,24 +24,23 @@ function render(data) {
         </div>
         <img src="${news.urlToImage}" class="card-img-top" alt="...">
       </div>
-        `
-        postsDiv.insertAdjacentElement("afterbegin", post)
-    }
+        `;
+    postsDiv.insertAdjacentElement("afterbegin", post);
+  }
 }
 
 function getNews() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", url);
+  const xhr = new XMLHttpRequest();
+  xhr.open("GET", url);
 
-    xhr.addEventListener('load', () => {
-        render(JSON.parse(xhr.responseText).articles)
-    })
+  xhr.addEventListener("load", () => {
+    render(JSON.parse(xhr.responseText).articles);
+  });
 
+  xhr.addEventListener("error", () => {
+    console.log("error");
+  });
 
-    xhr.addEventListener('error', () => {
-        console.log("error")
-    })
-
-    xhr.send();
+  xhr.send();
 }
-getNews()
+getNews();

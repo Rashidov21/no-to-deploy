@@ -108,14 +108,9 @@ class PlayerFilterFormView(View):
         age = request.GET.get("age")
 
         
-        
-        
         if price or age:
-            object_list= Player.objects.filter(
-                Q(current_price__lte=int(price)) | Q(age__lte=int(age))
-                )
-
-           
+            object_list = Player.objects.filter(
+                Q(current_price__lte=int(price)) | Q(age__lte=int(age)))
             print(object_list)
             data = {
                 "object_list":object_list,
