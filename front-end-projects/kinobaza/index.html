@@ -1,73 +1,81 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <title>KinoBaza - Django tutorial | Abdurahmon Rashidov</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
 
-        <!-- Bootstrap CSS v5.2.1 -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    </head>
+<head>
+    <title>KinoBaza - Django tutorial | Abdurahmon Rashidov</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <body>
-        <header>
-            <!-- place navbar here -->
-            <nav class="navbar fixed-top bg-dark">
-                <div class="container">
-                  <a class="navbar-brand text-light fw-bold" href="#">
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+    <header>
+        <!-- place navbar here -->
+        <nav class="navbar fixed-top bg-dark">
+            <div class="container">
+                <a class="navbar-brand text-light fw-bold" href="#">
                     KinoBaza
-                  </a>
-                  <ul class="nav">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Filmlar</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Seriallar</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Multfilmlar</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Teleko'rsatuvlar</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Tez kunda</a>
-                    </li>
+                </a>
 
-                  </ul>
-                  <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">
+                <form class="d-flex" role="search" action="#" method="post">
+                    <input class="form-control me-2 d-none" type="search" id="search" placeholder="Qidiruv"
+                        aria-label="Search">
+                    <button class="btn btn-outline-success" id="search_btn">
                         <i class="bi bi-search"></i>
                     </button>
-                  </form>
-              </nav>
-        </header>
-        <main></main>
-        <footer>
-            <!-- place footer here -->
-        </footer>
-        <!-- Bootstrap JavaScript Libraries -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-            crossorigin="anonymous"
-        ></script>
+                </form>
+        </nav>
+    </header>
+    <main class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav gap-2">
+                        <li class="nav-item border border-success rounded">
+                            <a class="nav-link active" aria-current="page" href="#">
+                                <i class="bi bi-film"></i> Filmlar
+                            </a>
+                        </li>
+                        <li class="nav-item border border-success rounded">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-film"></i> Seriallar
+                            </a>
+                        </li>
+                        <li class="nav-item border border-success rounded">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-person-arms-up"></i> Multfilmlar
+                            </a>
+                        </li>
+                        <li class="nav-item border border-success rounded">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-tv"></i> Teleko'rsatuvlar</a>
+                        </li>
+                        <li class="nav-item border border-success rounded">
+                            <a class="nav-link" href="#"> <i class="bi bi-clock"></i> Tez kunda</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <!-- place footer here -->
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="./js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-            crossorigin="anonymous"
-        ></script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
 </html>
