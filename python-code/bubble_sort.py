@@ -6,5 +6,5 @@ for iter in range(len(arr) - 1):
         if arr[i] > arr[i+1]:
             arr[i], arr[i+1] = arr[i+1], arr[i]
             count += 1
-print(arr)
-print(count)
+print(arr) # sorted array
+print(count) # subs count
