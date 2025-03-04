@@ -40,13 +40,13 @@ def extract_images_from_excel(excel_file_path, output_folder):
                 qr_count += 1
                 save_path = os.path.join(save_dir, f"qr_code_{qr_count}.png")  # Путь к файлу
                 img.save(save_path)  # Save image
-                print(f"Saved - {qr_count}")
+                # print(f"Saved - {qr_count}")
     else:
         print("Изображения не найдены.")
 
     wb.close()
 
 # Example usage
-excel_file_path = 'qr_code_textile/data.xlsx'
+excel_file_path = 'qr_code_textile/test3.xlsx'
 output_folder = 'output_images'
 extract_images_from_excel(excel_file_path, output_folder)
