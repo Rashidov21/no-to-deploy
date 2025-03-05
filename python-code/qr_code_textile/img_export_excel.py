@@ -28,9 +28,11 @@ def is_qr_code(image, idx):
 def extract_images_from_excel(excel_file_path, output_folder):
     wb = load_workbook(excel_file_path, data_only=True)
     ws = wb.active
+    image_count = 0
     if hasattr(ws, '_images') and ws._images:
         qr_count = 0
         for idx, image in enumerate(ws._images):
+            image_count += 1
             img_data = image._data()  
             img = Image.open(BytesIO(img_data)) 
             print(img.size)
@@ -45,7 +47,7 @@ def extract_images_from_excel(excel_file_path, output_folder):
         print("Изображения не найдены.")
 
     wb.close()
-
+    print(image_count)
 # Example usage
 excel_file_path = 'qr_code_textile/test3.xlsx'
 output_folder = 'output_images'
