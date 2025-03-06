@@ -36,8 +36,11 @@ def get_qr_codes(table_name):
     """ Получает все QR-коды из таблицы """
     conn = connect_db()
     cursor = conn.cursor()
-    info = cursor.execute(f"SELECT * FROM {table_name} LIMIT 1").fetchall()
-    print(info)
+    cursor.execute(f"PRAGMA table_info({table_name})")
+    columns = cursor.fetchall()
+
+    for column in columns:
+        print(column)
     cursor.execute(f"SELECT export_date, qr_code_path, qr_number FROM {table_name}")
     qr_codes = cursor.fetchall()
     conn.close()
@@ -49,6 +52,12 @@ def delete_qr_code(table_name, qr_code_path):
     cursor = conn.cursor()
     cursor.execute(f"DELETE FROM {table_name} WHERE qr_code_path = ?", (qr_code_path,))
     conn.commit()
+    # Удаление файла с диска
+    if os.path.exists(qr_code_path):  
+        os.remove(qr_code_path)  # Удаляем файл
+        print(f"Файл {qr_code_path} удалён.")
+    else:
+        print(f"Файл {qr_code_path} не найден.")
     conn.close()
 
 

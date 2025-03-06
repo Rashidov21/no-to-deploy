@@ -29,6 +29,7 @@ def update_table(table_name):
     tree.delete(*tree.get_children())
     qr_codes = get_qr_codes(table_name)
     for row in qr_codes:
+        print(f"Добавление в таблицу: {row}")  # Отладочный вывод в консоль
         tree.insert("", "end", values=row)
     
     imported_count.set(f"Импортировано QR-кодов: {len(qr_codes)}")
@@ -58,10 +59,18 @@ def remove_selected_table():
         update_table("")
 
 def on_tab_change(event):
-    """Обработчик смены вкладки"""
+    """Вызывается при переключении вкладки. Загружает данные из выбранной таблицы."""
     selected_tab = tab_control.tab(tab_control.select(), "text")
     selected_table.set(selected_tab)
-    update_table(selected_tab)
+
+    # Получаем Treeview из активной вкладки
+    for widget in tab_control.nametowidget(tab_control.select()).winfo_children():
+        if isinstance(widget, ttk.Treeview):
+            update_table(selected_tab, widget)
+            break  # Останавливаем, когда нашли нужный Treeview
+
+    tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
+
 
 def load_existing_tables():
     conn = connect_db()
@@ -72,7 +81,9 @@ def load_existing_tables():
     for table in tables:
       
         table_name = table[0]
-        add_tab(table_name)
+        if table_name != "sqlite_sequence":  # Исключаем системную таблицу
+            add_tab(table_name)
+
 
  
 
@@ -175,10 +186,28 @@ tab_control.pack(expand=True, fill=tk.BOTH,side=tk.TOP,padx=10,pady=10)
 tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
 
 # Таблица QR-кодов
+style = ttk.Style()
+style.configure("Treeview.Heading", font=("Arial", 10, "bold"), background="lightgray", foreground="black", relief="raised", padding=(5, 5))
+style.configure("Treeview", rowheight=25)
+style.map("Treeview", background=[("selected", "#347083")])
+
+
+
 tree = ttk.Treeview(tk_root, columns=("Дата экспорта", "QR-код", "Номер"), show="headings")
 tree.heading("Дата экспорта", text="Дата экспорта")
 tree.heading("QR-код", text="QR-код")
 tree.heading("Номер", text="Номер")
+
+tab_frame.columnconfigure(0, weight=1)
+tab_frame.rowconfigure(0, weight=1)
+
+
+
+# Центрирование данных в столбцах
+tree.column("Дата экспорта", anchor="center", width=100)
+tree.column("QR-код", anchor="center", width=250)
+tree.column("Номер", anchor="center", width=100)
+
 tree.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
 
 # Загрузка существующих таблиц
