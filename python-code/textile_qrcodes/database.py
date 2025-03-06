@@ -36,6 +36,8 @@ def get_qr_codes(table_name):
     """ Получает все QR-коды из таблицы """
     conn = connect_db()
     cursor = conn.cursor()
+    info = cursor.execute(f"SELECT * FROM {table_name} LIMIT 1").fetchall()
+    print(info)
     cursor.execute(f"SELECT export_date, qr_code_path, qr_number FROM {table_name}")
     qr_codes = cursor.fetchall()
     conn.close()
@@ -63,3 +65,5 @@ def delete_table(table_name):
         print(f"Ошибка при удалении таблицы {table_name}: {e}")
     finally:
         conn.close()
+        
+        

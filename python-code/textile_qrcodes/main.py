@@ -63,8 +63,18 @@ def on_tab_change(event):
     selected_table.set(selected_tab)
     update_table(selected_tab)
 
+def load_existing_tables():
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tables = cursor.fetchall()
+    
+    for table in tables:
+      
+        table_name = table[0]
+        add_tab(table_name)
 
-
+ 
 
 tk_root = tk.Tk()
 tk_root.title("QR Code Manager")
@@ -146,9 +156,22 @@ label_remaining = tk.Label(
 label_remaining.grid(row=1, column=0, sticky="w")
 
 
-# Вкладки таблиц
-tab_control = ttk.Notebook(tk_root)
-tab_control.pack(expand=True, fill=tk.BOTH,side=tk.TOP, padx=10, pady=10)
+
+tab_frame = tk.Frame(tk_root, height=200)  # Устанавливаем фиксированную высоту
+tab_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
+
+style = ttk.Style()
+style.configure("TNotebook.Tab", 
+                font=("Arial", 10, "bold"),  # Шрифт вкладок
+                padding=[10, 5],  # Отступы внутри вкладки
+                background="#D3D3D3",  # Цвет фона вкладки
+                foreground="black",  # Цвет текста вкладки
+                borderwidth=2)  # Граница вкладок
+
+style.map("TNotebook.Tab", background=[("selected", "#4CAF50")])
+# Вкладки таблиц    
+tab_control = ttk.Notebook(tab_frame, style="TNotebook")
+tab_control.pack(expand=True, fill=tk.BOTH,side=tk.TOP,padx=10,pady=10)
 tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
 
 # Таблица QR-кодов
@@ -157,5 +180,8 @@ tree.heading("Дата экспорта", text="Дата экспорта")
 tree.heading("QR-код", text="QR-код")
 tree.heading("Номер", text="Номер")
 tree.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
+
+# Загрузка существующих таблиц
+load_existing_tables()
 
 tk_root.mainloop()
