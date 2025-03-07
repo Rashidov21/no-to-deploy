@@ -21,7 +21,7 @@ def import_excel():
         if cursor.fetchone():
             messagebox.showwarning("Предупреждение", f"Файл {file_path} уже был импортирован!")
             continue  # Пропускаем этот файл
-        extract_images_from_excel(file_path)
+        extract_images_from_excel(file_path,tk_root)
         add_tab(os.path.splitext(os.path.basename(file_path))[0])
 
 def update_table(table_name,tree):
@@ -32,13 +32,18 @@ def update_table(table_name,tree):
     cursor = conn.cursor()
     data = cursor.execute(f"SELECT qr_number, export_date, qr_code_path  FROM {table_name}")
     qr_codes = data.fetchall()
-    conn.close()
+    
 
     for row in qr_codes:
-        row = [row[0],row[1],row[2].split("/")[-1]]
-        tree.tag_configure("bordered", background="white", borderwidth=2, relief="solid")
-        tree.insert("", "end", values=row,tags=("bordered",))
-
+        row = [row[0],row[1],"/".join(row[2].split("\\")[-2:])]
+        tree.insert("", "end", values=row)
+     # Обновляем счётчики
+    imported_count.set(f"Импортировано QR-кодов: {len(qr_codes)}")
+    cursor.execute(f"SELECT COUNT(*) FROM {table_name}")  # Сколько осталось
+    remaining_qrs = cursor.fetchone()[0]
+    remaining_count.set(f"Осталось QR-кодов: {remaining_qrs}")
+    
+    conn.close()
 
 def add_tab(table_name):
     """Добавляет новую вкладку с таблицей QR-кодов"""
@@ -79,7 +84,7 @@ def add_tab(table_name):
                     background="white", 
                     foreground="black", 
                     fieldbackground="white",
-                    borderwidth=1)
+                    borderwidth=2)
 
 
     style.map("Treeview",
@@ -88,8 +93,7 @@ def add_tab(table_name):
     style.map("Treeview", 
             background=[("selected", "#292929")],  # Цвет выделенной строки
             foreground=[("selected", "#ffffff")])  # Цвет текста в выделенной строке
-    tree = ttk.Treeview(tab_frame, columns=("Номер","Дата экспорта", "QR-код"), show="headings", selectmode="browse")
-
+    tree = ttk.Treeview(tab_frame, columns=("Номер","Дата экспорта", "QR-код"), show="headings")
 
     # Заголовки
     tree.heading("Номер", text="Номер")
@@ -108,14 +112,9 @@ def add_tab(table_name):
         cursor="hand2")
     tree.configure(yscrollcommand=vsb.set)
 
-    # **Добавляем горизонтальный скроллбар**
-    hsb = ttk.Scrollbar(tab_frame, orient="horizontal", command=tree.xview,cursor="hand2")
-    tree.configure(xscrollcommand=hsb.set)
-
     # Размещаем виджеты в фрейме
     tree.grid(row=0, column=0, sticky="nsew")
     vsb.grid(row=0, column=1, sticky="ns")  # Вертикальный скроллбар справа
-    hsb.grid(row=1, column=0, sticky="ew")  # Горизонтальный скроллбар снизу
 
     # Устанавливаем, чтобы Treeview растягивался при изменении размера вкладки
     tab_frame.columnconfigure(0, weight=1)
@@ -130,21 +129,25 @@ def add_tab(table_name):
 
 def remove_selected_table():
     """Удаление выбранной таблицы"""
+    tree = tree_views[selected_table.get()]
     table_name = selected_table.get()
-    if table_name:
+    confirm = messagebox.askyesno("Подтверждение", f"Вы уверены, что хотите удалить таблицу '{table_name}'?")
+    if table_name and confirm:
         delete_table(table_name)
         for tab in tab_control.tabs():
             if tab_control.tab(tab, "text") == table_name:
                 tab_control.forget(tab)
                 break
+        tree.delete(*tree.get_children())
         messagebox.showinfo("Удалено", f"Таблица {table_name} удалена")
         selected_table.set("")
-        update_table("")
+
+
+
 tree_views = {}
 def on_tab_change(event):
     """Вызывается при переключении вкладки. Загружает данные из выбранной таблицы."""
     selected_tab = tab_control.tab(tab_control.select(), "text")
-    print(selected_tab)
     selected_table.set(selected_tab)
 
     # Получаем Treeview из активной вкладки
@@ -267,6 +270,7 @@ label_remaining.grid(row=1, column=0, sticky="w")
 tab_control = ttk.Notebook(tk_root, style="TNotebook")
 tab_control.pack(expand=True, fill=tk.BOTH,side=tk.TOP,padx=10,pady=10)
 tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
+
 
 
 # Загрузка существующих таблиц
