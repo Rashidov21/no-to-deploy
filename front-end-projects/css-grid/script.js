@@ -82,3 +82,15 @@ input.addEventListener("input", (e) => {
 // let non = 10
 // let suv = 20
 // console.log(non + suv)
+
+
+DATA TYPES 
+    1. String
+    2. Number
+    3. Boolean
+    4. Undefined
+    5. Null
+    6. Object
+    7. Symbol
+    8. BigInt
+    
