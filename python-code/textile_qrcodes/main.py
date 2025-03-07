@@ -30,12 +30,14 @@ def update_table(table_name,tree):
 
     conn = connect_db()
     cursor = conn.cursor()
-    data = cursor.execute(f"SELECT export_date, qr_code_path, qr_number FROM {table_name}")
+    data = cursor.execute(f"SELECT qr_number, export_date, qr_code_path  FROM {table_name}")
     qr_codes = data.fetchall()
     conn.close()
 
     for row in qr_codes:
-        tree.insert("", "end", values=row)
+        row = [row[0],row[1],row[2].split("/")[-1]]
+        tree.tag_configure("bordered", background="white", borderwidth=2, relief="solid")
+        tree.insert("", "end", values=row,tags=("bordered",))
 
 
 def add_tab(table_name):
@@ -79,29 +81,24 @@ def add_tab(table_name):
                     fieldbackground="white",
                     borderwidth=1)
 
+
     style.map("Treeview",
           background=[("alternate", "#f2f2f2")])
-
-    # Выделенная строка
-    style.map("Treeview",background=[("alternate", "#232323")])
-    style.map("Treeview",
-            background=[("hover", "#0078D7")],
-          foreground=[("hover", "white")])
     # Подсветка строки при наведении
     style.map("Treeview", 
             background=[("selected", "#292929")],  # Цвет выделенной строки
             foreground=[("selected", "#ffffff")])  # Цвет текста в выделенной строке
-    tree = ttk.Treeview(tab_frame, columns=("Дата экспорта", "QR-код", "Номер"), show="headings", selectmode="browse")
+    tree = ttk.Treeview(tab_frame, columns=("Номер","Дата экспорта", "QR-код"), show="headings", selectmode="browse")
 
 
     # Заголовки
+    tree.heading("Номер", text="Номер")
     tree.heading("Дата экспорта", text="Дата экспорта")
     tree.heading("QR-код", text="QR-код")
-    tree.heading("Номер", text="Номер")
     # Настройка колонок (центрирование)
-    tree.column("Дата экспорта", anchor="center", width=150)
-    tree.column("QR-код", anchor="center", width=200)
     tree.column("Номер", anchor="center", width=100)
+    tree.column("Дата экспорта", anchor="center", width=100)
+    tree.column("QR-код", anchor="center", width=300)
 
     # **Добавляем вертикальный скроллбар**
     vsb = ttk.Scrollbar(
