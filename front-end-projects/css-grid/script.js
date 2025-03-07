@@ -83,14 +83,54 @@ input.addEventListener("input", (e) => {
 // let suv = 20
 // console.log(non + suv)
 
+// data type - qachonki ozgaruvchida 1 dona ma'lumot saqlash (str,int,bool)
+// let x = 10
+// data structure - qachonki ozgaruvchida bir nechta  ma'lumot saqlash
+// let arr = [1,2,3,4,5]
 
-DATA TYPES 
-    1. String
-    2. Number
-    3. Boolean
-    4. Undefined
-    5. Null
-    6. Object
-    7. Symbol
-    8. BigInt
-    
+// Javascipt DATA TYPES 
+//     1. String - matn > !@#$wesdrtrfygbh16352153 >> "",'',``
+//     2. Number - son > 013479 > -1,1.0,-2.5
+//     3. Boolean - bool > true, false
+//     4. Undefined - qiymati topilmagan > js tushunmagan barcha qiymat u uchun undefined    let x;
+//     5. Null - mavjud emas 
+//     6. Object - murakkab ma'lumotlar tuzilmasi > {name:"John", age:30, city:"New York"}
+//     7. Symbol - unikal belgilarni ifodalash uchun
+//     8. BigInt - katta butun sonlarni ifodalash uchun
+
+let s1 = "Hello"
+let s2 = 'World'
+let s3 = `Hello ${s2}` // Hello World
+console.log(s1,s2,s3) // Hello World Hello World
+
+let i = 1 
+console.log(((i + 2) * 2) - (3 - i)) 
+
+let b1 = true
+let b2 = false 
+console.log(b1,b2)
+console.log(true + 1 )
+console.log(true - 1 )
+
+let x;
+console.log(x) // undefined
+
+let n = null
+console.log(n)
+
+
+let obj = {
+    name:"John",
+    age:30,
+    city:"New York",
+
+}
+
+console.log(obj)
+
+console.log(typeof Symbol("id"))
+console.log(typeof obj)
+console.log(typeof s2)
+console.log(typeof i)
+console.log(typeof b1)
+console.log(typeof xzx)

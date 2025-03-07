@@ -37,10 +37,7 @@ def get_qr_codes(table_name):
     conn = connect_db()
     cursor = conn.cursor()
     cursor.execute(f"PRAGMA table_info({table_name})")
-    columns = cursor.fetchall()
 
-    for column in columns:
-        print(column)
     cursor.execute(f"SELECT export_date, qr_code_path, qr_number FROM {table_name}")
     qr_codes = cursor.fetchall()
     conn.close()

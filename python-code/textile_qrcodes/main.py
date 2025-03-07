@@ -24,26 +24,112 @@ def import_excel():
         extract_images_from_excel(file_path)
         add_tab(os.path.splitext(os.path.basename(file_path))[0])
 
-def update_table(table_name):
+def update_table(table_name,tree):
     """Обновление таблицы и счетчиков"""
-    tree.delete(*tree.get_children())
-    qr_codes = get_qr_codes(table_name)
+    tree.delete(*tree.get_children())  # Очистка старых данных
+
+    conn = connect_db()
+    cursor = conn.cursor()
+    data = cursor.execute(f"SELECT export_date, qr_code_path, qr_number FROM {table_name}")
+    qr_codes = data.fetchall()
+    conn.close()
+
     for row in qr_codes:
-        print(f"Добавление в таблицу: {row}")  # Отладочный вывод в консоль
         tree.insert("", "end", values=row)
-    
-    imported_count.set(f"Импортировано QR-кодов: {len(qr_codes)}")
-    remaining_count.set(f"Осталось QR-кодов: {len(qr_codes)}")
 
 
 def add_tab(table_name):
-    """Добавление новой вкладки"""
+    """Добавляет новую вкладку с таблицей QR-кодов"""
+    style = ttk.Style()
+    style.configure("TNotebook.Tab", 
+                font=("Arial", 10, "bold"),  # Шрифт вкладок
+                padding=[10, 5],  # Отступы внутри вкладки
+                background="#D3D3D3",  # Цвет фона вкладки
+                foreground="black",  # Цвет текста вкладки
+                borderwidth=2,
+                case="uppercase")  # Граница вкладок
+
+    style.map("TNotebook.Tab", background=[("selected", "#4CAF50")])
+    
     tab = ttk.Frame(tab_control)
     tab_control.add(tab, text=table_name)
     tab_control.pack(expand=True, fill=tk.BOTH)
     tab_control.select(tab)
     selected_table.set(table_name)
-    update_table(table_name)
+
+    # Создаем фрейм для таблицы и скроллбаров
+    tab_frame = ttk.Frame(tab)
+    tab_frame.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
+
+    # Создаем Treeview
+    style = ttk.Style()
+    style.configure("Treeview.Heading", font=("Arial", 10, "bold"), background="lightgray", foreground="black", relief="raised", padding=(5, 5))
+    style.configure("Treeview", rowheight=25)
+    style.map("Treeview", background=[("selected", "#347083")])
+    
+    
+    style = ttk.Style()
+
+    # Общий стиль таблицы
+    style.configure("Treeview", 
+                    font=("Arial", 10),  # Шрифт строк
+                    rowheight=25,         # Высота строк
+                    background="white", 
+                    foreground="black", 
+                    fieldbackground="white",
+                    borderwidth=1)
+
+    style.map("Treeview",
+          background=[("alternate", "#f2f2f2")])
+
+    # Выделенная строка
+    style.map("Treeview",background=[("alternate", "#232323")])
+    style.map("Treeview",
+            background=[("hover", "#0078D7")],
+          foreground=[("hover", "white")])
+    # Подсветка строки при наведении
+    style.map("Treeview", 
+            background=[("selected", "#292929")],  # Цвет выделенной строки
+            foreground=[("selected", "#ffffff")])  # Цвет текста в выделенной строке
+    tree = ttk.Treeview(tab_frame, columns=("Дата экспорта", "QR-код", "Номер"), show="headings", selectmode="browse")
+
+
+    # Заголовки
+    tree.heading("Дата экспорта", text="Дата экспорта")
+    tree.heading("QR-код", text="QR-код")
+    tree.heading("Номер", text="Номер")
+    # Настройка колонок (центрирование)
+    tree.column("Дата экспорта", anchor="center", width=150)
+    tree.column("QR-код", anchor="center", width=200)
+    tree.column("Номер", anchor="center", width=100)
+
+    # **Добавляем вертикальный скроллбар**
+    vsb = ttk.Scrollbar(
+        tab_frame, 
+        orient="vertical", 
+        command=tree.yview,
+        cursor="hand2")
+    tree.configure(yscrollcommand=vsb.set)
+
+    # **Добавляем горизонтальный скроллбар**
+    hsb = ttk.Scrollbar(tab_frame, orient="horizontal", command=tree.xview,cursor="hand2")
+    tree.configure(xscrollcommand=hsb.set)
+
+    # Размещаем виджеты в фрейме
+    tree.grid(row=0, column=0, sticky="nsew")
+    vsb.grid(row=0, column=1, sticky="ns")  # Вертикальный скроллбар справа
+    hsb.grid(row=1, column=0, sticky="ew")  # Горизонтальный скроллбар снизу
+
+    # Устанавливаем, чтобы Treeview растягивался при изменении размера вкладки
+    tab_frame.columnconfigure(0, weight=1)
+    tab_frame.rowconfigure(0, weight=1)
+
+    # **Сохраняем Treeview в словаре**
+    tree_views[table_name] = tree
+
+    # Загружаем данные в таблицу
+    update_table(table_name, tree)
+
 
 def remove_selected_table():
     """Удаление выбранной таблицы"""
@@ -57,17 +143,17 @@ def remove_selected_table():
         messagebox.showinfo("Удалено", f"Таблица {table_name} удалена")
         selected_table.set("")
         update_table("")
-
+tree_views = {}
 def on_tab_change(event):
     """Вызывается при переключении вкладки. Загружает данные из выбранной таблицы."""
     selected_tab = tab_control.tab(tab_control.select(), "text")
+    print(selected_tab)
     selected_table.set(selected_tab)
 
     # Получаем Treeview из активной вкладки
-    for widget in tab_control.nametowidget(tab_control.select()).winfo_children():
-        if isinstance(widget, ttk.Treeview):
-            update_table(selected_tab, widget)
-            break  # Останавливаем, когда нашли нужный Treeview
+    if selected_tab in tree_views:
+        tree = tree_views[selected_tab]  # Получаем Treeview для текущей вкладки
+        update_table(selected_tab, tree)
 
     tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
 
@@ -168,47 +254,23 @@ label_remaining.grid(row=1, column=0, sticky="w")
 
 
 
-tab_frame = tk.Frame(tk_root, height=200)  # Устанавливаем фиксированную высоту
-tab_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
+# tab_frame = tk.Frame(tk_root, height=200)  # Устанавливаем фиксированную высоту
+# tab_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
 
-style = ttk.Style()
-style.configure("TNotebook.Tab", 
-                font=("Arial", 10, "bold"),  # Шрифт вкладок
-                padding=[10, 5],  # Отступы внутри вкладки
-                background="#D3D3D3",  # Цвет фона вкладки
-                foreground="black",  # Цвет текста вкладки
-                borderwidth=2)  # Граница вкладок
+# style = ttk.Style()
+# style.configure("TNotebook.Tab", 
+#                 font=("Arial", 10, "bold"),  # Шрифт вкладок
+#                 padding=[10, 5],  # Отступы внутри вкладки
+#                 background="#D3D3D3",  # Цвет фона вкладки
+#                 foreground="black",  # Цвет текста вкладки
+#                 borderwidth=2)  # Граница вкладок
 
-style.map("TNotebook.Tab", background=[("selected", "#4CAF50")])
+# style.map("TNotebook.Tab", background=[("selected", "#4CAF50")])
 # Вкладки таблиц    
-tab_control = ttk.Notebook(tab_frame, style="TNotebook")
+tab_control = ttk.Notebook(tk_root, style="TNotebook")
 tab_control.pack(expand=True, fill=tk.BOTH,side=tk.TOP,padx=10,pady=10)
 tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
 
-# Таблица QR-кодов
-style = ttk.Style()
-style.configure("Treeview.Heading", font=("Arial", 10, "bold"), background="lightgray", foreground="black", relief="raised", padding=(5, 5))
-style.configure("Treeview", rowheight=25)
-style.map("Treeview", background=[("selected", "#347083")])
-
-
-
-tree = ttk.Treeview(tk_root, columns=("Дата экспорта", "QR-код", "Номер"), show="headings")
-tree.heading("Дата экспорта", text="Дата экспорта")
-tree.heading("QR-код", text="QR-код")
-tree.heading("Номер", text="Номер")
-
-tab_frame.columnconfigure(0, weight=1)
-tab_frame.rowconfigure(0, weight=1)
-
-
-
-# Центрирование данных в столбцах
-tree.column("Дата экспорта", anchor="center", width=100)
-tree.column("QR-код", anchor="center", width=250)
-tree.column("Номер", anchor="center", width=100)
-
-tree.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
 
 # Загрузка существующих таблиц
 load_existing_tables()
