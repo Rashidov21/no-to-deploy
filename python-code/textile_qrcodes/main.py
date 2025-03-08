@@ -1,11 +1,53 @@
 import os
+import shutil
+import cv2
 import unidecode
 import tkinter as tk
-from tkinter import filedialog, ttk, messagebox
+from tkinter import filedialog, ttk, messagebox,PhotoImage
 from PIL import Image, ImageTk
+from slugify import slugify
+
+from pyzbar.pyzbar import decode
+from database import delete_qr_code, get_qr_codes
+
+
 from database import get_qr_codes, delete_table,connect_db
 from excel_import import extract_images_from_excel
-from qr_scanner import scan_qr
+
+
+tree_views = {}
+
+
+
+
+def show_loading_window(tk_root):
+    """Создает окно загрузки"""
+    loading_window = tk.Toplevel(tk_root)
+    loading_window.title("Загрузка...")
+    loading_window.geometry("300x100")  # Размер окна
+    loading_window.resizable(False, False)  # Запрещаем изменение размеров
+    
+    icon_path = "icon.ico"  
+    icon_image = Image.open(icon_path)
+    icon_photo = ImageTk.PhotoImage(icon_image)
+    loading_window.iconphoto(False, icon_photo)
+    
+    # Размещаем окно по центру экрана
+    x = tk_root.winfo_x() + (tk_root.winfo_width() // 2) - 150
+    y = tk_root.winfo_y() + (tk_root.winfo_height() // 2) - 50
+    loading_window.geometry(f"+{x}+{y}")
+
+    label = ttk.Label(loading_window, text="⏳ Идет экспорт, подождите...", font=("Arial", 12, "bold"))
+    label.pack(expand=True)
+
+    loading_window.grab_set()  # Блокируем основное окно
+    tk_root.update_idletasks()
+
+
+def close_all_toplevels():
+    for window in tk_root.winfo_children():  # Перебираем все окна
+        if isinstance(window, tk.Toplevel):  # Проверяем, является ли оно Toplevel
+            window.destroy()
 
 
 def import_excel():
@@ -15,14 +57,20 @@ def import_excel():
     for file_path in file_paths:
         table_name = os.path.splitext(os.path.basename(file_path))[0]
         table_name = unidecode.unidecode(table_name.replace(" ", "_"))
+        table_name = slugify(table_name).replace("-", "_")
+        print(table_name)
         cursor = connect_db().cursor()
         # Проверяем, есть ли такая таблица в базе
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?", (table_name,))
         if cursor.fetchone():
             messagebox.showwarning("Предупреждение", f"Файл {file_path} уже был импортирован!")
             continue  # Пропускаем этот файл
+        show_loading_window(tk_root)
         extract_images_from_excel(file_path,tk_root)
-        add_tab(os.path.splitext(os.path.basename(file_path))[0])
+        close_all_toplevels()
+        tk_root.update_idletasks()
+        messagebox.showinfo("Экспорт завершен", "QR-коды успешно экспортированы!")
+        add_tab(table_name)
 
 def update_table(table_name,tree):
     """Обновление таблицы и счетчиков"""
@@ -45,18 +93,21 @@ def update_table(table_name,tree):
     
     conn.close()
 
+
+
 def add_tab(table_name):
     """Добавляет новую вкладку с таблицей QR-кодов"""
+        
     style = ttk.Style()
     style.configure("TNotebook.Tab", 
-                font=("Arial", 10, "bold"),  # Шрифт вкладок
+                font=("Arial", 11, "bold"),  # Шрифт вкладок
                 padding=[10, 5],  # Отступы внутри вкладки
-                background="#D3D3D3",  # Цвет фона вкладки
+                background="white",  # Цвет фона вкладки
                 foreground="black",  # Цвет текста вкладки
                 borderwidth=2,
                 case="uppercase")  # Граница вкладок
 
-    style.map("TNotebook.Tab", background=[("selected", "#4CAF50")])
+    style.map("TNotebook.Tab", background=[("selected", "#292929")])
     
     tab = ttk.Frame(tab_control)
     tab_control.add(tab, text=table_name)
@@ -64,19 +115,19 @@ def add_tab(table_name):
     tab_control.select(tab)
     selected_table.set(table_name)
 
+
+    
     # Создаем фрейм для таблицы и скроллбаров
     tab_frame = ttk.Frame(tab)
     tab_frame.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
-
     # Создаем Treeview
-    style = ttk.Style()
+
     style.configure("Treeview.Heading", font=("Arial", 10, "bold"), background="lightgray", foreground="black", relief="raised", padding=(5, 5))
     style.configure("Treeview", rowheight=25)
     style.map("Treeview", background=[("selected", "#347083")])
     
     
-    style = ttk.Style()
-
+  
     # Общий стиль таблицы
     style.configure("Treeview", 
                     font=("Arial", 10),  # Шрифт строк
@@ -87,14 +138,13 @@ def add_tab(table_name):
                     borderwidth=2)
 
 
-    style.map("Treeview",
-          background=[("alternate", "#f2f2f2")])
+
     # Подсветка строки при наведении
     style.map("Treeview", 
             background=[("selected", "#292929")],  # Цвет выделенной строки
             foreground=[("selected", "#ffffff")])  # Цвет текста в выделенной строке
     tree = ttk.Treeview(tab_frame, columns=("Номер","Дата экспорта", "QR-код"), show="headings")
-
+            
     # Заголовки
     tree.heading("Номер", text="Номер")
     tree.heading("Дата экспорта", text="Дата экспорта")
@@ -104,6 +154,9 @@ def add_tab(table_name):
     tree.column("Дата экспорта", anchor="center", width=100)
     tree.column("QR-код", anchor="center", width=300)
 
+
+    style = ttk.Style()
+    style.configure("Treeview.Heading", font=("Arial", 12, "bold"), background="#292929", foreground="black")
     # **Добавляем вертикальный скроллбар**
     vsb = ttk.Scrollbar(
         tab_frame, 
@@ -126,25 +179,94 @@ def add_tab(table_name):
     # Загружаем данные в таблицу
     update_table(table_name, tree)
 
+def select_last_tab():
+    tab_count = len(tab_control.tabs())  # Получаем список всех вкладок
+    if tab_count > 0:
+        tab_control.select(tab_count - 1)
 
 def remove_selected_table():
     """Удаление выбранной таблицы"""
-    tree = tree_views[selected_table.get()]
-    table_name = selected_table.get()
-    confirm = messagebox.askyesno("Подтверждение", f"Вы уверены, что хотите удалить таблицу '{table_name}'?")
-    if table_name and confirm:
-        delete_table(table_name)
+    selected_table_name = selected_table.get().strip()
+    selected_tab_id = tab_control.select()
+    selected_table_name = tab_control.tab(selected_tab_id, "text")  # Имя таблицы
+
+    if not selected_table_name:
+        return  
+    if selected_table_name not in tree_views:
+        return  
+    tree = tree_views[selected_table_name]  # Получаем дерево для этой таблицы
+    # Обновляем данные в таблице
+    print(selected_table_name)
+
+    if not selected_table_name:
+        messagebox.showwarning("Ошибка", "Не выбрана таблица для удаления")
+        return  
+
+    if selected_table_name not in tree_views:
+        messagebox.showwarning("Ошибка", f"Таблица '{selected_table_name}' не найдена")
+        return  
+
+    tree = tree_views[selected_table_name] 
+    confirm = messagebox.askyesno("Подтверждение", f"Вы уверены, что хотите удалить таблицу '{selected_table_name}'?")
+    if selected_table_name and confirm:
+        delete_table(selected_table_name)
         for tab in tab_control.tabs():
-            if tab_control.tab(tab, "text") == table_name:
+            if tab_control.tab(tab, "text") == selected_table_name:
                 tab_control.forget(tab)
                 break
-        tree.delete(*tree.get_children())
-        messagebox.showinfo("Удалено", f"Таблица {table_name} удалена")
-        selected_table.set("")
+        
+        else:
+            selected_table.set("")  # Сбрасываем выбранную таблицу
+            tree.delete(*tree.get_children())  # Очищаем таблицу
+            messagebox.showinfo("Внимание", "Все таблицы удалены!")
+            not_data_frame = ttk.Frame(tab_control)
+            not_data_frame.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
+            label = ttk.Label(not_data_frame, text="❌ Таблицы не найдены", font=("Arial", 12, "bold"))
+            label.pack(expand=True)
+            
+
+        folder_name = f"qr_codes_{selected_table_name}"
+        folder_path = os.path.join(os.getcwd(), folder_name)
+         # Удаление папки с файлами QR-кодов
+        if os.path.exists(folder_path):
+            shutil.rmtree(folder_path)  # Удаляет папку и все её файлы
+
+        messagebox.showinfo("Удалено", f"Таблица '{selected_table_name}' и её папка удалены.")
+        selected_tab = tab_control.tab(tab_control.select(), "text")
+        selected_table.set(selected_tab)
+  
+
+
+        
+
+
+def on_tab_select(event):
+    """ Обработчик переключения вкладок """
+    selected_table_name = selected_table.get().strip()
+    selected_tab_id = tab_control.select()
+    selected_table_name = tab_control.tab(selected_tab_id, "text")  # Имя таблицы
+
+    if not selected_table_name:
+        return  
+    if selected_table_name not in tree_views:
+        return  
+    tree = tree_views[selected_table_name]  # Получаем дерево для этой таблицы
+    # Обновляем данные в таблице
+    print(selected_table_name)
+    update_table(selected_table_name, tree)
+    # Обновляем счетчики
+    conn = connect_db()
+    cursor = conn.cursor()
+    # Получаем количество оставшихся QR-кодов
+    cursor.execute(f"SELECT COUNT(*) FROM {selected_table_name}")
+    remaining_qr_count = cursor.fetchone()[0]
+    # Обновляем текстовые переменные
+    remaining_count.set(f"Осталось QR-кодов: {remaining_qr_count}")
+    conn.close()
+    tab_control.bind("<<NotebookTabChanged>>", on_tab_select)
 
 
 
-tree_views = {}
 def on_tab_change(event):
     """Вызывается при переключении вкладки. Загружает данные из выбранной таблицы."""
     selected_tab = tab_control.tab(tab_control.select(), "text")
@@ -159,16 +281,24 @@ def on_tab_change(event):
 
 
 def load_existing_tables():
+    global not_data_frame
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence';")
     tables = cursor.fetchall()
     
-    for table in tables:
-      
-        table_name = table[0]
-        if table_name != "sqlite_sequence":  # Исключаем системную таблицу
+    if not tables:
+        not_data_frame = ttk.Frame(tk_root)
+        not_data_frame.place(relx=0.5, rely=0.5, anchor="center")  # Центрируем
+        not_data_frame.configure(width=300, height=100)   
+        label = ttk.Label(not_data_frame, text="❌ Таблицы не найдены", font=("Arial", 12, "bold"))
+        label.pack(expand=True)
+    else:
+        for table in tables:
+            table_name = table[0]
             add_tab(table_name)
+       
 
 
  
@@ -177,10 +307,12 @@ tk_root = tk.Tk()
 tk_root.title("QR Code Manager")
 tk_root.geometry("800x600")
 
-icon_path = "icon.ico"  
-icon_image = Image.open(icon_path)
-icon_photo = ImageTk.PhotoImage(icon_image)
-tk_root.iconphoto(False, icon_photo)
+# icon_path = "icon.ico"
+# if os.path.exists(icon_path):
+#     icon = ImageTk.PhotoImage(file=icon_path)
+#     tk_root.iconphoto(False, icon)
+# else:
+#     print("Файл не найден:", icon_path)
 
 
 selected_table = tk.StringVar()
@@ -188,11 +320,78 @@ selected_table = tk.StringVar()
 control_frame = tk.Frame(tk_root)
 control_frame.pack(side=tk.TOP, fill=tk.X,anchor='n', pady=1)
 
+
+
+def scan_qr(selected_table, update_callback):
+    """ Запускает камеру и сканирует QR-коды """
+    for i in range(5):  # Проверяем 5 возможных камер
+        cap = cv2.VideoCapture(i)
+        if cap.isOpened():
+            print(f"Камера найдена: {i}")
+            break  # Используем найденную камеру
+        cap.release()
+    else:
+        print("Нет доступных камер")
+        exit()
+    cap = cv2.VideoCapture(0)
+
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        decoded_objects = decode(frame)
+        for obj in decoded_objects:
+            qr_code = obj.data.decode("utf-8")
+            records = get_qr_codes(selected_table)
+
+            for record in records:
+                qr_code_path = record[1]
+                if qr_code in qr_code_path:  
+                    delete_qr_code(selected_table, qr_code_path)
+                    update_qr_counts(selected_table)
+                    update_callback()
+                    messagebox.showinfo("QR-код найден", f"Удалён QR-код: {qr_code}")
+                    break  
+
+        cv2.imshow("QR Scanner", frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    cap.release()
+    cv2.destroyAllWindows()
+
+qr_entry = tk.Entry(tk_root, font=("Arial", 14))
+qr_entry.pack(pady=10)
+
+def on_qr_scanned(event):
+    """Функция вызывается при сканировании QR-кода"""
+    qr_code = qr_entry.get().strip()  # Получаем введенный код
+    print(qr_code)
+    qr_entry.delete(0, tk.END)  # Очищаем поле
+
+    if not qr_code:
+        return
+
+    # Проверяем QR-код в базе
+    records = get_qr_codes(selected_table.get())  
+    for record in records:
+        qr_code_path = record[1]  
+        if qr_code in qr_code_path:  
+            delete_qr_code(selected_table.get(), qr_code_path)
+            messagebox.showinfo("QR-код найден", f"Удалён QR-код: {qr_code}")
+            return
+
+    messagebox.showwarning("Ошибка", "QR-код не найден в базе!")
+
+def start_scanning():
+    """Устанавливаем фокус на поле ввода"""
+    qr_entry.focus_set()
+qr_entry.bind("<Return>", on_qr_scanned)
 # Кнопки
 btn_scan = tk.Button(
     control_frame, 
     text="📷 Сканировать QR", 
-    command=lambda: scan_qr(selected_table.get(), lambda: update_table(selected_table.get())),
+    # command=lambda: scan_qr(selected_table.get(), lambda: update_table(selected_table.get())),
+    command=start_scanning,
     bg="#292929",          
     fg="#ffffff",
     font=("Arial", 12, "bold"), 
@@ -218,6 +417,7 @@ btn_import = tk.Button(
     pady=1 )
 btn_import.pack(side=tk.LEFT, padx=5)
 
+
 btn_delete = tk.Button(
     control_frame, 
     text="❌ Удалить таблицу", 
@@ -233,10 +433,19 @@ btn_delete = tk.Button(
 btn_delete.pack(side=tk.LEFT, padx=5)
 count_frame = tk.Frame(control_frame)
 count_frame.pack(side=tk.LEFT, padx=10)
+
+
 # Счетчики
 imported_count = tk.StringVar(value="Импортировано QR-кодов: 0")
 remaining_count = tk.StringVar(value="Осталось QR-кодов: 0")
 
+def update_qr_counts(table_name):
+    """Обновляет количество импортированных и оставшихся QR-кодов"""
+    records = get_qr_codes(table_name)  # Получаем список QR-кодов из базы
+    total_qr = len(records)  # Количество QR-кодов в таблице
+
+    imported_count.set(f"Импортировано QR-кодов: {total_qr}")
+    remaining_count.set(f"Осталось QR-кодов: {total_qr}")
 label_imported = tk.Label(
     count_frame, 
     textvariable=imported_count,
@@ -254,26 +463,17 @@ label_remaining.grid(row=1, column=0, sticky="w")
 
 
 
-# tab_frame = tk.Frame(tk_root, height=200)  # Устанавливаем фиксированную высоту
-# tab_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
-
-# style = ttk.Style()
-# style.configure("TNotebook.Tab", 
-#                 font=("Arial", 10, "bold"),  # Шрифт вкладок
-#                 padding=[10, 5],  # Отступы внутри вкладки
-#                 background="#D3D3D3",  # Цвет фона вкладки
-#                 foreground="black",  # Цвет текста вкладки
-#                 borderwidth=2)  # Граница вкладок
-
-# style.map("TNotebook.Tab", background=[("selected", "#4CAF50")])
 # Вкладки таблиц    
+
 tab_control = ttk.Notebook(tk_root, style="TNotebook")
 tab_control.pack(expand=True, fill=tk.BOTH,side=tk.TOP,padx=10,pady=10)
 tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
+tab_control.bind("<<NotebookTabChanged>>", on_tab_select)
 
 
 
 # Загрузка существующих таблиц
 load_existing_tables()
+
 
 tk_root.mainloop()

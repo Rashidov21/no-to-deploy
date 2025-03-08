@@ -67,6 +67,7 @@ def delete_table(table_name):
         cursor.execute(f"DROP TABLE IF EXISTS {table_name}")
         conn.commit()
         print(f"Таблица {table_name} удалена.")
+        
     except Exception as e:
         print(f"Ошибка при удалении таблицы {table_name}: {e}")
     finally:
