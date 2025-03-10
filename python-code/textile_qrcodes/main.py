@@ -2,6 +2,9 @@ import os
 import shutil
 import cv2
 import unidecode
+import pyperclip
+import time
+import threading
 import tkinter as tk
 from tkinter import filedialog, ttk, messagebox,PhotoImage
 from PIL import Image, ImageTk
@@ -322,75 +325,47 @@ control_frame.pack(side=tk.TOP, fill=tk.X,anchor='n', pady=1)
 
 
 
-def scan_qr(selected_table, update_callback):
-    """ Запускает камеру и сканирует QR-коды """
-    for i in range(5):  # Проверяем 5 возможных камер
-        cap = cv2.VideoCapture(i)
-        if cap.isOpened():
-            print(f"Камера найдена: {i}")
-            break  # Используем найденную камеру
-        cap.release()
-    else:
-        print("Нет доступных камер")
-        exit()
-    cap = cv2.VideoCapture(0)
-
+def scan_qr_code():
+    """Читает буфер обмена и удаляет QR-код из базы и папки"""
+    last_clipboard = ""
+    
     while True:
-        ret, frame = cap.read()
-        if not ret:
-            break
-        decoded_objects = decode(frame)
-        for obj in decoded_objects:
-            qr_code = obj.data.decode("utf-8")
-            records = get_qr_codes(selected_table)
+        qr_code = pyperclip.paste().strip()  # Получаем код из буфера обмена
+        messagebox.showinfo("Сканирование", "Ожидаем QR-код... Отсканируйте его!")
+        print(f"Сканирован QR-код: {qr_code}")  # Для отладки
+        
+        if qr_code and qr_code != last_clipboard:
+            last_clipboard = qr_code  # Запоминаем последний код
+            print(f"Сканирован QR-код: {qr_code}")  # Для отладки
+            
+            # Получаем все записи из базы
+            records = get_qr_codes(selected_table.get())  
 
             for record in records:
-                qr_code_path = record[1]
+                qr_code_path = record[1]  # Пусть в БД хранится путь к файлу
+
                 if qr_code in qr_code_path:  
-                    delete_qr_code(selected_table, qr_code_path)
-                    update_qr_counts(selected_table)
-                    update_callback()
+                    # Удаляем из базы
+                    delete_qr_code(selected_table.get(), qr_code_path)
+
+                    # Удаляем сам файл QR-кода
+                    if os.path.exists(qr_code_path):
+                        os.remove(qr_code_path)
+
                     messagebox.showinfo("QR-код найден", f"Удалён QR-код: {qr_code}")
-                    break  
-
-        cv2.imshow("QR Scanner", frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    cap.release()
-    cv2.destroyAllWindows()
-
-qr_entry = tk.Entry(tk_root, font=("Arial", 14))
-qr_entry.pack(pady=10)
-
-def on_qr_scanned(event):
-    """Функция вызывается при сканировании QR-кода"""
-    qr_code = qr_entry.get().strip()  # Получаем введенный код
-    print(qr_code)
-    qr_entry.delete(0, tk.END)  # Очищаем поле
-
-    if not qr_code:
-        return
-
-    # Проверяем QR-код в базе
-    records = get_qr_codes(selected_table.get())  
-    for record in records:
-        qr_code_path = record[1]  
-        if qr_code in qr_code_path:  
-            delete_qr_code(selected_table.get(), qr_code_path)
-            messagebox.showinfo("QR-код найден", f"Удалён QR-код: {qr_code}")
-            return
-
-    messagebox.showwarning("Ошибка", "QR-код не найден в базе!")
+                    return
+            
+            messagebox.showwarning("Ошибка", "QR-код не найден в базе!")
+        
+        time.sleep(1)  # Проверяем буфер каждую секунду
 
 def start_scanning():
-    """Устанавливаем фокус на поле ввода"""
-    qr_entry.focus_set()
-qr_entry.bind("<Return>", on_qr_scanned)
+    """Запускает процесс сканирования в отдельном потоке"""
+    threading.Thread(target=scan_qr_code, daemon=True).start()
 # Кнопки
 btn_scan = tk.Button(
     control_frame, 
     text="📷 Сканировать QR", 
-    # command=lambda: scan_qr(selected_table.get(), lambda: update_table(selected_table.get())),
     command=start_scanning,
     bg="#292929",          
     fg="#ffffff",
