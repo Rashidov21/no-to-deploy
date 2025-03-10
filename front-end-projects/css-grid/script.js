@@ -98,39 +98,119 @@ input.addEventListener("input", (e) => {
 //     7. Symbol - unikal belgilarni ifodalash uchun
 //     8. BigInt - katta butun sonlarni ifodalash uchun
 
-let s1 = "Hello"
-let s2 = 'World'
-let s3 = `Hello ${s2}` // Hello World
-console.log(s1,s2,s3) // Hello World Hello World
+// let s1 = "Hello"
+// let s2 = 'World'
+// let s3 = `Hello ${s2}` // Hello World
+// console.log(s1,s2,s3) // Hello World Hello World
 
-let i = 1 
-console.log(((i + 2) * 2) - (3 - i)) 
+// let i = 1 
+// console.log(((i + 2) * 2) - (3 - i)) 
 
-let b1 = true
-let b2 = false 
-console.log(b1,b2)
-console.log(true + 1 )
-console.log(true - 1 )
+// let b1 = true
+// let b2 = false 
+// console.log(b1,b2)
+// console.log(true + 1 )
+// console.log(true - 1 )
 
-let x;
-console.log(x) // undefined
+// let x;
+// console.log(x) // undefined
 
-let n = null
-console.log(n)
+// let n = null
+// console.log(n)
 
 
-let obj = {
-    name:"John",
-    age:30,
-    city:"New York",
+// let obj = {
+//     name:"John",
+//     age:30,
+//     city:"New York",
 
-}
+// }
 
-console.log(obj)
+// console.log(obj)
 
-console.log(typeof Symbol("id"))
-console.log(typeof obj)
-console.log(typeof s2)
-console.log(typeof i)
-console.log(typeof b1)
-console.log(typeof xzx)
+// console.log(typeof Symbol("id"))
+// console.log(typeof obj)
+// console.log(typeof s2)
+// console.log(typeof i)
+// console.log(typeof b1)
+// console.log(typeof xzx)
+
+// Arifmetika 
+
+// let n = 10;
+// let s = "10";
+// console.log(n + s)
+// concat - birlashtirish > 10 + "10" = 1010
+// s = Number(s) // 
+// console.log(n + s) // 20
+// n = String(n)
+// console.log(n + s) // 1010
+
+// let x = Number("abc")
+// console.log(x) // NaN > Not a number
+
+// console.log(25 * "2") // 50
+// console.log(25 * "abc") // NaN
+// console.log(25 / "2") // 12.5
+// console.log(25 - "2") // 23
+// console.log(25 + "2") // 252
+
+// console.log("olma" - "behi") // NaN
+// console.log("olma" + "behi") // olmabehi
+
+// Bolganda qoldigini olish 
+// console.log(7 % 3) // 1
+// console.log(9 % 3) // 0
+// console.log(8 % 3) // 2
+// console.log(49 % 25) // 24
+
+// // Darajaga kotarish 
+// console.log(2 ** 2) // 4
+// console.log(2 ** 10)  // 1024
+
+// console.log(true + 1 * 4 / 3 - 1)  // 1.333333333333333
+// console.log(((true + 1) * 4) / (3 - 1))  // 4
+
+// let x = 1
+// x += 1
+// x -= 1
+// x *= 2
+// x /= 2
+// console.log(x)
+
+// increment / decrement 
+// console.log(x++) // 1
+// console.log(++x) // 2
+// console.log(x--)
+// console.log(--x)
+// console.log(--x)
+// console.log(--x)
+// console.log(--x)
+
+// let counter = 2;
+// console.log(counter * ++counter)
+// console.log(counter * --counter)
+
+// console.log("" + 1 + 0)
+// console.log("" - 1 + 0)
+// console.log(true + false)
+// console.log(6 / "3")
+// console.log("2" * "3")
+// console.log(4 + 5 + "px")
+// console.log("$" + 4 + 5)
+// console.log("4" - 2)
+// console.log("4px" - 2)
+// console.log("  -9  " - 5)
+// console.log(null + 1)
+// console.log(undefined + 1)
+// console.log(" \t \n" - 2)
+
+
+// task 1 
+// let a = +prompt("A ni kiriting:")
+// console.log("Perimetr = ", a * 4)
+
+// // task 2 
+// let s = +prompt("S ni kiriting:")
+// console.log("Yuzasi = ", a ** 2,"kvm")
+// console.log(Math.PI * 12)
