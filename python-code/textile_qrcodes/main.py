@@ -1,21 +1,21 @@
+import uuid
+import sys
 import os
 import re
 import shutil
 import cv2
 import unidecode
-import numpy as np
 import zxingcpp
 import tkinter as tk
 from tkinter import filedialog, ttk, messagebox,PhotoImage
 from PIL import Image, ImageTk
 from slugify import slugify
-
-from pyzbar.pyzbar import decode
 from database import delete_qr_code, get_qr_codes
-
-
 from database import get_qr_codes, delete_table,connect_db,get_total_qr_codes
 from excel_import import extract_images_from_excel
+
+
+
 
 
 tree_views = {}
@@ -476,9 +476,45 @@ tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
 tab_control.bind("<<NotebookTabChanged>>", on_tab_select)
 
 
+def show_alert_window():
+    """Показывает окно предупреждения"""
+    alert_window = tk.Tk()
+    alert_window.geometry("400x150")
+    alert_window.title("Предупреждение")
+    alert_window.configure(bg="#292929")
+    alert_window.resizable(False, False)
 
-# Загрузка существующих таблиц
-load_existing_tables()
+    alert_label = tk.Label(alert_window, text="❌ Доступ запрещён!", font=("Arial", 14, "bold"), bg="#292929", fg="red")
+    alert_label.pack(pady=10)
+
+    message_label = tk.Label(alert_window, text="Вы не являетесь авторизованным пользователем!\nПриложение будет закрыто.", font=("Arial", 10), bg="#292929", fg="white")
+    message_label.pack(padx=10, pady=10)
+
+    close_button = tk.Button(alert_window, text="ОК", command=alert_window.quit, bg="red", fg="white", font=("Arial", 12, "bold"))
+    close_button.pack(pady=10)
+
+    alert_window.mainloop()
 
 
-tk_root.mainloop()
+ALLOWED_MAC = "00:1a:2b:3c:4d:5e"
+def get_mac_address():
+    mac = ":".join(f"{(uuid.getnode() >> i & 0xff):02x}" for i in range(0, 48, 8))
+    return mac.lower()
+
+def check_mac():
+    current_mac = get_mac_address()
+
+    if current_mac and current_mac.lower() == ALLOWED_MAC.lower():
+        print("OK")
+        return True
+    else:
+        show_alert_window()
+        return False
+if check_mac():
+    # Загрузка существующих таблиц
+    load_existing_tables()
+    tk_root.mainloop()
+else:
+    sys.exit()
+
+

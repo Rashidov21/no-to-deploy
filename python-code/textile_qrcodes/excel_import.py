@@ -4,14 +4,8 @@ import unidecode
 from openpyxl import load_workbook
 from PIL import Image
 from io import BytesIO
-import tkinter as tk
-
 from slugify import slugify
-
 from database import create_table, insert_qr_code,set_total_qr_codes
-
-
-
 
 
 def extract_images_from_excel(file_path,tk_root):
@@ -47,9 +41,6 @@ def extract_images_from_excel(file_path,tk_root):
                 insert_qr_code(table_name, export_date, save_path, qr_count)
                 set_total_qr_codes(table_name, qr_count)
                 img.save(save_path)
-                
-                
-    
     wb.close()
 
     

@@ -2,6 +2,8 @@
 /fast-api-projects/first_steps/env
 django-projects/library/library/config.py
 django-projects/store/env/pyvenv.cfg
+dist/
+build/
 *.png
 *.jpg
 *.jpeg
