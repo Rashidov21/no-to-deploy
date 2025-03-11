@@ -441,7 +441,7 @@ def show_alert_window():
     alert_window.mainloop()
 
 
-ALLOWED_MAC = "00:1a:2b:3c:4d:5e"
+ALLOWED_MAC = "74:35:9a:67:a1:c6"
 
 def get_mac_address():
     mac = ":".join(f"{(uuid.getnode() >> i & 0xff):02x}" for i in range(0, 48, 8))
@@ -449,7 +449,7 @@ def get_mac_address():
 
 def check_mac():
     current_mac = get_mac_address()
-
+    print(current_mac)
     if current_mac and current_mac.lower() == ALLOWED_MAC.lower():
         return True
     else:
