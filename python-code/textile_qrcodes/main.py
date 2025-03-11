@@ -1,10 +1,10 @@
 import os
+import re
 import shutil
 import cv2
 import unidecode
-import pyperclip
-import time
-import threading
+import numpy as np
+import zxingcpp
 import tkinter as tk
 from tkinter import filedialog, ttk, messagebox,PhotoImage
 from PIL import Image, ImageTk
@@ -14,13 +14,18 @@ from pyzbar.pyzbar import decode
 from database import delete_qr_code, get_qr_codes
 
 
-from database import get_qr_codes, delete_table,connect_db
+from database import get_qr_codes, delete_table,connect_db,get_total_qr_codes
 from excel_import import extract_images_from_excel
 
 
 tree_views = {}
 
-
+def update_qr_counts(table_name):
+    """Обновляет количество импортированных и оставшихся QR-кодов"""
+    records = get_qr_codes(table_name)  # Получаем список QR-кодов из базы
+    total_qr = get_total_qr_codes(table_name)  # Количество QR-кодов в таблице
+    imported_count.set(f"Импортировано QR-кодов: {total_qr}")
+    remaining_count.set(f"Осталось QR-кодов: {len(records)}")
 
 
 def show_loading_window(tk_root):
@@ -61,7 +66,6 @@ def import_excel():
         table_name = os.path.splitext(os.path.basename(file_path))[0]
         table_name = unidecode.unidecode(table_name.replace(" ", "_"))
         table_name = slugify(table_name).replace("-", "_")
-        print(table_name)
         cursor = connect_db().cursor()
         # Проверяем, есть ли такая таблица в базе
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?", (table_name,))
@@ -89,11 +93,7 @@ def update_table(table_name,tree):
         row = [row[0],row[1],"/".join(row[2].split("\\")[-2:])]
         tree.insert("", "end", values=row)
      # Обновляем счётчики
-    imported_count.set(f"Импортировано QR-кодов: {len(qr_codes)}")
-    cursor.execute(f"SELECT COUNT(*) FROM {table_name}")  # Сколько осталось
-    remaining_qrs = cursor.fetchone()[0]
-    remaining_count.set(f"Осталось QR-кодов: {remaining_qrs}")
-    
+    update_qr_counts(table_name)
     conn.close()
 
 
@@ -182,6 +182,7 @@ def add_tab(table_name):
     # Загружаем данные в таблицу
     update_table(table_name, tree)
 
+
 def select_last_tab():
     tab_count = len(tab_control.tabs())  # Получаем список всех вкладок
     if tab_count > 0:
@@ -199,7 +200,6 @@ def remove_selected_table():
         return  
     tree = tree_views[selected_table_name]  # Получаем дерево для этой таблицы
     # Обновляем данные в таблице
-    print(selected_table_name)
 
     if not selected_table_name:
         messagebox.showwarning("Ошибка", "Не выбрана таблица для удаления")
@@ -255,18 +255,10 @@ def on_tab_select(event):
         return  
     tree = tree_views[selected_table_name]  # Получаем дерево для этой таблицы
     # Обновляем данные в таблице
-    print(selected_table_name)
     update_table(selected_table_name, tree)
     # Обновляем счетчики
-    conn = connect_db()
-    cursor = conn.cursor()
-    # Получаем количество оставшихся QR-кодов
-    cursor.execute(f"SELECT COUNT(*) FROM {selected_table_name}")
-    remaining_qr_count = cursor.fetchone()[0]
-    # Обновляем текстовые переменные
-    remaining_count.set(f"Осталось QR-кодов: {remaining_qr_count}")
-    conn.close()
-    tab_control.bind("<<NotebookTabChanged>>", on_tab_select)
+    print(selected_table_name)
+    # tab_control.bind("<<NotebookTabChanged>>", on_tab_select)
 
 
 
@@ -284,19 +276,16 @@ def on_tab_change(event):
 
 
 def load_existing_tables():
-    global not_data_frame
+
     conn = connect_db()
     cursor = conn.cursor()
     
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence';")
     tables = cursor.fetchall()
-    
+    conn.close()
+
     if not tables:
-        not_data_frame = ttk.Frame(tk_root)
-        not_data_frame.place(relx=0.5, rely=0.5, anchor="center")  # Центрируем
-        not_data_frame.configure(width=300, height=100)   
-        label = ttk.Label(not_data_frame, text="❌ Таблицы не найдены", font=("Arial", 12, "bold"))
-        label.pack(expand=True)
+        messagebox.showwarning("Предупреждение", "Таблицы не найдены!")
     else:
         for table in tables:
             table_name = table[0]
@@ -308,14 +297,8 @@ def load_existing_tables():
 
 tk_root = tk.Tk()
 tk_root.title("QR Code Manager")
-tk_root.geometry("800x600")
+tk_root.geometry("1000x600")
 
-# icon_path = "icon.ico"
-# if os.path.exists(icon_path):
-#     icon = ImageTk.PhotoImage(file=icon_path)
-#     tk_root.iconphoto(False, icon)
-# else:
-#     print("Файл не найден:", icon_path)
 
 
 selected_table = tk.StringVar()
@@ -323,50 +306,95 @@ selected_table = tk.StringVar()
 control_frame = tk.Frame(tk_root)
 control_frame.pack(side=tk.TOP, fill=tk.X,anchor='n', pady=1)
 
+def decode_with_zxing(image_path):
+    """Попытка распознавания QR-кода через ZXing"""
+    if not os.path.exists(image_path):
+        return None
 
-
-def scan_qr_code():
-    """Читает буфер обмена и удаляет QR-код из базы и папки"""
-    last_clipboard = ""
+    image = cv2.imread(image_path)
+    if image is None:
+        return None
     
-    while True:
-        qr_code = pyperclip.paste().strip()  # Получаем код из буфера обмена
-        messagebox.showinfo("Сканирование", "Ожидаем QR-код... Отсканируйте его!")
-        print(f"Сканирован QR-код: {qr_code}")  # Для отладки
-        
-        if qr_code and qr_code != last_clipboard:
-            last_clipboard = qr_code  # Запоминаем последний код
-            print(f"Сканирован QR-код: {qr_code}")  # Для отладки
+    result = zxingcpp.read_barcodes(image)
+
+    if result:
+        for barcode in result:
+            decoded_qr_clean = barcode.bytes.decode("utf-8").strip()
+            return decoded_qr_clean
+    return None
+
+
+def clean_qr_data(qr_code):
+    """Очищает текст QR-кода от лишних символов"""
+    return re.sub(r"[\x00-\x1F\x7F]", "", qr_code).strip()
+
+def check_qr_in_folder(table_name, scanned_qr):
+    """Проверяет, есть ли отсканированный QR-код в папке с изображениями"""
+    records = get_qr_codes(table_name)  # Получаем пути к изображениям из БД
+    
+    for record in records:
+        qr_code_path = record[1]  # Путь к файлу QR-кода
+
+        if not os.path.exists(qr_code_path):  # Пропускаем, если файла нет
+            print(f"⚠️ Файл {qr_code_path} не найден, пропускаем.")
+            continue
+
+        decoded_qr = decode_with_zxing(qr_code_path)
+
+        if decoded_qr is None:
+            print(f"❌ Ошибка: QR-код не распознан в {qr_code_path}")
+            continue
+
+        # Преобразуем в строку и чистим от пробелов
+        scanned_qr_clean = clean_qr_data(scanned_qr)
+        decoded_qr_clean = clean_qr_data(decoded_qr)
+     
+        if scanned_qr_clean[:20] == decoded_qr_clean[:20]:
+            print("\n--- 🔎 Сравнение ---")
+            print(f"📥 Сканированный: {repr(scanned_qr_clean)}")
+            print(f"📤 Декодированный: {repr(decoded_qr_clean)}")
+            if scanned_qr_clean == decoded_qr_clean:
+                print("✅ Совпадение найдено! Удаляем код.")
+                # Удаляем из базы
+                try:
+                    delete_qr_code(table_name, qr_code_path)
+                except Exception as e: 
+                    print(e)
+                return True
             
-            # Получаем все записи из базы
-            records = get_qr_codes(selected_table.get())  
+    
+    return False  # Если QR-код не найден
 
-            for record in records:
-                qr_code_path = record[1]  # Пусть в БД хранится путь к файлу
+def on_qr_scanned(event=None):
+    """Функция вызывается при сканировании QR-кода"""
+    scanned_qr  = qr_entry.get().strip()  # Получаем введённый код
+    qr_entry.delete(0, tk.END)  # Очищаем поле
 
-                if qr_code in qr_code_path:  
-                    # Удаляем из базы
-                    delete_qr_code(selected_table.get(), qr_code_path)
-
-                    # Удаляем сам файл QR-кода
-                    if os.path.exists(qr_code_path):
-                        os.remove(qr_code_path)
-
-                    messagebox.showinfo("QR-код найден", f"Удалён QR-код: {qr_code}")
-                    return
-            
-            messagebox.showwarning("Ошибка", "QR-код не найден в базе!")
+    if not scanned_qr :
+        return
+    selected_tab_id = tab_control.select()
+    table_name = tab_control.tab(selected_tab_id, "text")
+    print("qaysi table ", table_name)
+    if check_qr_in_folder(table_name, scanned_qr):
+        messagebox.showinfo("🔎 QR-код найден !", f"✅ Удалён QR-код: {scanned_qr}")
+    else:
+        messagebox.showerror("❌ Ошибка","🔎 QR-код не найден !")
+    
+    update_qr_counts(table_name)
         
-        time.sleep(1)  # Проверяем буфер каждую секунду
 
-def start_scanning():
-    """Запускает процесс сканирования в отдельном потоке"""
-    threading.Thread(target=scan_qr_code, daemon=True).start()
+def start_qr_scanner():
+    qr_entry.focus_set()
+    qr_entry.bind("<Return>", on_qr_scanned)
+
+
+
+
 # Кнопки
 btn_scan = tk.Button(
     control_frame, 
     text="📷 Сканировать QR", 
-    command=start_scanning,
+    command=start_qr_scanner,
     bg="#292929",          
     fg="#ffffff",
     font=("Arial", 12, "bold"), 
@@ -376,6 +404,7 @@ btn_scan = tk.Button(
     padx=3,            
     pady=1 
     )
+
 btn_scan.pack(side=tk.LEFT, padx=5)
 
 btn_import = tk.Button(
@@ -409,18 +438,19 @@ btn_delete.pack(side=tk.LEFT, padx=5)
 count_frame = tk.Frame(control_frame)
 count_frame.pack(side=tk.LEFT, padx=10)
 
+qr_label = tk.Label(control_frame, text="Введите QR-код:", font=("Arial", 10))
+qr_label.pack(side=tk.TOP, pady=2)
+qr_entry = tk.Entry(control_frame, font=("Arial", 10))
+qr_entry.pack(side=tk.TOP, pady=10)
+
 
 # Счетчики
 imported_count = tk.StringVar(value="Импортировано QR-кодов: 0")
 remaining_count = tk.StringVar(value="Осталось QR-кодов: 0")
 
-def update_qr_counts(table_name):
-    """Обновляет количество импортированных и оставшихся QR-кодов"""
-    records = get_qr_codes(table_name)  # Получаем список QR-кодов из базы
-    total_qr = len(records)  # Количество QR-кодов в таблице
 
-    imported_count.set(f"Импортировано QR-кодов: {total_qr}")
-    remaining_count.set(f"Осталось QR-кодов: {total_qr}")
+    
+    
 label_imported = tk.Label(
     count_frame, 
     textvariable=imported_count,

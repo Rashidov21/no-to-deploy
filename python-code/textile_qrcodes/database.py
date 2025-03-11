@@ -16,7 +16,8 @@ def create_table(table_name):
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         export_date TEXT,
         qr_code_path TEXT,
-        qr_number INTEGER
+        qr_number INTEGER,
+        total_qr_codes INTEGER DEFAULT 0
     )
     """)
     conn.commit()
@@ -31,6 +32,25 @@ def insert_qr_code(table_name, export_date, qr_code_path, qr_number):
     """, (export_date, qr_code_path, qr_number))
     conn.commit()
     conn.close()
+
+def set_total_qr_codes(table_name, total_qr_codes):
+    """ Устанавливает общее количество QR-кодов в таблице """
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute(f"""
+        UPDATE {table_name} SET total_qr_codes = ?
+    """, (total_qr_codes,))
+    conn.commit()
+    conn.close()
+
+def get_total_qr_codes(table_name):
+    """ Получает общее количество QR-кодов в таблице """
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute(f"SELECT total_qr_codes FROM {table_name}")
+    total_qr_codes = cursor.fetchone()[0]
+    conn.close()
+    return total_qr_codes
 
 def get_qr_codes(table_name):
     """ Получает все QR-коды из таблицы """

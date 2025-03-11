@@ -8,7 +8,7 @@ import tkinter as tk
 
 from slugify import slugify
 
-from database import create_table, insert_qr_code
+from database import create_table, insert_qr_code,set_total_qr_codes
 
 
 
@@ -45,6 +45,7 @@ def extract_images_from_excel(file_path,tk_root):
                 save_path = os.path.join(save_dir, f"qr_code_{qr_count}.png")
                 export_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 insert_qr_code(table_name, export_date, save_path, qr_count)
+                set_total_qr_codes(table_name, qr_count)
                 img.save(save_path)
                 
                 
