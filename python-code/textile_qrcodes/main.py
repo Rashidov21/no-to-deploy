@@ -7,16 +7,12 @@ import cv2
 import unidecode
 import zxingcpp
 import tkinter as tk
-from tkinter import filedialog, ttk, messagebox,PhotoImage
+from tkinter import filedialog, ttk, messagebox
 from PIL import Image, ImageTk
 from slugify import slugify
 from database import delete_qr_code, get_qr_codes
 from database import get_qr_codes, delete_table,connect_db,get_total_qr_codes
 from excel_import import extract_images_from_excel
-
-
-
-
 
 tree_views = {}
 
@@ -27,24 +23,20 @@ def update_qr_counts(table_name):
     imported_count.set(f"Импортировано QR-кодов: {total_qr}")
     remaining_count.set(f"Осталось QR-кодов: {len(records)}")
 
-
 def show_loading_window(tk_root):
     """Создает окно загрузки"""
     loading_window = tk.Toplevel(tk_root)
     loading_window.title("Загрузка...")
     loading_window.geometry("300x100")  # Размер окна
     loading_window.resizable(False, False)  # Запрещаем изменение размеров
-    
     icon_path = "icon.ico"  
     icon_image = Image.open(icon_path)
     icon_photo = ImageTk.PhotoImage(icon_image)
     loading_window.iconphoto(False, icon_photo)
-    
     # Размещаем окно по центру экрана
     x = tk_root.winfo_x() + (tk_root.winfo_width() // 2) - 150
     y = tk_root.winfo_y() + (tk_root.winfo_height() // 2) - 50
     loading_window.geometry(f"+{x}+{y}")
-
     label = ttk.Label(loading_window, text="⏳ Идет экспорт, подождите...", font=("Arial", 12, "bold"))
     label.pack(expand=True)
 
@@ -82,13 +74,10 @@ def import_excel():
 def update_table(table_name,tree):
     """Обновление таблицы и счетчиков"""
     tree.delete(*tree.get_children())  # Очистка старых данных
-
     conn = connect_db()
     cursor = conn.cursor()
     data = cursor.execute(f"SELECT qr_number, export_date, qr_code_path  FROM {table_name}")
     qr_codes = data.fetchall()
-    
-
     for row in qr_codes:
         row = [row[0],row[1],"/".join(row[2].split("\\")[-2:])]
         tree.insert("", "end", values=row)
@@ -96,11 +85,8 @@ def update_table(table_name,tree):
     update_qr_counts(table_name)
     conn.close()
 
-
-
 def add_tab(table_name):
-    """Добавляет новую вкладку с таблицей QR-кодов"""
-        
+    """Добавляет новую вкладку с таблицей QR-кодов""" 
     style = ttk.Style()
     style.configure("TNotebook.Tab", 
                 font=("Arial", 11, "bold"),  # Шрифт вкладок
@@ -111,15 +97,11 @@ def add_tab(table_name):
                 case="uppercase")  # Граница вкладок
 
     style.map("TNotebook.Tab", background=[("selected", "#292929")])
-    
     tab = ttk.Frame(tab_control)
     tab_control.add(tab, text=table_name)
     tab_control.pack(expand=True, fill=tk.BOTH)
     tab_control.select(tab)
     selected_table.set(table_name)
-
-
-    
     # Создаем фрейм для таблицы и скроллбаров
     tab_frame = ttk.Frame(tab)
     tab_frame.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
@@ -128,9 +110,6 @@ def add_tab(table_name):
     style.configure("Treeview.Heading", font=("Arial", 10, "bold"), background="lightgray", foreground="black", relief="raised", padding=(5, 5))
     style.configure("Treeview", rowheight=25)
     style.map("Treeview", background=[("selected", "#347083")])
-    
-    
-  
     # Общий стиль таблицы
     style.configure("Treeview", 
                     font=("Arial", 10),  # Шрифт строк
@@ -139,15 +118,11 @@ def add_tab(table_name):
                     foreground="black", 
                     fieldbackground="white",
                     borderwidth=2)
-
-
-
     # Подсветка строки при наведении
     style.map("Treeview", 
             background=[("selected", "#292929")],  # Цвет выделенной строки
             foreground=[("selected", "#ffffff")])  # Цвет текста в выделенной строке
     tree = ttk.Treeview(tab_frame, columns=("Номер","Дата экспорта", "QR-код"), show="headings")
-            
     # Заголовки
     tree.heading("Номер", text="Номер")
     tree.heading("Дата экспорта", text="Дата экспорта")
@@ -156,8 +131,6 @@ def add_tab(table_name):
     tree.column("Номер", anchor="center", width=100)
     tree.column("Дата экспорта", anchor="center", width=100)
     tree.column("QR-код", anchor="center", width=300)
-
-
     style = ttk.Style()
     style.configure("Treeview.Heading", font=("Arial", 12, "bold"), background="#292929", foreground="black")
     # **Добавляем вертикальный скроллбар**
@@ -167,18 +140,14 @@ def add_tab(table_name):
         command=tree.yview,
         cursor="hand2")
     tree.configure(yscrollcommand=vsb.set)
-
     # Размещаем виджеты в фрейме
     tree.grid(row=0, column=0, sticky="nsew")
     vsb.grid(row=0, column=1, sticky="ns")  # Вертикальный скроллбар справа
-
     # Устанавливаем, чтобы Treeview растягивался при изменении размера вкладки
     tab_frame.columnconfigure(0, weight=1)
     tab_frame.rowconfigure(0, weight=1)
-
     # **Сохраняем Treeview в словаре**
     tree_views[table_name] = tree
-
     # Загружаем данные в таблицу
     update_table(table_name, tree)
 
@@ -217,7 +186,6 @@ def remove_selected_table():
             if tab_control.tab(tab, "text") == selected_table_name:
                 tab_control.forget(tab)
                 break
-        
         else:
             selected_table.set("")  # Сбрасываем выбранную таблицу
             tree.delete(*tree.get_children())  # Очищаем таблицу
@@ -227,7 +195,6 @@ def remove_selected_table():
             label = ttk.Label(not_data_frame, text="❌ Таблицы не найдены", font=("Arial", 12, "bold"))
             label.pack(expand=True)
             
-
         folder_name = f"qr_codes_{selected_table_name}"
         folder_path = os.path.join(os.getcwd(), folder_name)
          # Удаление папки с файлами QR-кодов
@@ -238,10 +205,6 @@ def remove_selected_table():
         selected_tab = tab_control.tab(tab_control.select(), "text")
         selected_table.set(selected_tab)
   
-
-
-        
-
 
 def on_tab_select(event):
     """ Обработчик переключения вкладок """
@@ -256,11 +219,7 @@ def on_tab_select(event):
     tree = tree_views[selected_table_name]  # Получаем дерево для этой таблицы
     # Обновляем данные в таблице
     update_table(selected_table_name, tree)
-    # Обновляем счетчики
-    print(selected_table_name)
-    # tab_control.bind("<<NotebookTabChanged>>", on_tab_select)
-
-
+ 
 
 def on_tab_change(event):
     """Вызывается при переключении вкладки. Загружает данные из выбранной таблицы."""
@@ -276,10 +235,8 @@ def on_tab_change(event):
 
 
 def load_existing_tables():
-
     conn = connect_db()
     cursor = conn.cursor()
-    
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence';")
     tables = cursor.fetchall()
     conn.close()
@@ -292,16 +249,15 @@ def load_existing_tables():
             add_tab(table_name)
        
 
-
- 
-
 tk_root = tk.Tk()
 tk_root.title("QR Code Manager")
 tk_root.geometry("1000x600")
-
-
-
+icon_path = "icon.ico"  
+icon_image = Image.open(icon_path)
+icon_photo = ImageTk.PhotoImage(icon_image)
+tk_root.iconphoto(False, icon_photo)
 selected_table = tk.StringVar()
+
 # Панель управления
 control_frame = tk.Frame(tk_root)
 control_frame.pack(side=tk.TOP, fill=tk.X,anchor='n', pady=1)
@@ -336,13 +292,13 @@ def check_qr_in_folder(table_name, scanned_qr):
         qr_code_path = record[1]  # Путь к файлу QR-кода
 
         if not os.path.exists(qr_code_path):  # Пропускаем, если файла нет
-            print(f"⚠️ Файл {qr_code_path} не найден, пропускаем.")
+            # print(f"⚠️ Файл {qr_code_path} не найден, пропускаем.")
             continue
 
         decoded_qr = decode_with_zxing(qr_code_path)
 
         if decoded_qr is None:
-            print(f"❌ Ошибка: QR-код не распознан в {qr_code_path}")
+            # print(f"❌ Ошибка: QR-код не распознан в {qr_code_path}")
             continue
 
         # Преобразуем в строку и чистим от пробелов
@@ -350,11 +306,8 @@ def check_qr_in_folder(table_name, scanned_qr):
         decoded_qr_clean = clean_qr_data(decoded_qr)
      
         if scanned_qr_clean[:20] == decoded_qr_clean[:20]:
-            print("\n--- 🔎 Сравнение ---")
-            print(f"📥 Сканированный: {repr(scanned_qr_clean)}")
-            print(f"📤 Декодированный: {repr(decoded_qr_clean)}")
             if scanned_qr_clean == decoded_qr_clean:
-                print("✅ Совпадение найдено! Удаляем код.")
+                # print("✅ Совпадение найдено! Удаляем код.")
                 # Удаляем из базы
                 try:
                     delete_qr_code(table_name, qr_code_path)
@@ -374,7 +327,6 @@ def on_qr_scanned(event=None):
         return
     selected_tab_id = tab_control.select()
     table_name = tab_control.tab(selected_tab_id, "text")
-    print("qaysi table ", table_name)
     if check_qr_in_folder(table_name, scanned_qr):
         messagebox.showinfo("🔎 QR-код найден !", f"✅ Удалён QR-код: {scanned_qr}")
     else:
@@ -386,8 +338,6 @@ def on_qr_scanned(event=None):
 def start_qr_scanner():
     qr_entry.focus_set()
     qr_entry.bind("<Return>", on_qr_scanned)
-
-
 
 
 # Кнопки
@@ -402,8 +352,7 @@ btn_scan = tk.Button(
     justify="center", 
     cursor="hand2", 
     padx=3,            
-    pady=1 
-    )
+    pady=1)
 
 btn_scan.pack(side=tk.LEFT, padx=5)
 
@@ -434,6 +383,7 @@ btn_delete = tk.Button(
     cursor="hand2", 
     padx=3,            
     pady=1)
+
 btn_delete.pack(side=tk.LEFT, padx=5)
 count_frame = tk.Frame(control_frame)
 count_frame.pack(side=tk.LEFT, padx=10)
@@ -448,8 +398,6 @@ qr_entry.pack(side=tk.TOP, pady=10)
 imported_count = tk.StringVar(value="Импортировано QR-кодов: 0")
 remaining_count = tk.StringVar(value="Осталось QR-кодов: 0")
 
-
-    
     
 label_imported = tk.Label(
     count_frame, 
@@ -466,10 +414,7 @@ label_remaining = tk.Label(
     fg="#292929")
 label_remaining.grid(row=1, column=0, sticky="w")
 
-
-
 # Вкладки таблиц    
-
 tab_control = ttk.Notebook(tk_root, style="TNotebook")
 tab_control.pack(expand=True, fill=tk.BOTH,side=tk.TOP,padx=10,pady=10)
 tab_control.bind("<<NotebookTabChanged>>", on_tab_change)
@@ -497,6 +442,7 @@ def show_alert_window():
 
 
 ALLOWED_MAC = "00:1a:2b:3c:4d:5e"
+
 def get_mac_address():
     mac = ":".join(f"{(uuid.getnode() >> i & 0xff):02x}" for i in range(0, 48, 8))
     return mac.lower()
@@ -505,11 +451,11 @@ def check_mac():
     current_mac = get_mac_address()
 
     if current_mac and current_mac.lower() == ALLOWED_MAC.lower():
-        print("OK")
         return True
     else:
         show_alert_window()
         return False
+    
 if check_mac():
     # Загрузка существующих таблиц
     load_existing_tables()

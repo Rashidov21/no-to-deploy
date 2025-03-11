@@ -7,7 +7,7 @@ block_cipher = None
 a = Analysis(
     ['main.py'],
     pathex=[],
-    binaries=[('C:\\Users\\rashi\\AppData\\Local\\Programs\\Python\\Python39\\Lib\\site-packages\\pyzbar\\libiconv.dll', '.')],
+    binaries=[],
     datas=[],
     hiddenimports=[],
     hookspath=[],
@@ -41,5 +41,4 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['icon.ico'],
 )
