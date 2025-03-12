@@ -214,3 +214,96 @@ input.addEventListener("input", (e) => {
 // let s = +prompt("S ni kiriting:")
 // console.log("Yuzasi = ", a ** 2,"kvm")
 // console.log(Math.PI * 12)
+
+// task 3
+// let a = +prompt("A = ")
+// let b = +prompt("B = ")
+
+// console.log("Yuza = ", a * b)
+// console.log("Perimetr = ", 2 * (a + b))
+
+// task 4 
+// let d = +prompt("D = ")
+// console.log("Uzunlugi = ",Math.PI * d)
+// console.log(Math.round(18.84955592153876))
+// task 5
+// let a = 17
+// console.log("Hajmi = ",a ** 3)
+// console.log("Sirti = ",6 * (a ** 2))
+
+// task 6 
+// let a,b,c;
+// a = 6
+// b = 4
+// c = 8
+// console.log("Hajmi = ",a * b * c)
+// console.log("Sirti = ",2 * (a * b + b * c + a * c))
+
+// console.log(1 > 0)
+// console.log(1 < 0)
+// let age = 17
+// console.log(age >= 18)
+// console.log(age <= 18)
+
+// let value = 10;
+// console.log(value == 10)
+// console.log(value == "10")
+// console.log(value === "10")
+// console.log(1 == "1")
+// console.log(true === "true")
+// =  - qiymatni biriktirish operatori 
+// == - tenglash operatori 
+// === - qatiy tenglash operatori 
+
+// console.log(null == undefined) //true
+// console.log(undefined == 0) // false
+// console.log(false == 0) // true
+// console.log(false == "") // true
+// console.log(0 == "") // true
+// console.log(false == ".") // false
+
+// let age = 19;
+// if(age >= 17)
+//     {
+//     console.log("Welcome !")
+// }
+// else{
+//     console.log("Close !")
+// }
+
+// let age = 120;
+// let message;
+
+// if (age < 3) {
+//     message = 'Здравствуй, малыш!';
+//     console.log(message)
+// } else if (age < 18) {
+//     message = 'Привет!';
+//     console.log(message)
+// } else if (age < 100) {
+//     message = 'Здравствуйте!';
+//     console.log(message)
+// } else {
+//     message = 'Какой необычный возраст!';
+//     console.log(message)
+//   }
+// task 1 
+// user son kiritadi agar soni 1 ga teng bolsa ekranga "Windows" chiqadi ...  
+// 2 > "Linux"
+// 3 > "Mac"
+// 4 > "Android"
+// 5 > "IOS"
+
+// let a = 3
+// if (a % 2 == 0){
+//     console.log("Juft")
+// }else{
+//     console.log("Toq")
+// }
+
+let x = 8
+let y = 2
+if(x > y){console.log(x -y)}else if(x == y){console.log(0)}else{console.log(y - x)}
+let temp = 28
+let msg = temp > 25 ? "Issiq" : "Iliq";
+console.log(msg)
