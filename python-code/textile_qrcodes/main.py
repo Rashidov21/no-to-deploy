@@ -441,7 +441,7 @@ def show_alert_window():
     alert_window.mainloop()
 
 
-ALLOWED_MAC = "74:35:9a:67:a1:c6"
+ALLOWED_MAC = "df:de:a6:eb:ec:90"
 
 def get_mac_address():
     mac = ":".join(f"{(uuid.getnode() >> i & 0xff):02x}" for i in range(0, 48, 8))
@@ -460,6 +460,7 @@ if check_mac():
     # Загрузка существующих таблиц
     load_existing_tables()
     tk_root.mainloop()
+    
 else:
     sys.exit()
 
