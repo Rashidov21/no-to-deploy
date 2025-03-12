@@ -298,7 +298,7 @@ def check_qr_in_folder(table_name, scanned_qr):
         if not os.path.exists(qr_code_path):  # Пропускаем, если файла нет
             # print(f"⚠️ Файл {qr_code_path} не найден, пропускаем.")
             continue
-
+        print(qr_code_path)
         decoded_qr = decode_with_zxing(qr_code_path)
 
         if decoded_qr is None:
