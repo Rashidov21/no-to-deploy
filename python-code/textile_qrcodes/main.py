@@ -258,7 +258,8 @@ tk_root.geometry("1000x600")
 icon_path = "icon.ico"  
 icon_image = Image.open(icon_path)
 icon_photo = ImageTk.PhotoImage(icon_image)
-tk_root.iconphoto(False, icon_photo)
+tk_root.wm_iconphoto(True, icon_photo)
+tk_root.call("wm","iconphoto", tk_root, icon_photo)
 selected_table = tk.StringVar()
 
 # Панель управления
@@ -428,9 +429,11 @@ def show_alert_window():
     """Показывает окно предупреждения"""
     messagebox.askokcancel("❌ Доступ запрещён!","Вы не являетесь авторизованным пользователем!\nПриложение будет закрыто.")
     tk_root.quit()
-
+com1 = "34444335-3633-3434-5453-533436334435"
+com2 = "33E663D7-5963-BDEF-0A7B-3860778E2490"
+me = "03000200-0400-0500-0006-000700080009"
     
-if get_windows_uuid() == "03000200-0400-0500-0006-000700080009":
+if get_windows_uuid() == com1:
     load_existing_tables()
     tk_root.mainloop()
 else:

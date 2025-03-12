@@ -18,7 +18,7 @@ def extract_images_from_excel(file_path,tk_root):
     table_name = slugify(table_name).replace("-", "_")
     
     folder_name = f"qr_codes_{unidecode.unidecode(table_name)}"
-    save_dir = os.path.join(os.getcwd(), folder_name)
+    save_dir = os.path.join(os.path.dirname(__file__), folder_name)
     os.makedirs(save_dir, exist_ok=True)
 
     # Check table name 
@@ -38,7 +38,8 @@ def extract_images_from_excel(file_path,tk_root):
                 qr_count += 1
                 save_path = os.path.join(save_dir, f"qr_code_{qr_count}.png")
                 export_date = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                insert_qr_code(table_name, export_date, save_path, qr_count)
+                save_directory = folder_name + "/" + f"qr_code_{qr_count}.png"
+                insert_qr_code(table_name, export_date, save_directory, qr_count)
                 set_total_qr_codes(table_name, qr_count)
                 img.save(save_path)
     wb.close()
