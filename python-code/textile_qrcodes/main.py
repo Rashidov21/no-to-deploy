@@ -13,11 +13,32 @@ from PIL import Image, ImageTk
 import dotenv
 from slugify import slugify
 from database import delete_qr_code, get_qr_codes
-from database import get_qr_codes, delete_table,connect_db,get_total_qr_codes
+from database import get_qr_codes, delete_table,connect_db,get_total_qr_codes,get_all_tables
 from excel_import import extract_images_from_excel
 from check_pc_id import get_windows_uuid
 
+
+tk_root = tk.Tk()
+tk_root.title("QR Code Manager")
+tk_root.geometry("1000x600")
+icon_path = "icon.ico"  
+icon_image = Image.open(icon_path)
+icon_photo = ImageTk.PhotoImage(icon_image)
+tk_root.wm_iconphoto(True, icon_photo)
+tk_root.call("wm","iconphoto", tk_root, icon_photo)
+
+
+# Панель управления
+control_frame = tk.Frame(tk_root)
+control_frame.pack(side=tk.TOP, fill=tk.X,anchor='n', pady=1)
+
 tree_views = {}
+ 
+selected_table = tk.StringVar()
+# Счетчики
+imported_count = tk.StringVar(value="Импортировано QR-кодов: 0")
+remaining_count = tk.StringVar(value="Осталось QR-кодов: 0")
+
 
 def update_qr_counts(table_name):
     """Обновляет количество импортированных и оставшихся QR-кодов"""
@@ -25,6 +46,7 @@ def update_qr_counts(table_name):
     total_qr = get_total_qr_codes(table_name)  # Количество QR-кодов в таблице
     imported_count.set(f"Импортировано QR-кодов: {total_qr}")
     remaining_count.set(f"Осталось QR-кодов: {len(records)}")
+
 
 def show_loading_window(tk_root):
     """Создает окно загрузки"""
@@ -88,6 +110,12 @@ def update_table(table_name,tree):
     update_qr_counts(table_name)
     conn.close()
 
+# Notebook (Вкладки) внутри `tabs_frame`
+tab_control = ttk.Notebook(tk_root)
+tab_control.pack(fill=tk.X, expand=False)
+style = ttk.Style()
+style.layout("TNotebook.Tab", [])
+tab_control.configure(style="TNotebook")
 def add_tab(table_name):
     """Добавляет новую вкладку с таблицей QR-кодов""" 
     style = ttk.Style()
@@ -107,7 +135,7 @@ def add_tab(table_name):
     selected_table.set(table_name)
     # Создаем фрейм для таблицы и скроллбаров
     tab_frame = ttk.Frame(tab)
-    tab_frame.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
+    tab_frame.pack(expand=True, fill=tk.BOTH, padx=10, pady=0)
     # Создаем Treeview
 
     style.configure("Treeview.Heading", font=("Arial", 10, "bold"), background="lightgray", foreground="black", relief="raised", padding=(5, 5))
@@ -134,7 +162,7 @@ def add_tab(table_name):
     tree.column("Номер", anchor="center", width=100)
     tree.column("Дата экспорта", anchor="center", width=100)
     tree.column("QR-код", anchor="center", width=300)
-    style = ttk.Style()
+    
     style.configure("Treeview.Heading", font=("Arial", 12, "bold"), background="#292929", foreground="black")
     # **Добавляем вертикальный скроллбар**
     vsb = ttk.Scrollbar(
@@ -243,28 +271,71 @@ def load_existing_tables():
     cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence';")
     tables = cursor.fetchall()
     conn.close()
-
     if not tables:
         messagebox.showwarning("Предупреждение", "Таблицы не найдены!")
     else:
         for table in tables:
             table_name = table[0]
             add_tab(table_name)
-       
 
-tk_root = tk.Tk()
-tk_root.title("QR Code Manager")
-tk_root.geometry("1000x600")
-icon_path = "icon.ico"  
-icon_image = Image.open(icon_path)
-icon_photo = ImageTk.PhotoImage(icon_image)
-tk_root.wm_iconphoto(True, icon_photo)
-tk_root.call("wm","iconphoto", tk_root, icon_photo)
-selected_table = tk.StringVar()
 
-# Панель управления
-control_frame = tk.Frame(tk_root)
-control_frame.pack(side=tk.TOP, fill=tk.X,anchor='n', pady=1)
+
+# 🔹 Верхний фрейм (для вкладок и кнопок)
+buttons_frame = ttk.Frame(tk_root,width=tk_root.winfo_width())
+buttons_frame.pack(side=tk.TOP, fill=tk.X)
+
+# 🔹 Canvas (чтобы делать прокрутку вкладок)
+canvas = tk.Canvas(buttons_frame, height=30)
+canvas.pack(fill=tk.X, expand=True, pady=0)
+
+# Фрейм внутри Canvas (держит вкладки)
+button_list_frame = ttk.Frame(canvas)
+canvas.create_window((0, 0), window=button_list_frame,anchor="center")
+
+for name in get_all_tables():
+    btn = tk.Button(
+        button_list_frame,
+        relief="flat",
+        cursor="hand2", 
+        text=name[0], 
+        command=lambda n=name[0]: switch_tab(n),
+        font=("Arial", 10, "bold"),
+        bg="white",
+        fg="#292929",
+        padx=5,
+        pady=5,
+        anchor="center"
+    )
+    btn.pack(side="left", fill=tk.X, padx=5)
+
+# Функция переключения вкладки
+def switch_tab(tab_name):
+    tabs = tab_control.tabs()
+    for tab in tabs:
+        if tab_control.tab(tab, "text") == tab_name:
+            tab_control.select(tab)
+
+# Функция прокрутки кнопок
+def scroll_canvas(delta):
+    canvas.xview_scroll(delta, "units")
+
+def update_scroll_region(event=None):
+    """Обновляет область прокрутки"""
+    canvas.configure(scrollregion=canvas.bbox("all"))
+    
+def on_mouse_wheel(event):
+    """Прокрутка вкладок колесиком мыши"""
+    if event.delta > 0:
+        canvas.xview_scroll(-2, "units")  # Прокрутка влево
+    else:
+        canvas.xview_scroll(2, "units")  # Прокрутка вправо
+canvas.bind("<Configure>", update_scroll_region)
+canvas.bind_all("<MouseWheel>", on_mouse_wheel)
+
+tk_root.after(100, update_scroll_region)
+canvas.bind("<Shift-MouseWheel>", lambda event: scroll_canvas(-1 if event.delta > 0 else 1))
+
+
 
 def decode_with_zxing(image_path):
     """Попытка распознавания QR-кода через ZXing"""
@@ -298,7 +369,7 @@ def check_qr_in_folder(table_name, scanned_qr):
         if not os.path.exists(qr_code_path):  # Пропускаем, если файла нет
             # print(f"⚠️ Файл {qr_code_path} не найден, пропускаем.")
             continue
-        print(qr_code_path)
+     
         decoded_qr = decode_with_zxing(qr_code_path)
 
         if decoded_qr is None:
@@ -398,9 +469,7 @@ qr_entry = tk.Entry(control_frame, font=("Arial", 10))
 qr_entry.pack(side=tk.TOP, pady=10)
 
 
-# Счетчики
-imported_count = tk.StringVar(value="Импортировано QR-кодов: 0")
-remaining_count = tk.StringVar(value="Осталось QR-кодов: 0")
+
 
     
 label_imported = tk.Label(
@@ -433,10 +502,9 @@ com1 = "34444335-3633-3434-5453-533436334435"
 com2 = "33E663D7-5963-BDEF-0A7B-3860778E2490"
 me = "03000200-0400-0500-0006-000700080009"
     
-if get_windows_uuid() == com1:
+if get_windows_uuid() == me:
     load_existing_tables()
     tk_root.mainloop()
+
 else:
     show_alert_window()
-
-

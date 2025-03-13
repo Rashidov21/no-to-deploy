@@ -94,3 +94,13 @@ def delete_table(table_name):
         conn.close()
         
         
+
+
+def get_all_tables():
+    """Возвращает список всех таблиц"""
+    con = connect_db()
+    cur = con.cursor()
+    cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name != 'sqlite_sequence';")
+    tables = cur.fetchall()
+    con.close()
+    return tables
