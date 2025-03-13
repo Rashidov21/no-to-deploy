@@ -502,7 +502,7 @@ com1 = "34444335-3633-3434-5453-533436334435"
 com2 = "33E663D7-5963-BDEF-0A7B-3860778E2490"
 me = "03000200-0400-0500-0006-000700080009"
     
-if get_windows_uuid() == me:
+if get_windows_uuid() == com1:
     load_existing_tables()
     tk_root.mainloop()
 
