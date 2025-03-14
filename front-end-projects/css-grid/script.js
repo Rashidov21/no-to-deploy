@@ -301,9 +301,76 @@ input.addEventListener("input", (e) => {
 //     console.log("Toq")
 // }
 
-let x = 8
-let y = 2
-if(x > y){console.log(x -y)}else if(x == y){console.log(0)}else{console.log(y - x)}
-let temp = 28
-let msg = temp > 25 ? "Issiq" : "Iliq";
-console.log(msg)
+// let x = 8
+// let y = 2
+// if(x > y){console.log(x -y)}else if(x == y){console.log(0)}else{console.log(y - x)}
+// let temp = 28
+// let msg = temp > 25 ? "Issiq" : "Iliq";
+// console.log(msg)
+
+// let a = 1
+// let b = 2
+// and , or , not 
+// and > && 
+// or > ||
+// not > !
+
+// if(a > 2 && b <= 3){
+//     console.log("OK")
+// }else{
+//     console.log("NO")
+// }
+// if(a > 2 || b <= 3){
+//     console.log("OK")
+// }else{
+//     console.log("NO")
+// }
+// not true 
+// console.log(!true)
+// // not false 
+// console.log(!false)
+
+// let username = ""
+// if(!username){
+//     console.log("Ism kiritilmadi !")
+// }else{
+//     console.log(username)
+// }
+
+const username = "johndoe"
+const age = 23
+if(username && age){
+    console.log(`username = ${username} \nage=${age}`)
+}else if(username || age){
+    console.log("username yoki age bo'sh qolgan !")
+}
+else{
+    console.log("Maydonlar toldirilmagan !")
+}
+
+console.log(1 || 0) // 1
+console.log(1 && 0) // 0
+console.log(!0) // true
+console.log(!1) // false
+console.log("" || 0 || false || 1) // 1
+console.log(1 && false && 0 && '') // false
+
+let counter = 0
+let a = 1;
+let b = -11;
+let c = -1;
+if(a >= 0){
+    counter += 1
+}
+if(b >= 0){
+    counter += 1
+}
+if(c >= 0){
+    counter += 1
+
+}
+if(counter == 1){
+    console.log("Faqat bittasi musbat")
+}else{
+    console.log("musbatlar yoq")
+}

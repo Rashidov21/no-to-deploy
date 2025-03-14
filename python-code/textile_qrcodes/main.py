@@ -30,22 +30,21 @@ tk_root.call("wm","iconphoto", tk_root, icon_photo)
 
 # Панель управления
 control_frame = tk.Frame(tk_root)
-control_frame.pack(side=tk.TOP, fill=tk.X,anchor='n', pady=1)
+control_frame.pack(side=tk.TOP, fill=tk.X,anchor='n', pady=5)
 
 tree_views = {}
  
 selected_table = tk.StringVar()
-# Счетчики
-imported_count = tk.StringVar(value="Импортировано QR-кодов: 0")
-remaining_count = tk.StringVar(value="Осталось QR-кодов: 0")
+
 
 
 def update_qr_counts(table_name):
     """Обновляет количество импортированных и оставшихся QR-кодов"""
     records = get_qr_codes(table_name)  # Получаем список QR-кодов из базы
     total_qr = get_total_qr_codes(table_name)  # Количество QR-кодов в таблице
-    imported_count.set(f"Импортировано QR-кодов: {total_qr}")
-    remaining_count.set(f"Осталось QR-кодов: {len(records)}")
+    imported_count.set(f"Импортировано QR-кодов : {total_qr}")
+    remaining_count.set(f"Осталось QR-кодов : {len(records)}")
+    imported_table_name.set(f"Таблица : {table_name}")
 
 
 def show_loading_window(tk_root):
@@ -181,6 +180,7 @@ def add_tab(table_name):
     tree_views[table_name] = tree
     # Загружаем данные в таблицу
     update_table(table_name, tree)
+    set_scroll_btns()
 
 
 def select_last_tab():
@@ -193,7 +193,6 @@ def remove_selected_table():
     selected_table_name = selected_table.get().strip()
     selected_tab_id = tab_control.select()
     selected_table_name = tab_control.tab(selected_tab_id, "text")  # Имя таблицы
-
     if not selected_table_name:
         return  
     if selected_table_name not in tree_views:
@@ -213,6 +212,7 @@ def remove_selected_table():
     confirm = messagebox.askyesno("Подтверждение", f"Вы уверены, что хотите удалить таблицу '{selected_table_name}'?")
     if selected_table_name and confirm:
         delete_table(selected_table_name)
+        set_scroll_btns()
         for tab in tab_control.tabs():
             if tab_control.tab(tab, "text") == selected_table_name:
                 tab_control.forget(tab)
@@ -235,6 +235,7 @@ def remove_selected_table():
         messagebox.showinfo("Удалено", f"Таблица '{selected_table_name}' и её папка удалены.")
         selected_tab = tab_control.tab(tab_control.select(), "text")
         selected_table.set(selected_tab)
+    
   
 
 def on_tab_select(event):
@@ -277,36 +278,45 @@ def load_existing_tables():
         for table in tables:
             table_name = table[0]
             add_tab(table_name)
-
+    set_scroll_btns()
 
 
 # 🔹 Верхний фрейм (для вкладок и кнопок)
 buttons_frame = ttk.Frame(tk_root,width=tk_root.winfo_width())
-buttons_frame.pack(side=tk.TOP, fill=tk.X)
+buttons_frame.pack(side=tk.TOP, fill=tk.X, padx=10)
 
 # 🔹 Canvas (чтобы делать прокрутку вкладок)
 canvas = tk.Canvas(buttons_frame, height=30)
-canvas.pack(fill=tk.X, expand=True, pady=0)
+canvas.pack(fill=tk.X, expand=True, padx=10)
 
-# Фрейм внутри Canvas (держит вкладки)
 button_list_frame = ttk.Frame(canvas)
 canvas.create_window((0, 0), window=button_list_frame,anchor="center")
 
-for name in get_all_tables():
-    btn = tk.Button(
-        button_list_frame,
-        relief="flat",
-        cursor="hand2", 
-        text=name[0], 
-        command=lambda n=name[0]: switch_tab(n),
-        font=("Arial", 10, "bold"),
-        bg="white",
-        fg="#292929",
-        padx=5,
-        pady=5,
-        anchor="center"
-    )
-    btn.pack(side="left", fill=tk.X, padx=5)
+def set_scroll_btns():
+    # Фрейм внутри Canvas (держит вкладки)
+    table_names = {name[0] for name in get_all_tables()}  # Множество имен таблиц
+    # Получаем существующие кнопки
+    existing_buttons = {btn["text"]: btn for btn in button_list_frame.winfo_children()}
+    
+    for btn_text, btn in list(existing_buttons.items()):  
+        if btn_text not in table_names:
+            btn.destroy()  # Удаляем кнопку
+    for table_name in table_names:
+        if table_name not in existing_buttons:  # Если кнопки ещё нет
+            btn = tk.Button(
+                button_list_frame,
+                relief="flat",
+                cursor="hand2", 
+                text=table_name, 
+                command=lambda n=table_name: switch_tab(n),
+                font=("Arial", 10, "bold"),
+                bg="white",
+                fg="#292929",
+                padx=5,
+                pady=5,
+                anchor="center"
+            )
+            btn.pack(side="left", fill=tk.X, padx=5)
 
 # Функция переключения вкладки
 def switch_tab(tab_name):
@@ -314,6 +324,7 @@ def switch_tab(tab_name):
     for tab in tabs:
         if tab_control.tab(tab, "text") == tab_name:
             tab_control.select(tab)
+
 
 # Функция прокрутки кнопок
 def scroll_canvas(delta):
@@ -469,13 +480,16 @@ qr_entry = tk.Entry(control_frame, font=("Arial", 10))
 qr_entry.pack(side=tk.TOP, pady=10)
 
 
-
+# Счетчики
+imported_count = tk.StringVar(value="Импортировано QR-кодов: 0")
+remaining_count = tk.StringVar(value="Осталось QR-кодов: 0")
+imported_table_name = tk.StringVar(value="Импортировано: 0")
 
     
 label_imported = tk.Label(
     count_frame, 
     textvariable=imported_count,
-    font=("Arial", 10, "bold"),
+    font=("Arial", 9, "bold"),
     fg="#292929")
 label_imported.grid(row=0, column=0, sticky="w")
 
@@ -483,9 +497,16 @@ label_imported.grid(row=0, column=0, sticky="w")
 label_remaining = tk.Label(
     count_frame, 
     textvariable=remaining_count,
-    font=("Arial", 10, "bold"),
+    font=("Arial", 9, "bold"),
     fg="#292929")
 label_remaining.grid(row=1, column=0, sticky="w")
+
+label_table = tk.Label(
+    count_frame, 
+    textvariable=imported_table_name,
+    font=("Arial", 9, "bold"),
+    fg="#292929")
+label_table.grid(row=2, column=0, sticky="w")
 
 # Вкладки таблиц    
 tab_control = ttk.Notebook(tk_root, style="TNotebook")
