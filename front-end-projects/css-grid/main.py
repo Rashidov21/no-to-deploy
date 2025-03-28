@@ -1,4 +1,3 @@
-def main():
-    return 10
 
-print(main)
+for i in "salom":
+    print(i)

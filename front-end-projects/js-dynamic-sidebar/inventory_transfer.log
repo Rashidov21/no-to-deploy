@@ -1,0 +1,5 @@
+2025-03-26 15:58:57,504 - WARNING - Logo path file not found or invalid: [Errno 2] No such file or directory: 'logo_path.json'
+2025-03-26 15:59:04,081 - INFO - Processing ombor file: C:/Users/rashi/Desktop/Остаток.xlsx
+2025-03-26 15:59:12,257 - INFO - Processing savdo file: C:/Users/rashi/Desktop/Продажа.xlsx
+2025-03-26 16:01:25,812 - INFO - Transfer sheet created successfully
+2025-03-26 16:01:26,018 - INFO - Purchase sheet created successfully

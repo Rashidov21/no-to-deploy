@@ -337,40 +337,317 @@ input.addEventListener("input", (e) => {
 //     console.log(username)
 // }
 
-const username = "johndoe"
-const age = 23
-if(username && age){
-    console.log(`username = ${username} \nage=${age}`)
-}else if(username || age){
-    console.log("username yoki age bo'sh qolgan !")
-}
-else{
-    console.log("Maydonlar toldirilmagan !")
-}
+// const username = "johndoe"
+// const age = 23
+// if(username && age){
+//     console.log(`username = ${username} \nage=${age}`)
+// }else if(username || age){
+//     console.log("username yoki age bo'sh qolgan !")
+// }
+// else{
+//     console.log("Maydonlar toldirilmagan !")
+// }
 
-console.log(1 || 0) // 1
-console.log(1 && 0) // 0
-console.log(!0) // true
-console.log(!1) // false
-console.log("" || 0 || false || 1) // 1
-console.log(1 && false && 0 && '') // false
+// console.log(1 || 0) // 1
+// console.log(1 && 0) // 0
+// console.log(!0) // true
+// console.log(!1) // false
+// console.log("" || 0 || false || 1) // 1
+// console.log(1 && false && 0 && '') // false
 
-let counter = 0
-let a = 1;
-let b = -11;
-let c = -1;
-if(a >= 0){
-    counter += 1
-}
-if(b >= 0){
-    counter += 1
-}
-if(c >= 0){
-    counter += 1
+// let counter = 0
+// let a = 1;
+// let b = -11;
+// let c = -1;
+// if(a >= 0){
+//     counter += 1
+// }
+// if(b >= 0){
+//     counter += 1
+// }
+// if(c >= 0){
+//     counter += 1
 
+// }
+// if(counter == 1){
+//     console.log("Faqat bittasi musbat")
+// }else{
+//     console.log("musbatlar yoq")
+// }
+
+
+// let num = "313"
+
+// if(num[0] != num[1] && num[2] != num[0]){
+//     console.log(true)
+// }else{
+//     console.log(false)
+// }
+
+// for while do while
+
+
+// console.log(1)
+// console.log(2)
+// console.log(3)
+// console.log(4)
+
+// loop - sikl  > takrorlanish 
+// for - sanoqli takrorlanish 
+// let username = "John"
+// console.log(username.length)
+// for(let i = 0; i < username.length; i++){
+//     // let x = +prompt("X = ")
+//     // let y = +prompt("Y = ")
+//     // console.log(x+y)
+//     console.log(username[i])
+// }
+
+// for(let i = 1; i <= 10;i++){
+//     console.log(i)
+// }
+
+// for(let k = 10; k >= 1; k--){
+//     console.log(k)
+// }
+
+// i , j , k , x , n  
+
+
+
+// while  - cheksiz takrorlanish 
+// while(true){
+//     console.log("Hello while")
+// }
+
+// let i = 0;
+// while(i < 0){
+//     i++
+//     console.log(i)
+// }
+// let x = 0;
+// do{
+//     x++
+//     console.log(x)
+// }while(x < 0)
+
+// for(let i = 0; i < 10;i++){
+//     if(i % 2 == 0){
+//         continue // siklni bajarmasdam keyingisi o'tish
+//     }else if (i == 7){
+//         break
+//     }else{
+//         console.log(i)
+//     }
+// }
+
+// for(let i = 0; i < 5; i++){
+//     let password = prompt("parolni kiriting : ")
+//     if(password == "abc123"){
+//         console.log("Xush kelibsiz !")
+//         break // siklni toxtatish
+//     }else{
+//         console.log("Parol notogri !")
+//     }
+//     if(i == 2){
+//         alert("Tizim blocklandi !")
+//         break
+//     }
+// }
+// const myNumber = 6;
+// let counter = 0;
+// while(true){
+//     if(counter == 3){
+//         alert("topolmadiz !")
+//         break
+//     }
+//     counter++
+//     let guess = +prompt("son kirit :")
+//     if(guess == myNumber){
+//         alert("yuttiz !")
+//         break
+//     }else{
+//         continue
+//     }
+// }
+
+
+
+// task 1
+// userdan matn qabul qiling va matnda nechta unli harf bor ekanini aniqlang 
+
+// input : olma olma duo ol 
+// output: "unli harflar soni = 7"
+
+// let text = "olma olma duo ol"
+// let counter1 = 0
+// let counter2 = 0
+// for(let i = 0; i < text.length; i++){
+//     if(text[i] == "a" || text[i] == "i" || text[i] == "e" || text[i] == "o" || text[i] == "u"){
+//         counter1 += 1
+//     }else{
+//         if(text[i] != " "){
+//             counter2 += 1
+//         }
+//     }
+// }
+// console.log("Unli harflar = ", counter1)
+// console.log("Undosh harflar = ", counter2)
+
+// const user = "johndoe"
+// console.log(user[0])
+// console.log(user[user.length - 1])
+
+// task 2 
+// berilgan matnni teskari qilib ekranga chiqaring
+// input: "salom"
+// output : "molas"
+// let txt = "apple"
+// let reversedText = ""
+// for(let i = txt.length - 1; i >= 0; i--){
+//     reversedText += txt[i]
+// } 
+// console.log(reversedText)
+
+// task 3  
+// quyidagi shaklda # larni ekranga chiqaring 
+// #
+// ## 
+// ###
+// ####
+// #####
+// let hashtag = "######"
+// for(let i = 5; i > 0;i--){
+//     console.log(hashtag.slice(0,i))
+// }
+
+// let n = "3211353465"
+// let result = 0
+// for(let i = 0; i < n.length; i++){
+//     result += Number(n[i])
+// }
+// console.log(result)
+
+// SWITCH CASE 
+// switch(x) {
+//     case 'value1':  // if (x === 'value1')
+//       ...
+//       [break]
+  
+//     case 'value2':  // if (x === 'value2')
+//       ...
+//       [break]
+  
+//     default:
+//       ...
+//       [break]
+//   }
+
+// let num = 4;
+// switch(num){
+//     case 1:
+//         console.log("bir")
+//         break
+//     case 2:
+//         console.log("ikki")
+//         break
+//     case 3:
+//         console.log("uch")
+//         break
+//     case 4:
+//         console.log("tort")
+//         break
+//     case 5:
+//         console.log("besh")
+//         break
+// }
+
+// let user = "admin"
+// switch(user){
+//     case "moderator":
+        
+//         if(prompt("enter your moderator password :") == "moder1"){
+//             console.log("Welcome moderator !")
+//         }else{
+//             break 
+//         }
+//     case "admin":
+//         if(prompt("enter your admin password :") == "admin1"){
+//             console.log("Welcome Admin !")
+//         }else{
+//             break 
+//         }
+// }
+// let browser = prompt("enter your actual browser :")
+// switch (browser) {
+//     case 'Edge':
+//       alert( "You've got the Edge!" );
+//       break;
+  
+//     case 'Chrome':
+//     case 'Firefox':
+//     case 'Safari':
+//     case 'Opera':
+//       alert( 'Okay we support these browsers too' );
+//       break;
+  
+//     default:
+//       alert( 'We hope that this page looks ok!' );
+//   }
+
+// Function 
+// function - kod bo'lagi uni kodni istalgan joyida istalgan marta ishlatish mumkin 
+// function declaration 
+// function plus(a,b){
+//     return a + b
+// }
+// let result = plus(1,2)
+// console.log(result) // 3
+// console.log(plus(2,2)) // 4
+
+// function getUserFullName(firstName,lastName){
+//     const fullName = firstName + " " + lastName
+//     return fullName
+// }
+// console.log(getUserFullName("Ali","Valiyev"))
+// console.log(getUserFullName("John","Doe"))
+// console.log(getUserFullName("apple","banana"))
+// console.log(getUserFullName("10","20"))
+
+// console.log(Math.pow(2,2))
+// console.log(Math.pow(2,3))
+// console.log(Math.pow(2,4))
+// console.log(Math.pow(2,10))
+function customPow(number){
+    return number ** 3
 }
-if(counter == 1){
-    console.log("Faqat bittasi musbat")
+// console.log(customPow(2,2))
+// console.log(customPow(2,3))
+// console.log(customPow(2,4))
+// console.log(customPow(2,10))
+
+// Calculator 
+let number1 = +prompt("Number 1 : ")
+let number2 = +prompt("Number 2 : ")
+let action = prompt("+ / - / * / / : ")
+if(action == "+"){
+    alert(plus(number1,number2))
+}else if(action == "-"){
+    alert(minus(number1,number2))
+}else if(action == "*"){
+    alert(multiply(number1,number2))
 }else{
-    console.log("musbatlar yoq")
+    alert(division(number1,number2))
+}
+function plus(a,b){
+        return a + b
+}
+function minus(a,b){
+        return a - b
+}
+function multiply(a,b){
+        return a * b
+}
+function division(a,b){
+        return a / b
 }
