@@ -618,36 +618,261 @@ input.addEventListener("input", (e) => {
 // console.log(Math.pow(2,3))
 // console.log(Math.pow(2,4))
 // console.log(Math.pow(2,10))
-function customPow(number){
-    return number ** 3
-}
+// function customPow(number){
+//     return number ** 3
+// }
 // console.log(customPow(2,2))
 // console.log(customPow(2,3))
 // console.log(customPow(2,4))
 // console.log(customPow(2,10))
 
 // Calculator 
-let number1 = +prompt("Number 1 : ")
-let number2 = +prompt("Number 2 : ")
-let action = prompt("+ / - / * / / : ")
-if(action == "+"){
-    alert(plus(number1,number2))
-}else if(action == "-"){
-    alert(minus(number1,number2))
-}else if(action == "*"){
-    alert(multiply(number1,number2))
-}else{
-    alert(division(number1,number2))
+// let number1 = +prompt("Number 1 : ")
+// let number2 = +prompt("Number 2 : ")
+// let action = prompt("+ / - / * / / : ")
+// if(action == "+"){
+//     alert(plus(number1,number2))
+// }else if(action == "-"){
+//     alert(minus(number1,number2))
+// }else if(action == "*"){
+//     alert(multiply(number1,number2))
+// }else{
+//     alert(division(number1,number2))
+// }
+// function plus(a,b){
+//         return a + b
+// }
+// function minus(a,b){
+//         return a - b
+// }
+// function multiply(a,b){
+//         return a * b
+// }
+// function division(a,b){
+//         return a / b
+// }
+// min - 6 length 
+// letters , numbers , symbols
+
+// function checkPassword(text){
+//     if(text.length < 6){
+//         return "Password min 6 length "
+//     }else{
+//         return "Password set !"
+//     }
+// }
+
+// console.log(checkPassword("admin123"))
+
+// function expressions 
+// console.log(checkPassword)
+
+// let x = checkPassword
+// console.log(x("qwerty123"))
+
+
+
+// let z = 1;
+// if(z){
+//     let getName = function(a,b){
+//         return a + b
+//     }
+//     console.log(getName(1,2))
+// }
+// console.log(getName(2,3))
+
+// function functionName () {}
+// let fname = function(){}
+// let func = (c,e,d) => {
+//     return c + e + d
+// }
+// console.log(func(1,2,3)) // 6
+
+// let text = "witcher"
+// let checkW = (text) => {
+//     if(text[0]=="w" || text[0] == "W"){
+//         console.log("W !")
+//     }else{
+//         console.log("W not defined!")
+//     }
+// } 
+// checkW(text)
+
+// task 1 
+// userdan 1 dan 10 gacha bolgan istalgan son qabul qiling agar son 5 dan kichik bolsa uni 2 ga kopaytiramiz
+// agar 5 dan katta bolsa uni 2 ga bolamiz 
+
+// bo'lish va kopayritish amallarini alohida funksiyalar orqali amalga oshiring ,
+
+// task 2
+// userdan 10 ta familya qabul qiling va nechta erkak kishi nechta ayol kishini familyasi bor ekanini hisoblaysiz 
+
+
+// let man = 0
+// let women = 0
+// function checkGender(surname){
+//     if(surname.endsWith("v")){
+//         man += 1
+//     }else{
+//         women += 1
+//     }
+// }
+// for(let i = 0; i < 5; i++){
+//     checkGender(prompt("surname :"))
+// }
+// console.log("Mans : ", man)
+// console.log("Woman : ", women)
+
+// task 3
+// userdan cheklanmagan miqdorda sozlar qabul qiling , agar soz "stop" bolsa barcha kiritgan sozlari ichida nechta url yoki sayt nomi bor ekanini toping 
+// let site_count = 0
+// while(true){
+//     let word = prompt("soz kiriting : ")
+//     if(word == "stop"){
+//         break
+//     }else{
+//         if(word.startsWith("http") || word.startsWith("www")){
+//             site_count += 1
+//         }
+//     }
+// }
+// console.log(site_count)
+
+// homework 
+// userdan istalgancha soz qabul qiling
+//  va kiritilgan sozlar ichida nechta harf ,
+//  nechta raqam va nechta maxsus belgi borligini aniqlang
+//  , "stop" deb soz kiritilsa kod toxtashi kerak 
+// va natijalar ekranga chiqadi 
+// let letters = "qwertyuiopasdfghjklzxcvbnm"
+// let numbers = "0123456789"
+// let symbols = "!@#$%^&*()_"
+// let letters_count = 0
+// let numbers_count = 0
+// let symbols_count = 0
+
+// while(true){
+//     let word = prompt("Soz kiriting:")
+//     if(word == "stop"){
+//         break
+//     }
+//     for(let i=0;i < word.length; i++){
+//         for(let i = 0; i < letters.length; i++){
+//             if(word[i] == letters[i]){
+//                 letters_count += 1
+//             }else{
+//                 continue
+//             }
+//         }
+//         for(let i = 0; i < number.length; i++){
+//             if(word[i] == number[i]){
+//                 numbers_count += 1
+//             }
+//         }
+//         for(let i = 0; i < symbols.length; i++){
+//             if(word[i] == symbols[i]){
+//                 symbols_count += 1
+//             }
+//         }
+//     }
+   
+// }
+
+// let str = "abc01273910"
+// let numbers = []
+// for(let i = 0; i < str.length; i++){
+//     if(Number(str[i])){
+//         numbers.push(Number(str[i]))
+//     }
+//     if(Number(str[i]) % 2 == 0){
+//         console.log("Juft son ", str[i])
+//     }else{
+//         console.log("Toq son ", str[i])
+//     }
+// }
+
+// console.log(Boolean(NaN)) // false
+// console.log(numbers)
+// numbers.sort()
+// console.log(numbers)
+// console.log(numbers[numbers.length - 1])
+
+
+// OBJECTS 
+
+// let x = 10
+// let array = [1,2,3,4,5]
+
+// object - attribute , method 
+
+// let user = new Object()
+// let user = {
+//     firstName:"John",
+//     lastName:"Doe",
+//     age:26,
+//     username:"admin",
+//     password:"******",
+//     sayHi:function(){
+//         alert(`Hi, iam ${this.firstName}`)
+//     },
+//     plus:function(x,y){
+//         return x + y
+//     }
+// }
+// console.log(typeof user) // object
+// console.log(user) // object
+// console.dir(user) // object
+// user.sayHi()
+// console.log(user.plus(1,2))
+
+// let customSayHI = user.sayHi
+// customSayHI()
+
+// array , node lists 
+// [0,1,2,3]
+// let obj = {
+//     name:"John",
+//     age:20,
+//     "game_console":"PS5"
+// }
+// // in  - mavjudlikka tekshirish 
+// console.log("name" in obj) // true
+// console.log("points" in obj) // false
+
+// for (key in obj) {
+//     console.log(obj[key])
+// }
+// obj.salary = 5200
+// console.log(obj)
+// delete obj.salary
+// console.log(obj)
+// obj["points"] = 54
+// console.log(obj)
+
+// task 1
+let salaries = {
+    john: 100,
+    ann: 160,
+    pete: 130
+  }
+// ushbu objectdagi userlar oylik maoshlarini hisoblang
+let summa = 0
+for (key in salaries) {
+    summa += salaries[key]
 }
-function plus(a,b){
-        return a + b
+console.log("umumiy summa = ", summa)
+
+// task 2 
+// name va age qabul qilib, shu qiymatlar bilan obyekt qaytaradigan funksiya yozing
+// input: "John",23
+// output: {name:"John",age:23}
+
+function createObj(name,age){
+    return {name:name,age:age}
 }
-function minus(a,b){
-        return a - b
-}
-function multiply(a,b){
-        return a * b
-}
-function division(a,b){
-        return a / b
-}
+console.log(createObj("john",23))
+console.log(createObj("Valijon",30))
+
+// new Object(), new Array, new Date
+console.log(new Date().getFullYear())
+console.log(new Date().getMonth())
