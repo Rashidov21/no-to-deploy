@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        .logo {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 40%;
+            left: 45%;
+            transition: all 1s ease; /* smooth animation */ }
+    </style>
+    <main>
+            <img src="./logo.png" class="logo" width="100" alt="">
+    </main>
+    <script>
+        const box = document.querySelector(".logo")
+        function moveRandom() {
+            const maxX = window.innerWidth - box.offsetWidth;
+            const maxY = window.innerHeight - box.offsetHeight;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            box.style.left = `${randomX}px`;
+            box.style.top = `${randomY}px`;
+          }
+          setInterval(moveRandom,3000)
+    </script>
+</body>
+</html>

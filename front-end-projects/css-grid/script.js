@@ -1,13 +1,13 @@
 // console.log("Hello world");
-const input = document.getElementById("bgchange");
-input.addEventListener("input", (e) => {
-    const body = document.getElementsByClassName("body-dark")[0];
-    console.log(`rgb(${e.target.value*2.5}, ${e.target.value*2.5}, ${e.target.value*2.5})`)
-    const value = 255 - (e.target.value*2.5)
-    body.style.background = `rgb(${value}, ${value}, ${value})`;
-    const span = document.getElementById("value");
-    span.innerHTML = value
-})
+// const input = document.getElementById("bgchange");
+// input.addEventListener("input", (e) => {
+//     const body = document.getElementsByClassName("body-dark")[0];
+//     console.log(`rgb(${e.target.value*2.5}, ${e.target.value*2.5}, ${e.target.value*2.5})`)
+//     const value = 255 - (e.target.value*2.5)
+//     body.style.background = `rgb(${value}, ${value}, ${value})`;
+//     const span = document.getElementById("value");
+//     span.innerHTML = value
+// })
 
 // Js Framewroks 
 // React 
@@ -850,29 +850,151 @@ input.addEventListener("input", (e) => {
 // console.log(obj)
 
 // task 1
-let salaries = {
-    john: 100,
-    ann: 160,
-    pete: 130
-  }
+// let salaries = {
+//     john: 100,
+//     ann: 160,
+//     pete: 130
+//   }
 // ushbu objectdagi userlar oylik maoshlarini hisoblang
-let summa = 0
-for (key in salaries) {
-    summa += salaries[key]
-}
-console.log("umumiy summa = ", summa)
+// let summa = 0
+// for (key in salaries) {
+//     summa += salaries[key]
+// }
+// console.log("umumiy summa = ", summa)
 
 // task 2 
 // name va age qabul qilib, shu qiymatlar bilan obyekt qaytaradigan funksiya yozing
 // input: "John",23
 // output: {name:"John",age:23}
 
-function createObj(name,age){
-    return {name:name,age:age}
-}
-console.log(createObj("john",23))
-console.log(createObj("Valijon",30))
+// function createObj(name,age){
+//     return {name:name,age:age}
+// }
+// console.log(createObj("john",23))
+// console.log(createObj("Valijon",30))
 
-// new Object(), new Array, new Date
-console.log(new Date().getFullYear())
-console.log(new Date().getMonth())
+// // new Object(), new Array, new Date
+// console.log(new Date().getFullYear())
+// console.log(new Date().getMonth())
+// let arr = []
+// let n = 15
+// for(let i = 0; i < n; i++){
+//     if(i%2==1){
+//         arr.push(i)
+//     }
+// }
+// console.log(arr)
+// data type - qachonki ozgaruvchida 1 dona ma'lumot saqlash (str,int,bool)
+// let x = 10
+// data structure - qachonki ozgaruvchida bir nechta  ma'lumot saqlash
+// let arr = [1,2,3,4,5]
+
+// Javascipt DATA TYPES 
+//     1. String - matn > !@#$wesdrtrfygbh16352153 >> "",'',``
+//     2. Number - son > 013479 > -1,1.0,-2.5
+//     3. Boolean - bool > true, false
+//     4. Undefined - qiymati topilmagan > js tushunmagan barcha qiymat u uchun undefined    let x;
+//     5. Null - mavjud emas 
+//     6. Object - murakkab ma'lumotlar tuzilmasi > {name:"John", age:30, city:"New York"}
+//     7. Symbol - unikal belgilarni ifodalash uchun
+//     8. BigInt - katta butun sonlarni ifodalash uchun
+
+
+// task 1
+// let str = "Microsoft1 Cortana2"
+// let result = []
+// let v = "aioue"
+// for(let i = 0; i < str.length;i++){
+//     for(let k = 0; k < v.length;k++){
+//         if(str[i].toLowerCase() == v[k]){
+//             result.push(str[i])
+//         }
+//     }
+// }
+// console.log(result)
+// forEach - massiv elementlarining har biriga malum bir funktsiyani qollash 
+// let arr = [1,2,3,4,5]
+// arr.forEach(function(e,index){
+//     arr[index] = e ** 2
+// })
+// console.log(arr)
+// arr.forEach(item => {console.log(item)})
+
+// task 1  arr dagi barcha str larni length laridan iborat alohida massiv hosil qiling (map)
+
+// let arr = ["olma","behi","anor"]
+// arr.forEach((elem,index) => {
+//     console.log(`${elem} - ${index}`)
+// })
+
+// let nums = [1,2,3,4,5,6,7,8,9]
+// let t = []
+// let j = []
+// for(let i = 0; i < nums.length;i++){
+//     if(i % 2 == 0){
+//         j.push(i)
+//     }else{
+//         t.push(i)
+//     }
+// }
+
+// console.log(t)
+// console.log(j)
+
+// console.log(nums.map(item => {return item * 2}))
+
+// task 1  arr dagi barcha str larni length laridan iborat alohida massiv hosil qiling (map)
+
+// let arr = ["olma","behi","anor","banana"]
+// let res = []
+// arr.forEach((elem) => {
+//     res.push(elem.length)
+// })
+// console.log(res)
+
+// let result = arr.map(item => {return item.length})
+// console.log(result)
+
+// let arr = [1,2,3,4,5]
+// let obj = {
+//     one:1,
+//     two:2,
+//     three:3
+// }
+// for(let item of arr){ // array iterator
+//     console.log(item)
+// }
+// for(let key in obj){ // object iterator
+//     console.log(obj[key])
+// }
+
+// window.onscroll = (event) => {
+//     let lines = document.querySelectorAll(".line")
+
+//     if(event.target.scrollingElement.scrollTop>1200 && event.target.scrollingElement.scrollTop<2600){
+//         lines[0].classList.remove("active")
+//         lines[1].classList.add("active")
+//     }else{
+//         lines[1].classList.remove("active")
+//     }
+//     if(event.target.scrollingElement.scrollTop>2600 && event.target.scrollingElement.scrollTop<4000){
+//         lines[1].classList.remove("active")
+//         lines[2].classList.add("active")
+//     }else{
+//         lines[2].classList.remove("active")
+//     }
+// }
+// let person = {
+//     sayHi:function(){
+//         alert("hi !")
+//     }
+// }
+// person.sayHi()
+const box = document.querySelector(".box")
+const btn = document.querySelector("button")
+box.onmouseover = () => {
+    box.classList.add("animation")
+}
+btn.addEventListener("click", () => {
+    box.classList.toggle("circle")
+})
