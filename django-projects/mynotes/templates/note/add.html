@@ -1,5 +1,4 @@
-{% load tailwind_filters %}
-{% load crispy_forms_tags %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +28,7 @@
     <div class="container">
         <div class="form">
             <form action="" method="post">
-                {{form|crispy}}
+                {{form}}
                 <br>
                 {% csrf_token %}
                 <button class=" py-3 px-5 bg-gray-300 rounded hover:bg-yellow-400 text-blue-900"
