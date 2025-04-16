@@ -1,0 +1,7 @@
+.message{
+    padding: 15px;
+    border: solid 1px red;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+}
