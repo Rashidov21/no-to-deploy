@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition: all 0.3s ease;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+#div{
+    width: 100px;
+    height: 100px;
+    border: solid 1px green;
+}
+.red{
+    background-color: red;
+}
+.animals{
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin: 30px 0;
+}
+.animal img{
+    width: 200px;
+    height: auto;
+    border: solid 1px red;
+}
+.animal a, button{
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: aqua;
+    color: #292929;
+    text-decoration: none;
+}
