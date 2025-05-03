@@ -38,3 +38,16 @@
     font-size: 18px;
     font-weight: bold;
 }
+#progress .item{
+    background-color: rgb(179, 177, 177);
+}
+#done .item{
+    background-color: rgb(218, 57, 57);
+}
+
+.dragging{
+    opacity: 0.5;
+}
+.board input{
+    padding: 5px 10px;
+}

@@ -10,11 +10,13 @@
     <div class="container">
         <!-- <div class="box"></div> -->
          <div class="board">
+            <input type="text" name="" id="taskName">
+            <button onclick="addTask()">Qo'shish</button>
+            <button onclick="clearTasks()">Tozalash</button>
+         </div>
+         <div class="board">
             <div class="column" id="todo">
                 <div class="column-title">To-Do</div>
-                <div class="item" draggable="true" id="task1">Trenerovka</div>
-                <div class="item" draggable="true" id="task1">Nonushta</div>
-                <div class="item" draggable="true" id="task1">Dars qilish</div>
             </div>
             <div class="column" id="progress">
                 <div class="column-title">In Progress</div>

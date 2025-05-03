@@ -33,5 +33,80 @@
 // dragstart 
 // dragover
 // drop 
+// let tasks = [
+//     {id:1,name:"Nonushta"},
+//     {id:2,name:"Trenerovka"},
+//     {id:3,name:"Dars qilish"},
+// ]
+// localStorage.setItem("tasks",JSON.stringify(tasks))
+// console.log(localStorage.getItem("tasks"))
 
-const items = document.querySelectorAll(".item");
+window.onload = () =>{
+    tasks = JSON.parse(localStorage.getItem("tasks"))
+    let todos = document.querySelector("#todo");
+    tasks.forEach((task)=>{
+        let divTask = document.createElement("div");
+        let deleteBtn = document.createElement("button")
+        deleteBtn.setAttribute("onclick",`deleteTask('${task.name}')`)
+        deleteBtn.innerHTML = "O'chirish"
+        divTask.setAttribute("draggable","true")
+        divTask.classList.add("item")
+        divTask.innerHTML = task.name
+        divTask.appendChild(deleteBtn)
+        todos.appendChild(divTask)
+    })
+
+    const items = document.querySelectorAll(".item");
+    const columns = document.querySelectorAll(".column");
+
+    let draggedItem = null;
+
+    items.forEach(item => {
+        item.addEventListener("dragstart", () =>{
+            draggedItem = item;
+            item.classList.add("dragging")
+        })
+        item.addEventListener("dragend", () =>{
+            draggedItem = null;
+            item.classList.remove("dragging")
+        })
+    })
+
+    columns.forEach( column =>{
+        column.addEventListener("dragover", (e)=>{
+            e.preventDefault();
+        })
+        column.addEventListener("drop", ()=>{
+            if(draggedItem){
+                column.appendChild(draggedItem)
+            }
+        })
+    });
+}
+function addTask(){
+    let name = document.querySelector('#taskName').value
+    tasks = JSON.parse(localStorage.getItem("tasks"))
+    tasks.push(
+        {name:name}
+    )
+    localStorage.setItem("tasks",JSON.stringify(tasks))
+    window.location.reload()
+};
+function deleteTask(name){
+    tasks = JSON.parse(localStorage.getItem("tasks"))
+    tasks.forEach(item =>{
+        if(item.name == name){
+            let index = tasks.indexOf(item)
+            tasks.splice(index,1)
+        }
+    })
+    localStorage.setItem("tasks",JSON.stringify(tasks))
+    window.location.reload()
+};
+
+function clearTasks(){
+    tasks = JSON.parse(localStorage.getItem("tasks"))
+    tasks = []
+    localStorage.setItem("tasks",JSON.stringify(tasks))
+    window.location.reload()
+}
