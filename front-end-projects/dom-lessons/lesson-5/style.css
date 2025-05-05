@@ -11,5 +11,15 @@
 .container{
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 50px;
+}
+#box{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right:0;
+    background-color: orange;
 }
