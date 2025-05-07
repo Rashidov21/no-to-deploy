@@ -1,0 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    transition: all 0.3s ease;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 50px;
+}
