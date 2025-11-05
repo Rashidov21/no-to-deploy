@@ -146,9 +146,9 @@
         {% if info %}
         <h3>{{info}}</h3>
         {% else %}
-        <h3>Players</h3>
+        <h3>Players : {{info}}</h3>
         {% endif %} {% for obj in object_list %}
-        <div class="card shadow-lg px-5 py-2">
+        <div class="card shadow-lg px-5 py-2 my-2">
           <div class="d-flex flex-wrap justify-content-between">
             <img width="150" height="150" src="{{obj.image.url}}" alt="" />
             <div class="info">
@@ -157,11 +157,13 @@
               <p>
                 Club : <a href="" class="text-decoration-none">{{obj.club}}</a>
               </p>
-              <p>{{obj.get_country}}</p>
-              <p>{{obj.current_price}}</p>
-              <p>{{obj.age}}</p>
-              <p>{{obj.height}}</p>
-              <p>{{obj.weight}}</p>
+              <div class="d-flex flex-wrap justify-content-between" style="gap: 10px;">
+              <p><b>Country </b> : {{obj.get_country}}</p>
+              <p><b>Price </b> :  {{obj.current_price}}</p>
+              <p><b>Age </b> : {{obj.age}}</p>
+              <p><b>Height </b> : {{obj.height}}</p>
+              <p><b>Weight </b> : {{obj.weight}}</p>
+              </div>
             </div>
           </div>
         </div>

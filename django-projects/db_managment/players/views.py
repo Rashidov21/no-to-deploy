@@ -16,8 +16,25 @@ from django.core.mail import send_mail, send_mass_mail
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
-def players_sort_by_club(club_name):
-    pass
+class PlayerListView(ListView):
+    model = Player
+    template_name = "players/players.html"
+    context_object_name = "object_list"
+    
+    def get_queryset(self):
+        # return Player.objects.filter(current_price__gte=100000000)
+        return Player.objects.filter(height__range=[160, 180])
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["club_list"] = Club.objects.all()
+        context["info"] = "Players list"
+        return context
+    
+
+
+
+
 
 class PlayersHomeView(LoginRequiredMixin,ListView,FormView):
     model = Player

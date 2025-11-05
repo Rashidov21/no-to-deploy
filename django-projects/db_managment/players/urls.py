@@ -4,7 +4,7 @@ from .import views
 app_name = 'players'
 
 urlpatterns = [
-    path('', views.PlayersHomeView.as_view(), name='players'),
+    path('', views.PlayerListView.as_view(), name='players'),
     path('detail/<pk>', views.PlayerDetailView.as_view(), name='player_detail'),
     
     # filtering and sort 

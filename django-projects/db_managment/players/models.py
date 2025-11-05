@@ -1,6 +1,9 @@
 from datetime import date
 from django.db import models
 
+# pip install django_unicorn
+# pip install django-debug-toolbar
+
 # Create your models here.
 class Club(models.Model):
     name = models.CharField(max_length=150)
