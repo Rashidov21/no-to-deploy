@@ -1,0 +1,9 @@
+CTRL + B - sidebar on/off
+CTRL + , - settings
+CTRL + / - comment 
+Alt + Arrow up/down
+CTRL + X - cut 
+CTRL + H - replace
+CTRL + F - find
+CTRL + | - split window
+CTRL + Tab - change window
