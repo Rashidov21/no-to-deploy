@@ -7,3 +7,17 @@ CTRL + H - replace
 CTRL + F - find
 CTRL + | - split window
 CTRL + Tab - change window
+
+Frontend > HTML , CSS > Javascript
+HTML > hypertext markup language > (brauzerlar tili ) giper matn belgilash tili 
+CSS > cascading style sheets > stil belgilash tili
+JS > javascript > dasturlash tili
+
+HTML teg - <tag name>
+Teglar 2 qismga bo'linadi : 
+    1-inline (bir qatorda chiqadi)
+        a,i,u,b,span,input
+    2-block (yangi qatordan chiqadi)
+        div, p,h1-h6,form, button,select,table, ul, li 
+
+Alt + shift + F - code format 
